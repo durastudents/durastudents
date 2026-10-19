@@ -1,7 +1,12 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import PageHeader, { Container, Notice } from "@/components/PageHeader";
 
-export const metadata: Metadata = { title: "Digital Archive" };
+export const metadata: Metadata = {
+  title: "Digital Archive",
+  description:
+    "The Dura digital archive: photographs, audio, video and documents with unique identifiers and full metadata. Currently in its foundation phase.",
+};
 
 const ids = [
   ["DHP-PHO", "Photograph"],
@@ -35,6 +40,9 @@ export default function Archive() {
             </li>
           ))}
         </ul>
+        <p className="mt-8 text-sm muted">
+          How we handle consent and access: <Link className="text-brand-500" href="/heritage/policy/">Rights, consent and access</Link>.
+        </p>
       </Container>
     </>
   );

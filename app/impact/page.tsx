@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import PageHeader, { Container, Notice } from "@/components/PageHeader";
 
-export const metadata: Metadata = { title: "Impact" };
+export const metadata: Metadata = {
+  title: "Impact",
+  description:
+    "The impact of Dura Students Society's work. Figures will be published once verified.",
+};
 
 export default function Impact() {
   return (

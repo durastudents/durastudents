@@ -3,7 +3,11 @@ import Link from "next/link";
 import PageHeader, { Container } from "@/components/PageHeader";
 import { programs } from "@/data/site";
 
-export const metadata: Metadata = { title: "Programs" };
+export const metadata: Metadata = {
+  title: "Programs",
+  description:
+    "Programs run by Dura Students Society for Dura youth and the wider Dura community.",
+};
 
 export default function Programs() {
   return (

@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import PageHeader, { Container, Notice } from "@/components/PageHeader";
 import { statistics } from "@/data/statistics";
 
-export const metadata: Metadata = { title: "Dura Statistics" };
+export const metadata: Metadata = {
+  title: "Dura Statistics",
+  description:
+    "Dura population, sub-castes, native speakers, residences, organizations and districts (provisional figures).",
+};
 
 export default function Statistics() {
   const unsourced = statistics.some((s) => !s.source);

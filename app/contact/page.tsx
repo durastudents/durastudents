@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import PageHeader, { Container } from "@/components/PageHeader";
 import { site } from "@/data/site";
 
-export const metadata: Metadata = { title: "Contact" };
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Contact Dura Students Society. Students, elders, researchers, storytellers and volunteers are welcome.",
+};
 
 export default function Contact() {
   return (

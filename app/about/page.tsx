@@ -4,7 +4,11 @@ import PageHeader, { Container } from "@/components/PageHeader";
 import { organizations } from "@/data/site";
 import { history } from "@/data/society";
 
-export const metadata: Metadata = { title: "About" };
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Dura Students Society is a non-profit supporting the unity, education and development of Dura students and youth in Nepal.",
+};
 
 export default function About() {
   return (

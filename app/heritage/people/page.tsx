@@ -1,9 +1,14 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import PageHeader, { Container } from "@/components/PageHeader";
 import { people } from "@/data/people";
 import { site } from "@/data/site";
 
-export const metadata: Metadata = { title: "Dura People" };
+export const metadata: Metadata = {
+  title: "Dura People",
+  description:
+    "Notable and ordinary Dura community members who shaped and preserved Dura heritage.",
+};
 
 export default function People() {
   const sorted = [...people].sort((a, b) => a.name.localeCompare(b.name));
@@ -52,6 +57,9 @@ export default function People() {
             ))}
           </ul>
         )}
+        <p className="mt-8 text-sm muted">
+          How we handle consent and access: <Link className="text-brand-500" href="/heritage/policy/">Rights, consent and access</Link>.
+        </p>
       </Container>
     </>
   );

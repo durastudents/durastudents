@@ -3,7 +3,11 @@ import Link from "next/link";
 import PageHeader, { Container } from "@/components/PageHeader";
 import { accessLevels, verification } from "@/data/site";
 
-export const metadata: Metadata = { title: "Dura Digital Heritage Project" };
+export const metadata: Metadata = {
+  title: "Dura Digital Heritage Project",
+  description:
+    "A community-centred effort to document, preserve and share Dura history, language, places, people and culture.",
+};
 
 const sections = [
   { href: "/heritage/people/", title: "People", body: "Notable figures and the faces of the community." },

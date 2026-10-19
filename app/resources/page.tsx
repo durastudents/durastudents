@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import PageHeader, { Container, Notice } from "@/components/PageHeader";
 
-export const metadata: Metadata = { title: "Resources" };
+export const metadata: Metadata = {
+  title: "Resources",
+  description:
+    "Documents and publications from Dura Students Society.",
+};
 
 // Add entries as files are placed in /public/docs, e.g. { title, note, href: "/docs/constitution.pdf" }
 const documents: { title: string; note: string; href: string }[] = [];

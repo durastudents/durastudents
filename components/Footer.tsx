@@ -21,6 +21,7 @@ export default function Footer() {
             <li><Link href="/resources/">Resources</Link></li>
             <li><Link href="/impact/">Impact</Link></li>
             <li><Link href="/team/">Team & Governance</Link></li>
+            <li><Link href="/heritage/policy/">Rights & Consent</Link></li>
           </ul>
         </div>
         <div className="text-sm">

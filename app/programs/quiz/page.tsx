@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import PageHeader, { Container, Notice } from "@/components/PageHeader";
 import { quiz } from "@/data/society";
 
-export const metadata: Metadata = { title: "Inter-District Quiz Contest" };
+export const metadata: Metadata = {
+  title: "Inter-District Quiz Contest",
+  description:
+    "The Shree Khaje Dura Smriti Inter-District Quiz Contest, with results from 2074 to 2083 BS.",
+};
 
 export default function Quiz() {
   return (

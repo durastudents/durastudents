@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import PageHeader, { Container, Notice } from "@/components/PageHeader";
 
-export const metadata: Metadata = { title: "Donate" };
+export const metadata: Metadata = {
+  title: "Donate",
+  description:
+    "Support the work of Dura Students Society. Donation details will be published once confirmed by the committee.",
+};
 
 export default function Donate() {
   return (

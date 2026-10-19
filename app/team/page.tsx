@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import PageHeader, { Container } from "@/components/PageHeader";
 import { committee } from "@/data/society";
 
-export const metadata: Metadata = { title: "Team & Governance" };
+export const metadata: Metadata = {
+  title: "Team & Governance",
+  description:
+    "The committee and governance of Dura Students Society.",
+};
 
 export default function Team() {
   return (
