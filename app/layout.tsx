@@ -35,7 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-sans antialiased">
         <a href="#main" className="skip-link">Skip to main content</a>
         <Header />
-        <main id="main" tabIndex={-1}>{children}</main>
+        <main id="main" tabIndex={-1} data-pagefind-body>{children}</main>
         <Footer />
       </body>
     </html>

@@ -22,7 +22,8 @@ function routes(dir: string, prefix = ""): string[] {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paths = ["", ...routes(join(process.cwd(), "app"))];
+  // /search is a tool, not content, so it stays out of the sitemap.
+  const paths = ["", ...routes(join(process.cwd(), "app")).filter((p) => p !== "/search")];
   return paths.map((p) => ({
     url: `${base}${p}/`,
     changeFrequency: p === "" ? "weekly" : "monthly",

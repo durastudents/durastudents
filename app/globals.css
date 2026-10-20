@@ -105,3 +105,16 @@ body {
     color: var(--accent);
   }
 }
+
+/* Pagefind search UI follows the site theme. */
+:root {
+  --pagefind-ui-scale: 0.95;
+  --pagefind-ui-primary: var(--accent);
+  --pagefind-ui-text: var(--fg);
+  --pagefind-ui-background: var(--card);
+  --pagefind-ui-border: var(--line);
+  --pagefind-ui-tag: var(--line);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 12px;
+  --pagefind-ui-font: inherit;
+}

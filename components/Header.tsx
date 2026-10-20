@@ -24,6 +24,12 @@ export default function Header() {
               {n.label}
             </Link>
           ))}
+          <Link href="/search/" aria-label="Search the site" title="Search" className="btn btn-ghost !px-3">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" />
+            </svg>
+          </Link>
           <ThemeToggle />
           <Link href="/donate/" className="btn btn-primary">
             Donate
@@ -41,6 +47,7 @@ export default function Header() {
             <Link href="/donate/" className="btn btn-primary justify-center">
               Donate
             </Link>
+            <Link href="/search/">Search</Link>
             <ThemeToggle />
           </div>
         </details>
