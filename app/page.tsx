@@ -7,7 +7,7 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-4 pb-16 pt-20">
         <p className="eyebrow">Dura Indigenous Community · Nepal</p>
         <h1 className="mt-3 max-w-4xl text-4xl font-bold leading-tight tracking-tight md:text-6xl">
-          Our identity. Our language. <span className="text-brand-500">Our heritage.</span>
+          Our identity. Our language. <span className="text-accent">Our heritage.</span>
         </h1>
         <p className="mt-6 max-w-2xl text-lg muted">
           {site.name} connects Dura youth, strengthens community identity, preserves our
@@ -60,7 +60,7 @@ export default function Home() {
         <ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {phases.map((p) => (
             <li key={p.n} className="card">
-              <span className="text-sm font-bold text-brand-500">{p.n}</span>
+              <span className="text-sm font-bold text-accent">{p.n}</span>
               <h3 className="mt-1 font-semibold">{p.title}</h3>
               <p className="mt-1 text-sm muted">{p.body}</p>
             </li>
@@ -77,7 +77,7 @@ export default function Home() {
           {targets.map((t) => (
             <div key={t.label} className="card !p-4">
               <dt className="text-xs muted">{t.label}</dt>
-              <dd className="mt-1 text-2xl font-bold text-brand-500">{t.value}</dd>
+              <dd className="mt-1 text-2xl font-bold text-accent">{t.value}</dd>
             </div>
           ))}
         </dl>

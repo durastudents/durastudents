@@ -25,7 +25,7 @@ export default function Resources() {
           <ul className="grid gap-4 sm:grid-cols-2">
             {documents.map((d) => (
               <li key={d.href} className="card">
-                <a href={d.href} className="font-semibold text-brand-500">{d.title}</a>
+                <a href={d.href} className="font-semibold text-accent">{d.title}</a>
                 <p className="mt-1 text-sm muted">{d.note}</p>
               </li>
             ))}

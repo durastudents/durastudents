@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { nav, site } from "@/data/site";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
   return (
@@ -19,10 +20,11 @@ export default function Header() {
 
         <nav className="hidden items-center gap-6 text-sm md:flex" aria-label="Main">
           {nav.map((n) => (
-            <Link key={n.href} href={n.href} className="hover:text-brand-500">
+            <Link key={n.href} href={n.href} className="hover:text-accent">
               {n.label}
             </Link>
           ))}
+          <ThemeToggle />
           <Link href="/donate/" className="btn btn-primary">
             Donate
           </Link>
@@ -39,6 +41,7 @@ export default function Header() {
             <Link href="/donate/" className="btn btn-primary justify-center">
               Donate
             </Link>
+            <ThemeToggle />
           </div>
         </details>
       </div>

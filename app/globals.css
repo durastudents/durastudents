@@ -8,16 +8,72 @@
   --muted: #5b6760;
   --card: #ffffff;
   --line: #e3e7df;
+  --accent: #256a3c; /* text green: 6.3:1 on --bg */
 }
 
+/* Dark when chosen explicitly, or when nothing is chosen and the system prefers dark. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #0f1612;
     --fg: #e8eee9;
     --muted: #9aa8a0;
     --card: #17211b;
     --line: #26352c;
+    --accent: #4fae70; /* 6.6:1 on dark --bg */
   }
+}
+
+:root[data-theme="dark"] {
+  --accent: #4fae70;
+  --bg: #0f1612;
+  --fg: #e8eee9;
+  --muted: #9aa8a0;
+  --card: #17211b;
+  --line: #26352c;
+}
+
+:root {
+  color-scheme: light dark;
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* Visible keyboard focus everywhere. */
+:focus-visible {
+  outline: 2px solid #2f7d4a;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+main:focus {
+  outline: none;
+}
+
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: -4rem;
+  z-index: 50;
+  padding: 0.6rem 1rem;
+  border-radius: 9999px;
+  background: #1e5632;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+.skip-link:focus {
+  top: 0.75rem;
+}
+
+/* Links inside running text must not rely on colour alone. */
+main p a:not(.btn),
+main li a:not(.btn),
+footer li a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 body {
@@ -45,6 +101,7 @@ body {
     border-color: var(--line);
   }
   .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-widest text-brand-500;
+    @apply text-xs font-semibold uppercase tracking-widest;
+    color: var(--accent);
   }
 }

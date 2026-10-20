@@ -29,7 +29,7 @@ export default function Language() {
 
       <Container>
         <h2 className="text-2xl font-bold">The app</h2>
-        <ul className="mt-6 flex snap-x gap-4 overflow-x-auto pb-4" aria-label="App screenshots">
+        <ul className="mt-6 flex snap-x gap-4 overflow-x-auto pb-4" aria-label="App screenshots" tabIndex={0}>
           {screenshots.map((s) => (
             <li key={s.src} className="shrink-0 snap-start">
               {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -1,7 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
-  darkMode: "media",
+  // Dark when the user picked dark, or when they have not picked and the system is dark.
+  darkMode: [
+    "variant",
+    [
+      '@media (prefers-color-scheme: dark) { &:not([data-theme="light"] *) }',
+      '&:is([data-theme="dark"] *)',
+    ],
+  ],
   theme: {
     extend: {
       colors: {
@@ -15,6 +22,7 @@ module.exports = {
           800: "#19442a",
           900: "#12331f",
         },
+        accent: "var(--accent)",
         earth: { 100: "#f6efe4", 500: "#b5733a" },
       },
       fontFamily: {

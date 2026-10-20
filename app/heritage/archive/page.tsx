@@ -35,13 +35,13 @@ export default function Archive() {
         <ul className="mt-4 grid gap-3 sm:grid-cols-3">
           {ids.map(([code, label]) => (
             <li key={code} className="card !p-4">
-              <code className="font-semibold text-brand-500">{code}</code>
+              <code className="font-semibold text-accent">{code}</code>
               <p className="text-sm muted">{label}</p>
             </li>
           ))}
         </ul>
         <p className="mt-8 text-sm muted">
-          How we handle consent and access: <Link className="text-brand-500" href="/heritage/policy/">Rights, consent and access</Link>.
+          How we handle consent and access: <Link className="text-accent" href="/heritage/policy/">Rights, consent and access</Link>.
         </p>
       </Container>
     </>

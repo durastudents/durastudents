@@ -28,7 +28,7 @@ export default function Places() {
           </Notice>
         </div>
         <p className="mt-8 text-sm muted">
-          How we handle consent and access: <Link className="text-brand-500" href="/heritage/policy/">Rights, consent and access</Link>.
+          How we handle consent and access: <Link className="text-accent" href="/heritage/policy/">Rights, consent and access</Link>.
         </p>
       </Container>
     </>

@@ -21,8 +21,8 @@ export default function Contact() {
             <p className="mt-2 text-sm muted">Official email address to be added.</p>
           )}
           <p className="mt-4 flex gap-4 text-sm">
-            <a className="text-brand-500" href={site.facebook}>Facebook</a>
-            <a className="text-brand-500" href={site.youtube}>YouTube</a>
+            <a className="text-accent" href={site.facebook}>Facebook</a>
+            <a className="text-accent" href={site.youtube}>YouTube</a>
           </p>
         </div>
       </Container>
