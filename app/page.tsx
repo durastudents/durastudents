@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { collections, phases, targets, site } from "@/data/site";
 
@@ -17,6 +18,23 @@ export default function Home() {
           <Link href="/about/" className="btn btn-primary">Discover Dura</Link>
           <Link href="/heritage/" className="btn btn-ghost">Explore our heritage</Link>
         </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-4">
+        <figure>
+          <Image
+            src="/images/hero.jpg"
+            alt="About thirty young Dura people in traditional red, green and checked dress pose together in a grassy field in front of terraced green hillsides at Handikhola, Lamjung, some kneeling in front and the rest standing in rows behind."
+            width={1600}
+            height={1066}
+            priority
+            sizes="(min-width: 1152px) 1152px, 100vw"
+            className="aspect-3/2 w-full rounded-2xl border border-(--line) object-cover object-center"
+          />
+          <figcaption className="mt-2 text-xs muted">
+            Dura Students Society members at the 32nd Anniversary of Dura Service Society, Handikhola, Lamjung. Photo: Dura Students Society archive.
+          </figcaption>
+        </figure>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12">
