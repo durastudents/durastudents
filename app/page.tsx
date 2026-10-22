@@ -24,15 +24,15 @@ export default function Home() {
         <figure>
           <Image
             src="/images/hero.jpg"
-            alt="Six young Dura people in traditional dress pose outdoors at a community gathering: three young men standing in checked shawls and topis, and three young women kneeling in front in red dresses with green and coral bead necklaces, with a crowd behind them."
-            width={1920}
-            height={1280}
+            alt="About thirty young Dura people in traditional red, green and checked dress pose together in a grassy field in front of terraced green hillsides at Handikhola, Lamjung, some kneeling in front and the rest standing in rows behind."
+            width={1600}
+            height={1066}
             priority
             sizes="(min-width: 1152px) 1152px, 100vw"
             className="aspect-3/2 w-full rounded-2xl border border-(--line) object-cover object-center"
           />
           <figcaption className="mt-2 text-xs muted">
-            Young Dura people in traditional dress at a community gathering. Photo: Dura Students Society archive.
+            Dura Students Society members at the 32nd Anniversary of Dura Service Society, Handikhola, Lamjung. Photo: Dura Students Society archive.
           </figcaption>
         </figure>
       </section>
