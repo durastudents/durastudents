@@ -1,42 +1,70 @@
 # durastudents.org.np
 
-One site for the Dura Students Society and the Dura Digital Heritage Project.
-Next.js (static export) + Tailwind CSS.
+One site for the **Dura Students Society** and the **Dura Digital Heritage Project**.
+Next.js 15 (static export) + Tailwind CSS, hosted on GitHub Pages.
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000
-npm run build    # static site in ./out
+npm run dev        # http://localhost:3000 (search needs a real build, see below)
+npm run build      # static site in ./out, plus the search index
+npm start          # serve ./out locally to try the built site, including search
+npm run typecheck  # TypeScript
+npm run lint       # ESLint
 ```
 
-## Structure
+## Adding content
+
+Almost everything is data. Edit the file, open a pull request, and CI checks it.
+
+| To change | Edit |
+|---|---|
+| Email, social links, nav, programs, organizations, access levels | `data/site.ts` |
+| History, committee, quiz results | `data/society.ts` |
+| People (only consented, confirmed entries) | `data/people.ts` |
+| Map pins | `data/places.ts` |
+| Statistics (add a source and year) | `data/statistics.ts` |
+| Archive items (photos, audio, video, documents) | `data/archive.ts` |
+| News posts | `data/news.ts` |
+| Dura Lopa app details | `data/lopa.ts` |
+| Resource PDFs | put files in `public/docs/` and list them in `app/resources/page.tsx` |
+
+`data/archive.ts` is checked at build time: a wrong identifier, a duplicate, missing
+consent or an image without alt text fails the build. Host large audio and video elsewhere
+and link to it; do not commit them here.
+
+## Pages
 
 | Route | Replaces |
 |---|---|
 | `/`, `/about`, `/programs`, `/impact`, `/resources`, `/news`, `/team`, `/donate`, `/contact` | durastudents-website.vercel.app, durastudentssociety.pages.dev, old durastudents.org.np |
 | `/programs/quiz` | durastudentssociety.pages.dev/quiz.html |
 | `/heritage` | ddhp-mocha.vercel.app |
-| `/heritage/people` | durapeople.web, durapeto-web (People) |
-| `/heritage/places` | duraplaces.map, durapeto-web (Residences) |
-| `/heritage/organizations`, `/heritage/statistics` | durapeto-web |
+| `/heritage/people`, `/heritage/places`, `/heritage/organizations`, `/heritage/statistics` | durapeople.web, duraplaces.map, durapeto-web |
+| `/heritage/archive`, `/heritage/policy` | new |
 | `/language` | amardura.com.np/duralopa.app, dura-lopa-web link |
+| `/search` | new (Pagefind index built after `next build`) |
 
-Site-wide content lives in `data/site.ts`.
+## How it is built and deployed
 
-## To do before launch
+- **Pull requests** run `.github/workflows/ci.yml`: typecheck, lint and build.
+- **Merging to `main`** runs `.github/workflows/deploy.yml`, which builds and publishes `out/`
+  to GitHub Pages. Settings, Pages, Source must be **GitHub Actions**.
+- The custom domain comes from `public/CNAME` (it must stay in `public/` so it reaches `out/`).
+- Dependabot opens weekly dependency PRs and monthly Actions PRs.
+- Dark mode follows the system until a visitor picks one; the choice is stored in the browser.
 
-- [x] Real logo in `public/assets/logo.png`.
-- [ ] Add a hero photo.
-- [ ] Set the official email in `data/site.ts`.
-- [ ] Verify and add: history timeline, impact figures, current committee, donation details.
-- [ ] Copy PDFs into `public/docs` and list them in `app/resources/page.tsx`.
-- [x] Places map (Leaflet + OpenStreetMap) and statistics ported; organization logos added (Dura Sewa Samaj, Students Society).
-- [ ] Verify the 6 draft place pins and add real place names (गाउँको नाम, ~75 per the Peto statistics).
-- [ ] Cite a source and year for each statistic in `data/statistics.ts`.
-- [ ] People: add confirmed, consented entries to `data/people.ts` (sample bios and unnamed photos were deliberately not imported).
-- [ ] Supply a Dura Mahila Samaj logo (`public/orgs/`) and update `data/site.ts`.
-- [ ] Port quiz rules, sponsors and team members by year.
-- [ ] Move the dictionary web app to a subdomain (e.g. `lopa.durastudents.org.np`).
-- [ ] Deploy (Cloudflare Pages: build `npm run build`, output `out`) and set up redirects from the old sites.
+## Old sites
 
-Placeholder data from the old Vercel site (sample phone, bank account, team names) was intentionally not copied.
+The old Vercel prototypes (`durastudents-website`, `durapeto-web`, `ddhp`) redirect here with
+a temporary (307) redirect set in their own `next.config.ts`. They are separate repos under
+`dura-amar`. Keep Next.js current in them: Vercel refuses to deploy versions with known
+security problems.
+
+## What is still open
+
+Track everything in the [issues](https://github.com/durastudents/durastudents/issues).
+Issues labelled `needs-input` are waiting on the Society or the community (donation details,
+a hero photo, verified places and people, statistics sources, an official email, and so on).
+
+Placeholder data from the old Vercel site (sample phone, bank account, team names) was
+intentionally not copied.

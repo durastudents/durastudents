@@ -23,7 +23,7 @@ export default function Programs() {
               <h2 className="font-semibold">{p.title}</h2>
               <p className="mt-2 text-sm muted">{p.body}</p>
               {p.title.startsWith("Inter-District") && (
-                <Link href="/programs/quiz/" className="mt-4 inline-block text-sm font-semibold text-brand-500">
+                <Link href="/programs/quiz/" className="mt-4 inline-block text-sm font-semibold text-accent">
                   Quiz competition →
                 </Link>
               )}

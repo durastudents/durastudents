@@ -38,7 +38,7 @@ export default function About() {
           {history.map((h) => (
             <li key={h.year} className="relative">
               <span className="absolute -left-[31px] top-1.5 h-3 w-3 rounded-full bg-brand-500" />
-              <p className="text-sm font-bold text-brand-500">
+              <p className="text-sm font-bold text-accent">
                 {h.year} · {h.place}
               </p>
               <p className="mt-1">{h.body}</p>
@@ -61,7 +61,7 @@ export default function About() {
         </ul>
 
         <p className="mt-10">
-          <Link href="/team/" className="font-semibold text-brand-500">
+          <Link href="/team/" className="font-semibold text-accent">
             Meet the current central committee →
           </Link>
         </p>

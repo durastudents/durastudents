@@ -116,14 +116,20 @@ export default function PlacesExplorer({ places }: { places: Place[] }) {
             {f}
           </button>
         ))}
-        <span className="ml-2 text-sm muted">{visible.length} places</span>
+        <span className="ml-2 text-sm muted" role="status">{visible.length} places</span>
       </div>
+
+      <p id="map-help" className="mt-3 text-sm muted">
+        The list next to the map has the same places and works with the keyboard: choose a place
+        to centre the map on it and open its details.
+      </p>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-3">
         <div
           ref={el}
-          role="application"
+          role="region"
           aria-label="Map of Dura places"
+          aria-describedby="map-help"
           className="z-0 h-[420px] overflow-hidden rounded-2xl border lg:col-span-2 lg:h-[520px]"
           style={{ borderColor: "var(--line)" }}
         />
@@ -133,7 +139,7 @@ export default function PlacesExplorer({ places }: { places: Place[] }) {
               <button
                 type="button"
                 onClick={() => focusPlace(p)}
-                aria-current={selected === p.id}
+                aria-current={selected === p.id ? "true" : undefined}
                 className={`card w-full text-left !p-4 hover:border-brand-500 ${
                   selected === p.id ? "border-brand-500" : ""
                 }`}

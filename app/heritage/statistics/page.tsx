@@ -24,7 +24,7 @@ export default function Statistics() {
               <dt className="text-sm muted">
                 {s.labelEn} <span className="block text-xs">{s.labelNe}</span>
               </dt>
-              <dd className="mt-3 text-4xl font-bold text-brand-500">
+              <dd className="mt-3 text-4xl font-bold text-accent">
                 {s.value.toLocaleString("en-US")}
               </dd>
               {(s.source || s.year) && (
