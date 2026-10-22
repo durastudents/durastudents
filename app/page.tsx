@@ -6,7 +6,7 @@ export default function Home() {
     <>
       <section className="mx-auto max-w-6xl px-4 pb-16 pt-20">
         <p className="eyebrow">Dura Indigenous Community · Nepal</p>
-        <h1 className="mt-3 max-w-4xl text-4xl font-bold leading-tight tracking-tight md:text-6xl">
+        <h1 className="mt-3 max-w-4xl text-4xl font-bold leading-tight tracking-tight md:text-6xl md:leading-none">
           Our identity. Our language. <span className="text-accent">Our heritage.</span>
         </h1>
         <p className="mt-6 max-w-2xl text-lg muted">
@@ -75,7 +75,7 @@ export default function Home() {
         </p>
         <dl className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-5">
           {targets.map((t) => (
-            <div key={t.label} className="card !p-4">
+            <div key={t.label} className="card p-4!">
               <dt className="text-xs muted">{t.label}</dt>
               <dd className="mt-1 text-2xl font-bold text-accent">{t.value}</dd>
             </div>

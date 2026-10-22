@@ -40,7 +40,7 @@ export default function Archive() {
         <p className="mt-2 text-sm muted">Every item gets an ID such as DHP-PHO-00001.</p>
         <ul className="mt-4 grid gap-3 sm:grid-cols-3">
           {Object.entries(kinds).map(([code, label]) => (
-            <li key={code} className="card !p-4">
+            <li key={code} className="card p-4!">
               <code className="font-semibold text-accent">DHP-{code}</code>
               <p className="text-sm muted">{label}</p>
             </li>

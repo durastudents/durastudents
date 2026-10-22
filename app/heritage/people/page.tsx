@@ -46,7 +46,7 @@ export default function People() {
                     width={400}
                     height={500}
                     loading="lazy"
-                    className="mb-4 aspect-[4/5] w-full rounded-xl object-cover"
+                    className="mb-4 aspect-4/5 w-full rounded-xl object-cover"
                   />
                 )}
                 <h2 className="font-semibold">{p.name}</h2>

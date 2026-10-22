@@ -37,7 +37,7 @@ export default function About() {
         <ol className="mt-6 space-y-4 border-l-2 pl-6" style={{ borderColor: "var(--line)" }}>
           {history.map((h) => (
             <li key={h.year} className="relative">
-              <span className="absolute -left-[31px] top-1.5 h-3 w-3 rounded-full bg-brand-500" />
+              <span className="absolute left-[-31px] top-1.5 h-3 w-3 rounded-full bg-brand-500" />
               <p className="text-sm font-bold text-accent">
                 {h.year} · {h.place}
               </p>

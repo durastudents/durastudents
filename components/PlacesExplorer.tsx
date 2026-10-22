@@ -140,7 +140,7 @@ export default function PlacesExplorer({ places }: { places: Place[] }) {
                 type="button"
                 onClick={() => focusPlace(p)}
                 aria-current={selected === p.id ? "true" : undefined}
-                className={`card w-full text-left !p-4 hover:border-brand-500 ${
+                className={`card w-full text-left p-4! hover:border-brand-500 ${
                   selected === p.id ? "border-brand-500" : ""
                 }`}
               >
