@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
@@ -10,13 +10,22 @@ function current(): Theme {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-export default function ThemeToggle() {
-  // Unknown until mounted, so the server HTML and first client render match.
-  const [theme, setTheme] = useState<Theme | null>(null);
+const listeners = new Set<() => void>();
 
-  useEffect(() => {
-    setTheme(current());
-  }, []);
+function subscribe(onChange: () => void) {
+  listeners.add(onChange);
+  // Follow the system setting too, while no choice has been made.
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  mq.addEventListener("change", onChange);
+  return () => {
+    listeners.delete(onChange);
+    mq.removeEventListener("change", onChange);
+  };
+}
+
+export default function ThemeToggle() {
+  // null on the server and during hydration, so server and first client render match.
+  const theme = useSyncExternalStore<Theme | null>(subscribe, current, () => null);
 
   function toggle() {
     const next: Theme = current() === "dark" ? "light" : "dark";
@@ -26,7 +35,7 @@ export default function ThemeToggle() {
     } catch {
       /* storage can be blocked; the choice still applies for this visit */
     }
-    setTheme(next);
+    listeners.forEach((l) => l());
   }
 
   const dark = theme === "dark";
