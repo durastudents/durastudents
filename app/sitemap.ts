@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { publicItems } from "@/data/archive";
 import { readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 
@@ -23,7 +24,11 @@ function routes(dir: string, prefix = ""): string[] {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // /search is a tool, not content, so it stays out of the sitemap.
-  const paths = ["", ...routes(join(process.cwd(), "app")).filter((p) => p !== "/search")];
+  const paths = [
+    "",
+    ...routes(join(process.cwd(), "app")).filter((p) => p !== "/search"),
+    ...publicItems.map((item) => `/heritage/archive/${item.id}`),
+  ];
   return paths.map((p) => ({
     url: `${base}${p}/`,
     changeFrequency: p === "" ? "weekly" : "monthly",
