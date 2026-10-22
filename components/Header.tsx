@@ -5,7 +5,7 @@ import ThemeToggle from "./ThemeToggle";
 export default function Header() {
   return (
     <header
-      className="sticky top-0 z-30 border-b backdrop-blur"
+      className="sticky top-0 z-30 border-b backdrop-blur-sm"
       style={{ borderColor: "var(--line)", background: "color-mix(in srgb, var(--bg) 88%, transparent)" }}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
@@ -24,7 +24,7 @@ export default function Header() {
               {n.label}
             </Link>
           ))}
-          <Link href="/search/" aria-label="Search the site" title="Search" className="btn btn-ghost !px-3">
+          <Link href="/search/" aria-label="Search the site" title="Search" className="btn btn-ghost px-3!">
             <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="7" />
               <path d="m20 20-3.5-3.5" />
@@ -38,7 +38,7 @@ export default function Header() {
 
         <details className="relative md:hidden">
           <summary className="btn btn-ghost cursor-pointer list-none">Menu</summary>
-          <div className="card absolute right-0 mt-2 flex w-56 flex-col gap-3 !p-4 text-sm">
+          <div className="card absolute right-0 mt-2 flex w-56 flex-col gap-3 p-4! text-sm">
             {nav.map((n) => (
               <Link key={n.href} href={n.href}>
                 {n.label}

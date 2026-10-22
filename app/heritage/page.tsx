@@ -44,7 +44,7 @@ export default function Heritage() {
             </p>
             <ul className="mt-4 space-y-3">
               {accessLevels.map((a) => (
-                <li key={a.name} className="card !p-4">
+                <li key={a.name} className="card p-4!">
                   <strong>{a.name}</strong> <span className="text-sm muted">{a.body}</span>
                 </li>
               ))}
@@ -57,7 +57,7 @@ export default function Heritage() {
             </p>
             <ul className="mt-4 space-y-3">
               {verification.map((a) => (
-                <li key={a.name} className="card !p-4">
+                <li key={a.name} className="card p-4!">
                   <strong>{a.name}</strong> <span className="text-sm muted">{a.body}</span>
                 </li>
               ))}

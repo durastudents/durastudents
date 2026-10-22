@@ -3,7 +3,7 @@ import { kinds, type ArchiveItem } from "@/data/archive";
 
 export default function ArchiveCard({ item }: { item: ArchiveItem }) {
   return (
-    <li className="card !p-5">
+    <li className="card p-5!">
       <p className="text-xs muted">
         <code className="font-semibold text-accent">{item.id}</code> · {kinds[item.kind]}
       </p>
