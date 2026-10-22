@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { collections, phases, targets, site } from "@/data/site";
 
@@ -17,6 +18,23 @@ export default function Home() {
           <Link href="/about/" className="btn btn-primary">Discover Dura</Link>
           <Link href="/heritage/" className="btn btn-ghost">Explore our heritage</Link>
         </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-4">
+        <figure>
+          <Image
+            src="/images/hero.jpg"
+            alt="Six young Dura people in traditional dress pose outdoors at a community gathering: three young men standing in checked shawls and topis, and three young women kneeling in front in red dresses with green and coral bead necklaces, with a crowd behind them."
+            width={1920}
+            height={1280}
+            priority
+            sizes="(min-width: 1152px) 1152px, 100vw"
+            className="aspect-3/2 w-full rounded-2xl border border-(--line) object-cover object-center"
+          />
+          <figcaption className="mt-2 text-xs muted">
+            Young Dura people in traditional dress at a community gathering. Photo: Dura Students Society archive.
+          </figcaption>
+        </figure>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12">
