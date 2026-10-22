@@ -57,11 +57,11 @@ export const organizations: { name: string; ne: string; logo?: string }[] = [
 ];
 
 export const collections = [
-  { slug: "history", title: "Dura History", body: "Origins, migration and settlement, historical figures, timelines and community development." },
-  { slug: "language", title: "Dura Language", body: "Vocabulary, pronunciation, audio, example sentences and learning resources connected with Dura Lopa." },
+  { slug: "history", title: "Dura History", body: "Origins, migration and settlement, historical figures, timelines and community development.", href: "/about/" },
+  { slug: "language", title: "Dura Language", body: "Vocabulary, pronunciation, audio, example sentences and learning resources connected with Dura Lopa.", href: "/language/" },
   { slug: "oral-history", title: "Oral History", body: "Recorded memories and knowledge from elders, knowledge holders and cultural practitioners." },
-  { slug: "places", title: "Places", body: "Dura places, names, meanings, stories and the people connected to them." },
-  { slug: "people", title: "People", body: "Notable figures and ordinary community members who preserved and passed on Dura knowledge." },
+  { slug: "places", title: "Places", body: "Dura places, names, meanings, stories and the people connected to them.", href: "/heritage/places/" },
+  { slug: "people", title: "People", body: "Notable figures and ordinary community members who preserved and passed on Dura knowledge.", href: "/heritage/people/" },
   { slug: "culture", title: "Living Culture", body: "Festivals, rituals, songs, music, dance, crafts and traditional knowledge." },
   { slug: "photographs", title: "Photographs", body: "Family and community photographs with people, places, dates, sources and rights." },
   { slug: "documents", title: "Documents", body: "Books, manuscripts, research, certificates, newspapers and maps." },

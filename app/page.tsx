@@ -44,12 +44,34 @@ export default function Home() {
           Interconnected collections, rather than isolated pieces of information.
         </p>
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {collections.map((c) => (
-            <div key={c.slug} className="card">
-              <h3 className="font-semibold">{c.title}</h3>
-              <p className="mt-2 text-sm muted">{c.body}</p>
-            </div>
-          ))}
+          {collections.map((c) => {
+            const content = (
+              <>
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="font-semibold">{c.title}</h3>
+                  {c.href ? (
+                    <span aria-hidden="true" className="text-accent">↗</span>
+                  ) : (
+                    <span className="shrink-0 rounded-full border px-2 py-1 text-xs muted" style={{ borderColor: "var(--line)" }}>
+                      Coming soon
+                    </span>
+                  )}
+                </div>
+                <p className="mt-2 text-sm muted">{c.body}</p>
+                {c.href && <span className="mt-4 inline-block text-sm font-semibold text-accent">Explore collection →</span>}
+              </>
+            );
+
+            return c.href ? (
+              <Link key={c.slug} href={c.href} className="card hover:border-brand-500">
+                {content}
+              </Link>
+            ) : (
+              <div key={c.slug} className="card">
+                {content}
+              </div>
+            );
+          })}
         </div>
       </section>
 
