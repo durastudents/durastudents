@@ -1,7 +1,7 @@
 # durastudents.org.np
 
 One site for the **Dura Students Society** and the **Dura Digital Heritage Project**.
-Next.js 15 (static export) + Tailwind CSS, hosted on GitHub Pages.
+Next.js 16 (static export) + Tailwind CSS, hosted on GitHub Pages.
 
 ```bash
 npm install
