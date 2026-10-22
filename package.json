@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "npx serve out",
+    "start": "serve out",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "postbuild": "pagefind --site out"
@@ -29,6 +29,7 @@
     "eslint-config-next": "^16.4.2",
     "pagefind": "^1.5.2",
     "postcss": "^8.5.31",
+    "serve": "^14.2.6",
     "tailwindcss": "^4.3.3",
     "typescript": "npm:@typescript/typescript6@^6.0.2"
   }
