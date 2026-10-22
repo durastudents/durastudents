@@ -3,7 +3,11 @@ import Link from "next/link";
 import PageHeader, { Container } from "@/components/PageHeader";
 import { programs } from "@/data/site";
 
-export const metadata: Metadata = { title: "Programs" };
+export const metadata: Metadata = {
+  title: "Programs",
+  description:
+    "Programs run by Dura Students Society for Dura youth and the wider Dura community.",
+};
 
 export default function Programs() {
   return (
@@ -19,7 +23,7 @@ export default function Programs() {
               <h2 className="font-semibold">{p.title}</h2>
               <p className="mt-2 text-sm muted">{p.body}</p>
               {p.title.startsWith("Inter-District") && (
-                <Link href="/programs/quiz/" className="mt-4 inline-block text-sm font-semibold text-brand-500">
+                <Link href="/programs/quiz/" className="mt-4 inline-block text-sm font-semibold text-accent">
                   Quiz competition →
                 </Link>
               )}

@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import PageHeader, { Container } from "@/components/PageHeader";
 import { organizations } from "@/data/site";
 
-export const metadata: Metadata = { title: "Dura Organizations" };
+export const metadata: Metadata = {
+  title: "Dura Organizations",
+  description:
+    "Organizations of the Dura community in Nepal.",
+};
 
 export default function Organizations() {
   return (

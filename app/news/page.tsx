@@ -1,16 +1,45 @@
 import type { Metadata } from "next";
 import PageHeader, { Container, Notice } from "@/components/PageHeader";
+import { news } from "@/data/news";
+import { site } from "@/data/site";
 
-export const metadata: Metadata = { title: "News" };
+export const metadata: Metadata = {
+  title: "News",
+  description: "News and updates from Dura Students Society.",
+};
 
 export default function News() {
   return (
     <>
       <PageHeader eyebrow="News & stories" title="Updates from the community." />
       <Container>
-        <Notice>
-          No posts yet. Dura Talks episodes and workshop reports will appear here.
-        </Notice>
+        {news.length === 0 ? (
+          <Notice>
+            No posts yet. Announcements and event reports will appear here. In the meantime,
+            follow us on <a href={site.facebook}>Facebook</a> or <a href={site.youtube}>YouTube</a>.
+          </Notice>
+        ) : (
+          <ul className="max-w-3xl space-y-6">
+            {news.map((p) => (
+              <li key={`${p.isoDate}-${p.title}`} className="card">
+                <p className="text-xs muted">
+                  <time dateTime={p.isoDate}>{p.date}</time>
+                </p>
+                <h2 className="mt-1 text-xl font-bold">{p.title}</h2>
+                <div className="mt-3 space-y-3 text-sm muted">
+                  {p.body.map((para, i) => (
+                    <p key={i}>{para}</p>
+                  ))}
+                </div>
+                {p.link && (
+                  <p className="mt-4">
+                    <a className="btn btn-ghost" href={p.link.href}>{p.link.label}</a>
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
       </Container>
     </>
   );

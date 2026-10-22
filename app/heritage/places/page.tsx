@@ -1,9 +1,14 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import PageHeader, { Container, Notice } from "@/components/PageHeader";
 import PlacesExplorer from "@/components/PlacesExplorer";
 import { places } from "@/data/places";
 
-export const metadata: Metadata = { title: "Dura Places" };
+export const metadata: Metadata = {
+  title: "Dura Places",
+  description:
+    "A heritage map of places where Dura communities live in Nepal and abroad.",
+};
 
 export default function Places() {
   return (
@@ -22,6 +27,9 @@ export default function Places() {
             they are documented.
           </Notice>
         </div>
+        <p className="mt-8 text-sm muted">
+          How we handle consent and access: <Link className="text-accent" href="/heritage/policy/">Rights, consent and access</Link>.
+        </p>
       </Container>
     </>
   );
