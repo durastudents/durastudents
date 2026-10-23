@@ -23,7 +23,7 @@ export default function Places() {
         <div className="mt-6">
           <Notice>
             Draft data: these six pins have not yet been verified by the community, so each is
-            marked “Unknown”. Place names (गाउँको नाम), Dura names and meanings will be added as
+            marked “Unknown”. Place names (<span lang="ne" className="devanagari-text">गाउँको नाम</span>), Dura names and meanings will be added as
             they are documented.
           </Notice>
         </div>

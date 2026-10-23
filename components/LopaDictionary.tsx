@@ -76,6 +76,7 @@ function isDictionary(value: unknown): value is DictionaryEntry[] {
 export default function LopaDictionary() {
   const language = useLopaLanguage();
   const text = labels[language];
+  const localizedTextClass = language === "ne" ? "devanagari-text" : "";
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -137,7 +138,11 @@ export default function LopaDictionary() {
     <section className="mx-auto max-w-6xl px-4 pb-12" aria-label={text.dictionaryLinks}>
       <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(18rem,0.8fr)]">
         <div className="min-w-0">
-          <label htmlFor="lopa-dictionary-search" className="mb-2 block text-sm font-semibold">
+          <label
+            htmlFor="lopa-dictionary-search"
+            lang={language}
+            className={`mb-2 block text-sm font-semibold ${localizedTextClass}`}
+          >
             {text.search}
           </label>
           <input
@@ -149,34 +154,36 @@ export default function LopaDictionary() {
               setQuery(event.target.value);
             }}
             placeholder={text.placeholder}
-            className="w-full rounded-xl border bg-(--card) px-4 py-3"
+            lang={language}
+            className={`w-full rounded-xl border bg-(--card) px-4 py-3 ${localizedTextClass}`}
             style={{ borderColor: "var(--line)", color: "var(--fg)" }}
           />
 
-          {loading && <p className="mt-4 muted" role="status">{text.loading}</p>}
+          {loading && <p lang={language} className={`mt-4 muted ${localizedTextClass}`} role="status">{text.loading}</p>}
           {error && (
             <div className="card mt-4" role="alert">
-              <p>{text.failed}</p>
+              <p lang={language} className={localizedTextClass}>{text.failed}</p>
               <button
                 type="button"
                 className="btn btn-primary mt-3"
+                lang={language}
                 onClick={() => {
                   setLoading(true);
                   setError(false);
                   setRetry((n) => n + 1);
                 }}
               >
-                {text.retry}
+                <span className={localizedTextClass}>{text.retry}</span>
               </button>
             </div>
           )}
           {!loading && !error && (
             <>
               <p className="mt-3 text-sm muted" role="status" aria-live="polite">
-                {results.length} {text.results}
+                {results.length} <span lang={language} className={localizedTextClass}>{text.results}</span>
               </p>
               {results.length === 0 ? (
-                <p className="card mt-3 text-sm muted">{text.noResults}</p>
+                <p lang={language} className={`card mt-3 text-sm muted ${localizedTextClass}`}>{text.noResults}</p>
               ) : (
                 <ul className="mt-3 max-h-[65vh] space-y-2 overflow-y-auto pr-1">
                   {results.slice(0, limit).map((entry) => (
@@ -189,10 +196,16 @@ export default function LopaDictionary() {
                           selectedId === String(entry.id) ? "border-brand-500" : ""
                         }`}
                       >
-                        <span className="block text-xl font-semibold">{entry.dura}</span>
+                        <span lang="drq" className="devanagari-display block text-xl font-semibold">{entry.dura}</span>
                         {entry.ipa && <span className="block text-sm muted">/{entry.ipa}/</span>}
-                        <span className="mt-1 block text-sm">{entry.nepali || entry.english}</span>
-                        {entry.english && <span className="mt-1 block text-sm muted">{entry.english}</span>}
+                        {entry.nepali ? (
+                          <span lang="ne" className="devanagari-text mt-1 block text-sm">{entry.nepali}</span>
+                        ) : entry.english ? (
+                          <span lang="en" className="mt-1 block text-sm">{entry.english}</span>
+                        ) : null}
+                        {entry.english && entry.nepali && (
+                          <span lang="en" className="mt-1 block text-sm muted">{entry.english}</span>
+                        )}
                       </button>
                     </li>
                   ))}
@@ -200,7 +213,7 @@ export default function LopaDictionary() {
               )}
               {results.length > limit && (
                 <button type="button" className="btn btn-ghost mt-3" onClick={() => setLimit((n) => n + PAGE_SIZE)}>
-                  {text.more} ({results.length - limit})
+                  <span lang={language} className={localizedTextClass}>{text.more}</span> ({results.length - limit})
                 </button>
               )}
             </>
@@ -210,19 +223,24 @@ export default function LopaDictionary() {
         <aside className="order-first md:order-last" aria-label={text.dictionaryLinks}>
           {selected ? (
             <div className="card sticky top-24">
-              <h2 className="text-3xl font-bold">{selected.dura}</h2>
+              <h2 lang="drq" className="devanagari-display text-3xl font-bold">{selected.dura}</h2>
               <dl className="mt-5 grid gap-x-4 gap-y-3 text-sm sm:grid-cols-[9rem_1fr]">
-                {([
-                  [text.ipa, selected.ipa],
-                  [text.nepali, selected.nepali],
-                  [text.nepaliPos, selected.nepaliPos],
-                  [text.english, selected.english],
-                  [text.englishPos, selected.englishPos],
-                ] as const).map(([label, value]) =>
+                {[
+                  { label: text.ipa, value: selected.ipa, valueLang: "und" },
+                  { label: text.nepali, value: selected.nepali, valueLang: "ne" },
+                  { label: text.nepaliPos, value: selected.nepaliPos, valueLang: "ne" },
+                  { label: text.english, value: selected.english, valueLang: "en" },
+                  { label: text.englishPos, value: selected.englishPos, valueLang: "en" },
+                ].map(({ label, value, valueLang }) =>
                   value ? (
                     <div key={label} className="contents">
-                      <dt className="font-semibold">{label}</dt>
-                      <dd className="muted">{value}</dd>
+                      <dt lang={language} className={`font-semibold ${localizedTextClass}`}>{label}</dt>
+                      <dd
+                        lang={valueLang}
+                        className={`${valueLang === "ne" ? "devanagari-text" : ""} muted`}
+                      >
+                        {value}
+                      </dd>
                     </div>
                   ) : null,
                 )}
@@ -231,13 +249,15 @@ export default function LopaDictionary() {
             </div>
           ) : (
             <div className="card sticky top-24 text-sm muted">
-              {selectedMissing ? text.missing : text.choose}
+              <span lang={language} className={localizedTextClass}>
+                {selectedMissing ? text.missing : text.choose}
+              </span>
             </div>
           )}
           <nav className="mt-4 grid gap-2 text-sm" aria-label={text.dictionaryLinks}>
-            <a className="text-accent underline underline-offset-4" href="/language/sentences/">{text.sentences}</a>
-            <a className="text-accent underline underline-offset-4" href="/language/sources/">{text.sources}</a>
-            <a className="text-accent underline underline-offset-4" href="/language/timelines/">{text.timelines}</a>
+            <a lang={language} className={`text-accent underline underline-offset-4 ${localizedTextClass}`} href="/language/sentences/">{text.sentences}</a>
+            <a lang={language} className={`text-accent underline underline-offset-4 ${localizedTextClass}`} href="/language/sources/">{text.sources}</a>
+            <a lang={language} className={`text-accent underline underline-offset-4 ${localizedTextClass}`} href="/language/timelines/">{text.timelines}</a>
           </nav>
         </aside>
       </div>

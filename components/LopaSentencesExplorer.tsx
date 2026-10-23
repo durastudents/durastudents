@@ -38,7 +38,7 @@ export default function LopaSentencesExplorer({ sentences }: { sentences: LopaSe
   return (
     <section className="mx-auto max-w-6xl px-4 pb-12">
       <label htmlFor="lopa-sentence-search" className="mb-2 block text-sm font-semibold">
-        {text.search}
+        <span lang={language} className={language === "ne" ? "devanagari-text" : ""}>{text.search}</span>
       </label>
       <input
         id="lopa-sentence-search"
@@ -46,20 +46,21 @@ export default function LopaSentencesExplorer({ sentences }: { sentences: LopaSe
         value={query}
         onChange={(event) => setQuery(event.target.value)}
         placeholder={text.placeholder}
-        className="w-full rounded-xl border bg-(--card) px-4 py-3"
+        lang={language}
+        className={`w-full rounded-xl border bg-(--card) px-4 py-3 ${language === "ne" ? "devanagari-text" : ""}`}
         style={{ borderColor: "var(--line)", color: "var(--fg)" }}
       />
       <p className="mt-3 text-sm muted" role="status" aria-live="polite">
-        {results.length} {text.count}
+        {results.length} <span lang={language} className={language === "ne" ? "devanagari-text" : ""}>{text.count}</span>
       </p>
       {results.length === 0 ? (
-        <p className="card mt-4 text-sm muted">{text.empty}</p>
+        <p lang={language} className={`card mt-4 text-sm muted ${language === "ne" ? "devanagari-text" : ""}`}>{text.empty}</p>
       ) : (
         <ul className="mt-4 grid gap-3 sm:grid-cols-2">
           {results.map((sentence, index) => (
             <li key={`${sentence.dura}-${index}`} className="card">
-              <p className="text-lg font-semibold">{sentence.dura}</p>
-              <p className="mt-2 text-sm muted">{sentence.nepali}</p>
+              <p lang="drq" className="devanagari-display text-lg font-semibold">{sentence.dura}</p>
+              <p lang="ne" className="devanagari-text mt-2 text-sm muted">{sentence.nepali}</p>
             </li>
           ))}
         </ul>

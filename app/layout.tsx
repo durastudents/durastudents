@@ -2,6 +2,23 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Teko, Tiro_Devanagari_Hindi } from "next/font/google";
+
+const nepaliReading = Tiro_Devanagari_Hindi({
+  weight: "400",
+  subsets: ["devanagari"],
+  display: "swap",
+  variable: "--font-devanagari-reading",
+  preload: false,
+});
+
+const nepaliDisplay = Teko({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["devanagari"],
+  display: "swap",
+  variable: "--font-devanagari-display",
+  preload: false,
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://durastudents.org.np"),
@@ -32,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className="font-sans antialiased">
+      <body className={`font-sans antialiased ${nepaliReading.variable} ${nepaliDisplay.variable}`}>
         <a href="#main" className="skip-link">Skip to main content</a>
         <Header />
         <main id="main" tabIndex={-1} data-pagefind-body>{children}</main>

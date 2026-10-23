@@ -128,6 +128,16 @@ body {
   color: var(--fg);
 }
 
+.devanagari-text {
+  font-family: var(--font-devanagari-reading), var(--font-sans), sans-serif;
+}
+
+.devanagari-display {
+  font-family: var(--font-devanagari-display), var(--font-sans), sans-serif;
+  font-synthesis: none;
+  letter-spacing: normal;
+}
+
 @layer components {
   .card {
     @apply rounded-2xl border p-6;

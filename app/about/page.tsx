@@ -55,7 +55,7 @@ export default function About() {
           {organizations.map((o) => (
             <li key={o.name} className="card">
               <p className="font-semibold">{o.name}</p>
-              <p className="text-sm muted">{o.ne}</p>
+              <p lang="ne" className="devanagari-text text-sm muted">{o.ne}</p>
             </li>
           ))}
         </ul>

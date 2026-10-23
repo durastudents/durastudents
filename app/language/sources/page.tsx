@@ -34,8 +34,8 @@ export default function SourcesPage() {
                 />
               </div>
               <div className="p-5">
-                <h2 className="text-lg font-semibold">{book.title}</h2>
-                <p className="mt-2 text-sm muted">{book.description}</p>
+                <h2 lang="ne" className="devanagari-display text-lg font-semibold">{book.title}</h2>
+                <p lang="ne" className="devanagari-text mt-2 text-sm muted">{book.description}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   <a className="btn btn-primary" href={book.pdf} target="_blank" rel="noreferrer">
                     View PDF

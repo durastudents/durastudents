@@ -12,9 +12,9 @@ export const metadata: Metadata = {
 };
 
 const timelineGroups = [
-  { id: "classes", title: "Language classes · भाषा कक्षा", events: classes satisfies TimelineEvent[] },
-  { id: "campaigns", title: "Language campaigns · भाषा अभियान", events: campaigns satisfies TimelineEvent[] },
-  { id: "books", title: "Books and research · पुस्तक तथा अनुसन्धान", events: booksMaterials satisfies TimelineEvent[] },
+  { id: "classes", titleEn: "Language classes", titleNe: "भाषा कक्षा", events: classes satisfies TimelineEvent[] },
+  { id: "campaigns", titleEn: "Language campaigns", titleNe: "भाषा अभियान", events: campaigns satisfies TimelineEvent[] },
+  { id: "books", titleEn: "Books and research", titleNe: "पुस्तक तथा अनुसन्धान", events: booksMaterials satisfies TimelineEvent[] },
 ];
 
 export default function TimelinesPage() {
@@ -31,14 +31,21 @@ export default function TimelinesPage() {
         <div className="space-y-12">
           {timelineGroups.map((group) => (
             <section key={group.id}>
-              <h2 className="text-2xl font-bold">{group.title}</h2>
+              <h2 className="text-2xl font-bold">
+                {group.titleEn} · <span lang="ne" className="devanagari-display">{group.titleNe}</span>
+              </h2>
               <ol className="mt-5 space-y-5 border-l-2 pl-6" style={{ borderColor: "var(--line)" }}>
                 {group.events.map((event, index) => (
                   <li key={`${group.id}-${index}`} className="relative">
                     <span aria-hidden="true" className="absolute -left-[1.72rem] top-2 h-3 w-3 rounded-full bg-brand-500" />
-                    <p className="text-sm font-semibold text-accent">{event.Year}</p>
-                    <h3 className="mt-1 font-semibold">{event.Title}</h3>
-                    <p className="mt-1 text-sm muted">{event.Description}</p>
+                    <p
+                      lang={/[\u0900-\u097f]/u.test(event.Year) ? "ne" : "en"}
+                      className={`text-sm font-semibold text-accent ${/[\u0900-\u097f]/u.test(event.Year) ? "devanagari-text" : ""}`}
+                    >
+                      {event.Year}
+                    </p>
+                    <h3 lang="ne" className="devanagari-display mt-1 font-semibold">{event.Title}</h3>
+                    <p lang="ne" className="devanagari-text mt-1 text-sm muted">{event.Description}</p>
                   </li>
                 ))}
               </ol>

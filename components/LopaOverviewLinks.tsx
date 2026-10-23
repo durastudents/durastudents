@@ -24,9 +24,16 @@ export default function LopaOverviewLinks() {
     <div className="grid gap-4 sm:grid-cols-2">
       {links[language].map((link) => (
         <Link key={link.href} href={link.href} className="card hover:border-brand-500">
-          <h2 className="font-semibold">{link.label}</h2>
-          <p className="mt-2 text-sm muted">{link.description}</p>
-          <span className="mt-4 inline-block text-sm font-semibold text-accent">
+          <h2 className={`font-semibold ${language === "ne" ? "devanagari-display" : ""}`} lang={language}>
+            {link.label}
+          </h2>
+          <p className={`mt-2 text-sm muted ${language === "ne" ? "devanagari-text" : ""}`} lang={language}>
+            {link.description}
+          </p>
+          <span
+            lang={language}
+            className={`mt-4 inline-block text-sm font-semibold text-accent ${language === "ne" ? "devanagari-text" : ""}`}
+          >
             {language === "ne" ? "खोल्नुहोस् →" : "Explore →"}
           </span>
         </Link>

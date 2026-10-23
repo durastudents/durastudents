@@ -69,7 +69,7 @@ export function LopaLanguageProvider({ children }: { children: ReactNode }) {
         style={{ background: "var(--card)", borderColor: "var(--line)", color: "var(--fg)" }}
         aria-label={language === "ne" ? "Switch interface language to English" : "नेपाली भाषामा बदल्नुहोस्"}
       >
-        {language === "ne" ? "English" : "नेपाली"}
+        {language === "ne" ? "English" : <span lang="ne" className="devanagari-text">नेपाली</span>}
       </button>
     </LanguageContext.Provider>
   );

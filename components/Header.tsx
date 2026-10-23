@@ -25,7 +25,7 @@ export default function Header() {
           <img src="/assets/logo.png" alt="" width={40} height={40} className="h-10 w-10 object-contain" />
           <span className="leading-tight">
             <span className="block text-sm font-bold">{site.name}</span>
-            <span className="block text-xs muted">{site.nameNe}</span>
+            <span lang="ne" className="devanagari-text block text-xs muted">{site.nameNe}</span>
           </span>
         </Link>
 

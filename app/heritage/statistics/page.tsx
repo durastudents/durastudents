@@ -22,7 +22,7 @@ export default function Statistics() {
           {statistics.map((s) => (
             <div key={s.key} className="card">
               <dt className="text-sm muted">
-                {s.labelEn} <span className="block text-xs">{s.labelNe}</span>
+                {s.labelEn} <span lang="ne" className="devanagari-text block text-xs">{s.labelNe}</span>
               </dt>
               <dd className="mt-3 text-4xl font-bold text-accent">
                 {s.value.toLocaleString("en-US")}
