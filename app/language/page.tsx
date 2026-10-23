@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PageHeader, { Container } from "@/components/PageHeader";
+import LopaOverviewLinks from "@/components/LopaOverviewLinks";
 import { site } from "@/data/site";
 import { contributors, features, language, screenshots } from "@/data/lopa";
 
@@ -22,9 +23,18 @@ export default function Language() {
         <div className="flex flex-wrap items-center gap-3">
           <a className="btn btn-primary" href={site.playStore}>Get it on Google Play</a>
           <a className="btn btn-ghost" href={site.appStore}>Download on the App Store</a>
-          <a className="btn btn-ghost" href={site.lopaWeb}>Open the web dictionary</a>
         </div>
         <p className="mt-3 text-xs muted">Language code (ISO 639-3): {language.iso}</p>
+      </Container>
+
+      <Container>
+        <h2 className="text-2xl font-bold">Explore Dura Lopa</h2>
+        <p className="mt-2 max-w-2xl text-sm muted">
+          Learn with the dictionary, example sentences, community language records and published materials.
+        </p>
+        <div className="mt-6">
+          <LopaOverviewLinks />
+        </div>
       </Container>
 
       <Container>

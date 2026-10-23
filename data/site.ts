@@ -12,8 +12,6 @@ export const site = {
   youtube: "https://www.youtube.com/@DuraStudentsSociety",
   playStore: "https://play.google.com/store/apps/details?id=org.durapetodss.duralopa",
   appStore: "https://apps.apple.com/np/app/dura-lopa/id6751883250",
-  // Dictionary web app (old: dura-lopa-web.onrender.com). Move to a subdomain.
-  lopaWeb: "https://dura-lopa-web.onrender.com",
 };
 
 export const nav = [

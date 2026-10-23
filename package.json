@@ -4,7 +4,10 @@
   "private": true,
   "description": "Dura Students Society and Dura Digital Heritage Project - durastudents.org.np",
   "scripts": {
+    "prepare:lopa-data": "node scripts/prepare-lopa-data.mjs",
+    "predev": "npm run prepare:lopa-data",
     "dev": "next dev",
+    "prebuild": "npm run prepare:lopa-data",
     "build": "next build",
     "start": "serve out",
     "lint": "eslint .",
