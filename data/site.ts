@@ -24,26 +24,60 @@ export const nav = [
   { href: "/contact/", label: "Contact" },
 ];
 
-export const programs = [
+export type ProgramIllustrationType =
+  | "language"
+  | "documentation"
+  | "gathering"
+  | "publications"
+  | "quiz";
+
+export const programs: {
+  number: string;
+  illustration: ProgramIllustrationType;
+  title: string;
+  body: string;
+  href: string;
+  linkLabel: string;
+}[] = [
   {
+    number: "01",
+    illustration: "language",
     title: "Language Classes",
-    body: "Classes for youth and elders, with teaching materials and basic literacy.",
+    body: "Learning sessions connect Dura youth and elders with teaching materials and the foundations of literacy. Continue learning with the Dura Lopa dictionary, sentences and audio.",
+    href: "/language/",
+    linkLabel: "Explore Dura Lopa",
   },
   {
+    number: "02",
+    illustration: "documentation",
     title: "Documentation",
-    body: "Oral histories, songs and vocabulary, and community archiving.",
+    body: "Oral histories, songs and vocabulary become part of a community archive, recorded and shared with attention to context, consent and the people who hold this knowledge.",
+    href: "/heritage/",
+    linkLabel: "Explore digital heritage",
   },
   {
+    number: "03",
+    illustration: "gathering",
     title: "Cultural Events",
-    body: "Festivals, performances, exhibitions and school outreach.",
+    body: "Festivals, performances, exhibitions and school outreach create occasions to gather and share Dura culture across generations.",
+    href: "/news/",
+    linkLabel: "See Society updates",
   },
   {
+    number: "04",
+    illustration: "publications",
     title: "Publications",
-    body: "Books, primers and digital resources for learners.",
+    body: "Books, primers and digital learning resources help learners explore the Dura language and community knowledge.",
+    href: "/resources/",
+    linkLabel: "Browse resources",
   },
   {
+    number: "05",
+    illustration: "quiz",
     title: "Inter-District Quiz Competition",
-    body: "A quiz programme that brings Dura students from different districts together.",
+    body: "Students representing districts come together for the annual Shree Khaje Dura Smriti Inter-District Quiz Contest—a day for learning, teamwork and friendly competition.",
+    href: "/programs/quiz/",
+    linkLabel: "Explore the quiz",
   },
 ];
 
