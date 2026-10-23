@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import PageHeader, { Container } from "@/components/PageHeader";
 import { committee } from "@/data/society";
 
@@ -19,21 +20,26 @@ export default function Team() {
       <Container>
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {committee.members.map((m) => (
-            <li key={m.name} className="card flex items-center gap-4">
-              <span
-                aria-hidden
-                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-100 text-lg font-bold text-brand-700"
-              >
-                {m.name[0]}
-              </span>
-              <span>
-                <span className="block font-semibold">{m.name}</span>
-                <span className="block text-sm muted">{m.role}</span>
-              </span>
+            <li key={m.name} className="card">
+              <Image
+                src={m.photo}
+                alt={m.name}
+                width={400}
+                height={460}
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                className="aspect-4/5 w-full rounded-xl object-cover"
+              />
+              <div className="mt-4">
+                <h2 className="font-semibold">{m.name}</h2>
+                <p className="text-sm muted">{m.role}</p>
+              </div>
             </li>
           ))}
         </ul>
-        <p className="mt-6 text-sm muted">Member photos can be added once the committee provides them.</p>
+        <p className="mt-6 text-sm muted">
+          Committee details and portraits are from the Society&apos;s archived website. Phone
+          numbers printed on the original member cards have been excluded.
+        </p>
       </Container>
     </>
   );

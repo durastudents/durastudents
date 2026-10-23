@@ -5,9 +5,9 @@ export const site = {
   nameNe: "दुरा विद्यार्थी समाज",
   tagline: "Our identity. Our language. Our heritage.",
   domain: "durastudents.org.np",
-  // Existing public address from the old Society site. Switch to a domain address when available.
+  // Society Central Office location.
   email: "durastudents@gmail.com",
-  location: "Lamjung, Gandaki, Nepal",
+  location: "Dura Sewa Samaj Building, Kathmandu, Nepal",
   facebook: "https://www.facebook.com/durastudents",
   youtube: "https://www.youtube.com/@DuraStudentsSociety",
   playStore: "https://play.google.com/store/apps/details?id=org.durapetodss.duralopa",

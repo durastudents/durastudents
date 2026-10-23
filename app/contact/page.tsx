@@ -76,6 +76,41 @@ export default function Contact() {
           </div>
         </section>
 
+        <section aria-labelledby="community-location" className="mt-12">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h2 id="community-location" className="text-2xl font-bold">
+                Dura Students Society Central Office
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm muted">
+                Located at the Dura Sewa Samaj Building, Kathmandu.
+              </p>
+            </div>
+            <a
+              className="font-semibold text-accent"
+              href="https://www.google.com/maps/search/?api=1&query=Dura+Sewa+Samaj+Building%2C+Kathmandu"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open in Google Maps →
+            </a>
+          </div>
+          <div
+            className="mt-5 overflow-hidden rounded-2xl border"
+            style={{ borderColor: "var(--line)" }}
+          >
+            <iframe
+              className="aspect-video w-full"
+              title="Map showing the Dura Students Society Central Office at Dura Sewa Samaj Building, Kathmandu"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d212.6886986783729!2d85.28952947560205!3d27.724014333469707!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1986c034e4a1%3A0x7160a593ab2c5dae!2sDura%20Sewa%20Samaj!5e1!3m2!1sen!2snp!4v1777217923112!5m2!1sen!2snp"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              sandbox="allow-scripts allow-same-origin allow-popups"
+              allowFullScreen
+            />
+          </div>
+        </section>
+
         <section aria-labelledby="contact-topics" className="mt-12">
           <h2 id="contact-topics" className="text-2xl font-bold">
             What would you like to discuss?
