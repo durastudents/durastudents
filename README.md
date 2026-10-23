@@ -28,6 +28,9 @@ Almost everything is data. Edit the file, open a pull request, and CI checks it.
 | Dura Lopa app details | `data/lopa.ts` |
 | Resource PDFs | put files in `public/docs/` and list them in `app/resources/page.tsx` |
 
+For the editor-mediated news submission and review process, see
+[Submitting news and stories](./docs/news-submission.md).
+
 `data/archive.ts` is checked at build time: a wrong identifier, a duplicate, missing
 consent or an image without alt text fails the build. Host large audio and video elsewhere
 and link to it; do not commit them here.
