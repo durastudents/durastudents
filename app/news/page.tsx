@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import PageHeader, { Container, Notice } from "@/components/PageHeader";
 import { news } from "@/data/news";
 import { site } from "@/data/site";
+import BrandIcon from "@/components/BrandIcon";
 
 export const metadata: Metadata = {
   title: "News",
@@ -16,7 +17,17 @@ export default function News() {
         {news.length === 0 ? (
           <Notice>
             No posts yet. Announcements and event reports will appear here. In the meantime,
-            follow us on <a href={site.facebook}>Facebook</a> or <a href={site.youtube}>YouTube</a>.
+            follow us on{" "}
+            <a className="inline-flex items-center gap-1" href={site.facebook}>
+              <BrandIcon name="facebook" />
+              Facebook
+            </a>{" "}
+            or{" "}
+            <a className="inline-flex items-center gap-1" href={site.youtube}>
+              <BrandIcon name="youtube" />
+              YouTube
+            </a>
+            .
           </Notice>
         ) : (
           <ul className="max-w-3xl space-y-6">

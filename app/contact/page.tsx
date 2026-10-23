@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader, { Container } from "@/components/PageHeader";
 import { site } from "@/data/site";
+import BrandIcon from "@/components/BrandIcon";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -70,8 +71,16 @@ export default function Contact() {
             <p className="mt-2 muted">{site.location}</p>
             <p className="mt-4 text-sm muted">
               Follow Society updates on{" "}
-              <a href={site.facebook}>Facebook</a> and{" "}
-              <a href={site.youtube}>YouTube</a>.
+              <a className="mx-1 inline-flex items-center gap-1" href={site.facebook}>
+                <BrandIcon name="facebook" />
+                Facebook
+              </a>{" "}
+              and{" "}
+              <a className="mx-1 inline-flex items-center gap-1" href={site.youtube}>
+                <BrandIcon name="youtube" />
+                YouTube
+              </a>
+              .
             </p>
           </div>
         </section>
@@ -87,11 +96,12 @@ export default function Contact() {
               </p>
             </div>
             <a
-              className="font-semibold text-accent"
+              className="inline-flex items-center gap-2 font-semibold text-accent"
               href="https://www.google.com/maps/search/?api=1&query=Dura+Sewa+Samaj+Building%2C+Kathmandu"
               target="_blank"
               rel="noopener noreferrer"
             >
+              <BrandIcon name="googlemaps" />
               Open in Google Maps →
             </a>
           </div>

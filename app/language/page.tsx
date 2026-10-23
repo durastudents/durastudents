@@ -3,6 +3,7 @@ import PageHeader, { Container } from "@/components/PageHeader";
 import LopaOverviewLinks from "@/components/LopaOverviewLinks";
 import { site } from "@/data/site";
 import { contributors, features, language, screenshots } from "@/data/lopa";
+import BrandIcon from "@/components/BrandIcon";
 
 export const metadata: Metadata = {
   title: "Dura Language · Dura Lopa",
@@ -21,8 +22,14 @@ export default function Language() {
 
       <Container>
         <div className="flex flex-wrap items-center gap-3">
-          <a className="btn btn-primary" href={site.playStore}>Get it on Google Play</a>
-          <a className="btn btn-ghost" href={site.appStore}>Download on the App Store</a>
+          <a className="btn btn-primary gap-2" href={site.playStore}>
+            <BrandIcon name="googleplay" />
+            Get it on Google Play
+          </a>
+          <a className="btn btn-ghost gap-2" href={site.appStore}>
+            <BrandIcon name="appstore" />
+            Download on the App Store
+          </a>
         </div>
         <p className="mt-3 text-xs muted">Language code (ISO 639-3): {language.iso}</p>
       </Container>

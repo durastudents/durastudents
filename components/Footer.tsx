@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { site } from "@/data/site";
+import BrandIcon from "@/components/BrandIcon";
 
 export default function Footer() {
   return (
@@ -54,10 +55,16 @@ export default function Footer() {
               <Link href="/contact/">Contact</Link>
             </li>
             <li>
-              <a href={site.facebook}>Facebook</a>
+              <a className="inline-flex items-center gap-2" href={site.facebook}>
+                <BrandIcon name="facebook" />
+                Facebook
+              </a>
             </li>
             <li>
-              <a href={site.youtube}>YouTube</a>
+              <a className="inline-flex items-center gap-2" href={site.youtube}>
+                <BrandIcon name="youtube" />
+                YouTube
+              </a>
             </li>
             <li>
               <Link href="/heritage/policy/">Rights & Consent</Link>
