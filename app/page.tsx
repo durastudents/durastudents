@@ -1,126 +1,193 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { collections, phases, targets, site } from "@/data/site";
+import { site } from "@/data/site";
+
+export const metadata: Metadata = {
+  title: {
+    absolute: "Dura Students Society | Dura language and community heritage",
+  },
+  description:
+    "Discover the Dura community, learn Dura Lopa and explore community heritage through Dura Students Society.",
+};
+
+const startingPoints = [
+  {
+    number: "01",
+    eyebrow: "Language",
+    title: "Learn Dura Lopa",
+    description:
+      "Explore the dictionary, example sentences, language resources and the Dura Lopa app.",
+    href: "/language/",
+    action: "Start learning",
+  },
+  {
+    number: "02",
+    eyebrow: "Heritage",
+    title: "Explore community heritage",
+    description:
+      "Find stories, people, places and community records in the Dura Digital Heritage Project.",
+    href: "/heritage/",
+    action: "Browse heritage",
+  },
+  {
+    number: "03",
+    eyebrow: "Society",
+    title: "Meet Dura Students Society",
+    description:
+      "Learn about the Society, its history, programs and current central committee.",
+    href: "/about/",
+    action: "About the Society",
+  },
+];
+
+const heritageLinks = [
+  { href: "/heritage/people/", title: "People", detail: "Community lives and stories" },
+  { href: "/heritage/places/", title: "Places", detail: "Dura locations and connections" },
+  { href: "/heritage/archive/", title: "Archive", detail: "Photographs, audio and documents" },
+];
 
 export default function Home() {
   return (
     <>
-      <section className="mx-auto max-w-6xl px-4 pb-16 pt-20">
-        <p className="eyebrow">Dura Indigenous Community · Nepal</p>
-        <h1 className="mt-3 max-w-4xl text-4xl font-bold leading-tight tracking-tight md:text-6xl md:leading-none">
-          Our identity. Our language. <span className="text-accent">Our heritage.</span>
-        </h1>
-        <p className="mt-6 max-w-2xl text-lg muted">
-          {site.name} connects Dura youth, strengthens community identity, preserves our
-          language and culture, and creates opportunities for the generations that come after us.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link href="/about/" className="btn btn-primary">Discover Dura</Link>
-          <Link href="/heritage/" className="btn btn-ghost">Explore our heritage</Link>
+      <section className="mx-auto grid max-w-6xl items-center gap-9 px-4 pb-12 pt-10 sm:pt-14 md:gap-12 md:pb-16 lg:grid-cols-[0.92fr_1.08fr] lg:pt-16">
+        <div>
+          <p className="eyebrow">Dura Indigenous Community · Nepal</p>
+          <h1 className="mt-3 max-w-2xl text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-[3.5rem]">
+            Dura language and heritage, carried forward together.
+          </h1>
+          <p className="mt-5 max-w-xl text-lg leading-relaxed muted">
+            {site.name} brings Dura students and youth together while supporting the language,
+            culture and knowledge shared across generations.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Link href="/language/" className="btn btn-primary">
+              Learn Dura Lopa
+            </Link>
+            <Link href="/heritage/" className="btn btn-ghost">
+              Explore Dura heritage
+            </Link>
+          </div>
         </div>
-      </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-4">
-        <figure>
+        <figure className="overflow-hidden rounded-2xl border" style={{ borderColor: "var(--line)" }}>
           <Image
             src="/images/hero.jpg"
-            alt="About thirty young Dura people in traditional red, green and checked dress pose together in a grassy field in front of terraced green hillsides at Handikhola, Lamjung, some kneeling in front and the rest standing in rows behind."
+            alt="Dura Students Society members gathered in traditional dress at Handikhola, Lamjung"
             width={1600}
             height={1066}
             priority
-            sizes="(min-width: 1152px) 1152px, 100vw"
-            className="aspect-3/2 w-full rounded-2xl border border-(--line) object-cover object-center"
+            sizes="(max-width: 1024px) 100vw, 55vw"
+            className="aspect-[4/3] w-full object-cover object-center"
           />
-          <figcaption className="mt-2 text-xs muted">
-            Dura Students Society members at the 32nd Anniversary of Dura Service Society, Handikhola, Lamjung. Photo: Dura Students Society archive.
+          <figcaption className="border-t px-4 py-3 text-xs leading-relaxed muted" style={{ borderColor: "var(--line)" }}>
+            Dura Students Society members at the 32nd Anniversary of Dura Service Society,
+            Handikhola, Lamjung. Photo: Society archive.
           </figcaption>
         </figure>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        <p className="eyebrow">Dura Digital Heritage Project</p>
-        <h2 className="mt-2 text-3xl font-bold">A living heritage, documented for the future.</h2>
-        <p className="mt-3 max-w-2xl muted">
-          Interconnected collections, rather than isolated pieces of information.
-        </p>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {collections.map((c) => {
-            const content = (
-              <>
-                <div className="flex items-start justify-between gap-3">
-                  <h3 className="font-semibold">{c.title}</h3>
-                  {c.href ? (
-                    <span aria-hidden="true" className="text-accent">↗</span>
-                  ) : (
-                    <span className="shrink-0 rounded-full border px-2 py-1 text-xs muted" style={{ borderColor: "var(--line)" }}>
-                      Coming soon
+      <section
+        aria-labelledby="start-here"
+        className="border-y"
+        style={{ borderColor: "var(--line)", backgroundColor: "var(--card)" }}
+      >
+        <div className="mx-auto max-w-6xl px-4 py-12 md:py-14">
+          <p className="eyebrow">Start here</p>
+          <h2 id="start-here" className="mt-2 text-2xl font-bold md:text-3xl">
+            What brings you to Dura Students Society?
+          </h2>
+          <ul className="mt-7 grid gap-0 md:grid-cols-3">
+            {startingPoints.map((point, index) => (
+              <li
+                key={point.number}
+                className={`py-5 md:px-6 md:py-2 ${index > 0 ? "border-t md:border-l md:border-t-0" : "md:pl-0"} ${index === startingPoints.length - 1 ? "md:pr-0" : ""}`}
+                style={{ borderColor: "var(--line)" }}
+              >
+                <p className="text-xs font-semibold uppercase tracking-widest text-accent">
+                  {point.number} · {point.eyebrow}
+                </p>
+                <h3 className="mt-3 text-xl font-semibold">{point.title}</h3>
+                <p className="mt-2 min-h-12 text-sm leading-relaxed muted">
+                  {point.description}
+                </p>
+                <Link
+                  href={point.href}
+                  className="mt-4 inline-flex items-center gap-2 font-semibold text-accent underline underline-offset-4"
+                >
+                  {point.action}
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section aria-labelledby="heritage-browse" className="mx-auto max-w-6xl px-4 py-12 md:py-16">
+        <div className="grid gap-6 md:grid-cols-[0.8fr_1.2fr] md:gap-12">
+          <div>
+            <p className="eyebrow">Dura Digital Heritage Project</p>
+            <h2 id="heritage-browse" className="mt-2 text-2xl font-bold md:text-3xl">
+              Knowledge is connected to people and place.
+            </h2>
+            <p className="mt-3 leading-relaxed muted">
+              Explore community heritage through records of people, places and shared
+              histories—cared for with attention to context, access and consent.
+            </p>
+            <Link href="/heritage/" className="mt-5 inline-flex items-center gap-2 font-semibold text-accent underline underline-offset-4">
+              About the heritage project <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+          <ul className="divide-y border-y" style={{ borderColor: "var(--line)" }}>
+            {heritageLinks.map((item, index) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="group flex items-center justify-between gap-4 py-4"
+                >
+                  <span className="flex items-baseline gap-4">
+                    <span className="text-xs font-semibold text-accent">0{index + 1}</span>
+                    <span>
+                      <span className="block font-semibold group-hover:text-accent">{item.title}</span>
+                      <span className="mt-1 block text-sm muted">{item.detail}</span>
                     </span>
-                  )}
-                </div>
-                <p className="mt-2 text-sm muted">{c.body}</p>
-                {c.href && <span className="mt-4 inline-block text-sm font-semibold text-accent">Explore collection →</span>}
-              </>
-            );
-
-            return c.href ? (
-              <Link key={c.slug} href={c.href} className="card hover:border-brand-500">
-                {content}
-              </Link>
-            ) : (
-              <div key={c.slug} className="card">
-                {content}
-              </div>
-            );
-          })}
+                  </span>
+                  <span className="text-lg text-accent" aria-hidden="true">↗</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        <div className="grid gap-4 md:grid-cols-3">
-          <Link href="/language/" className="card hover:border-brand-500">
-            <p className="eyebrow">Dura Lopa</p>
-            <p className="mt-2 font-semibold">Learn the Dura language</p>
-            <p className="mt-1 text-sm muted">App, dictionary, vocabulary, sentences and audio.</p>
-          </Link>
-          <Link href="/heritage/people/" className="card hover:border-brand-500">
-            <p className="eyebrow">Dura Peto</p>
-            <p className="mt-2 font-semibold">People, places and organizations</p>
-            <p className="mt-1 text-sm muted">The public face of Dura heritage.</p>
-          </Link>
-          <Link href="/heritage/places/" className="card hover:border-brand-500">
-            <p className="eyebrow">Dura Places</p>
-            <p className="mt-2 font-semibold">The heritage map</p>
-            <p className="mt-1 text-sm muted">Where Dura people live, in Nepal and abroad.</p>
-          </Link>
+      <section
+        aria-labelledby="take-part"
+        className="mx-auto max-w-6xl px-4 pb-14 md:pb-20"
+      >
+        <div
+          className="flex flex-col justify-between gap-5 rounded-2xl border p-6 sm:p-8 md:flex-row md:items-center md:gap-10"
+          style={{ borderColor: "var(--line)", backgroundColor: "var(--card)" }}
+        >
+          <div className="max-w-2xl">
+            <p className="eyebrow">Take part</p>
+            <h2 id="take-part" className="mt-2 text-2xl font-bold">
+              Help keep community knowledge connected.
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed muted">
+              Have a question, correction or material to share? Get in touch with the Society.
+              Heritage contributions are handled with care for community context and consent.
+            </p>
+          </div>
+          <div className="flex shrink-0 flex-wrap gap-3">
+            <Link href="/contact/" className="btn btn-primary">
+              Contact the Society
+            </Link>
+            <Link href="/heritage/policy/" className="btn btn-ghost">
+              Rights & consent
+            </Link>
+          </div>
         </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        <h2 className="text-2xl font-bold">Document. Preserve. Revitalize.</h2>
-        <ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {phases.map((p) => (
-            <li key={p.n} className="card">
-              <span className="text-sm font-bold text-accent">{p.n}</span>
-              <h3 className="mt-1 font-semibold">{p.title}</h3>
-              <p className="mt-1 text-sm muted">{p.body}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        <h2 className="text-2xl font-bold">Proposed archive targets</h2>
-        <p className="mt-2 text-sm muted">
-          These are planning targets from the project report, not completed archive totals.
-        </p>
-        <dl className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-5">
-          {targets.map((t) => (
-            <div key={t.label} className="card p-4!">
-              <dt className="text-xs muted">{t.label}</dt>
-              <dd className="mt-1 text-2xl font-bold text-accent">{t.value}</dd>
-            </div>
-          ))}
-        </dl>
       </section>
     </>
   );
