@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import PageHeader, { Container } from "@/components/PageHeader";
 import { organizations } from "@/data/site";
-import { history } from "@/data/society";
+import { committee, history } from "@/data/society";
 
 export const metadata: Metadata = {
   title: "About",
@@ -10,7 +11,36 @@ export const metadata: Metadata = {
     "Dura Students Society is a non-profit supporting the unity, education and development of Dura students and youth in Nepal.",
 };
 
+function CommitteeMemberCard({
+  member,
+}: {
+  member: (typeof committee.members)[number];
+}) {
+  return (
+    <li className="min-w-0">
+      <Image
+        src={member.photo}
+        alt={member.name}
+        width={400}
+        height={460}
+        sizes="(min-width: 1280px) 16vw, (min-width: 768px) 25vw, 45vw"
+        className="aspect-4/5 w-full rounded-xl object-cover"
+      />
+      <h4 className="mt-3 font-semibold">{member.name}</h4>
+      <p className="text-sm muted">{member.role}</p>
+    </li>
+  );
+}
+
 export default function About() {
+  const president = committee.members.find((member) => member.role === "President");
+  const executiveMembers = committee.members.filter(
+    (member) => member.role !== "President" && member.role !== "Committee Member",
+  );
+  const committeeMembers = committee.members.filter(
+    (member) => member.role === "Committee Member",
+  );
+
   return (
     <>
       <PageHeader
@@ -24,47 +54,119 @@ export default function About() {
             ["Unity & Support", "We connect Dura students to foster teamwork, friendship and mutual support."],
             ["Youth Participation", "We motivate Dura youth to take part in social, cultural and educational activities."],
             ["Growth & Learning", "We promote education, awareness, leadership and personal growth."],
-          ].map(([t, b]) => (
-            <div key={t} className="card">
-              <h2 className="font-semibold">{t}</h2>
-              <p className="mt-2 text-sm muted">{b}</p>
+          ].map(([title, body]) => (
+            <div key={title} className="card">
+              <h2 className="font-semibold">{title}</h2>
+              <p className="mt-2 text-sm muted">{body}</p>
             </div>
           ))}
         </div>
 
-        <h2 className="mt-14 text-2xl font-bold">Our history</h2>
-        <p className="mt-2 text-sm muted">Dates are in Bikram Sambat (BS).</p>
-        <ol className="mt-6 space-y-4 border-l-2 pl-6" style={{ borderColor: "var(--line)" }}>
-          {history.map((h) => (
-            <li key={h.year} className="relative">
-              <span className="absolute left-[-31px] top-1.5 h-3 w-3 rounded-full bg-brand-500" />
-              <p className="text-sm font-bold text-accent">
-                {h.year} · {h.place}
+        <section aria-labelledby="history-heading" className="mt-14">
+          <h2 id="history-heading" className="text-2xl font-bold">Our history</h2>
+          <p className="mt-2 text-sm muted">Dates are in Bikram Sambat (BS).</p>
+          <ol className="mt-6 space-y-4 border-l-2 pl-6" style={{ borderColor: "var(--line)" }}>
+            {history.map((item) => (
+              <li key={item.year} className="relative">
+                <span className="absolute left-[-31px] top-1.5 h-3 w-3 rounded-full bg-brand-500" />
+                <p className="text-sm font-bold text-accent">
+                  {item.year} · {item.place}
+                </p>
+                <p className="mt-1">{item.body}</p>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-6 text-sm muted">
+            The Society thanks the Dura community, its elders, and organizations including Dura
+            Sewa Samaj and Dura Mahila Samaj for their support.
+          </p>
+        </section>
+
+        <section aria-labelledby="organizations-heading" className="mt-14">
+          <h2 id="organizations-heading" className="text-2xl font-bold">
+            Community organizations
+          </h2>
+          <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {organizations.map((organization) => (
+              <li key={organization.name} className="card flex min-h-64 flex-col">
+                <div
+                  className="flex h-40 items-center justify-center rounded-xl p-4"
+                  style={{ backgroundColor: "var(--bg)" }}
+                >
+                  {organization.logo ? (
+                    <Image
+                      src={organization.logo}
+                      alt={`${organization.name} logo`}
+                      width={300}
+                      height={180}
+                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 40vw, 80vw"
+                      className="h-full w-full object-contain"
+                    />
+                  ) : (
+                    <p className="max-w-48 text-center text-sm muted">
+                      Organization logo not available
+                    </p>
+                  )}
+                </div>
+                <div className="mt-4">
+                  <h3 className="font-semibold">{organization.name}</h3>
+                  <p lang="ne" className="devanagari-text text-sm muted">
+                    {organization.ne}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section aria-labelledby="committee-heading" className="mt-16">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="eyebrow">Tenure {committee.tenure} · Bikram Sambat</p>
+              <h2 id="committee-heading" className="mt-2 text-2xl font-bold">
+                Central Committee
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm muted">
+                The elected committee brings together Society leadership and members to support
+                its work across the Dura community.
               </p>
-              <p className="mt-1">{h.body}</p>
-            </li>
-          ))}
-        </ol>
-        <p className="mt-6 text-sm muted">
-          The Society thanks the Dura community, its elders, and organizations including Dura Sewa
-          Samaj and Dura Mahila Samaj for their support.
-        </p>
+            </div>
+            <Link href="/team/" className="font-semibold text-accent">
+              Committee details →
+            </Link>
+          </div>
 
-        <h2 className="mt-14 text-2xl font-bold">Community organizations</h2>
-        <ul className="mt-4 grid gap-4 sm:grid-cols-3">
-          {organizations.map((o) => (
-            <li key={o.name} className="card">
-              <p className="font-semibold">{o.name}</p>
-              <p lang="ne" className="devanagari-text text-sm muted">{o.ne}</p>
-            </li>
-          ))}
-        </ul>
+          {president && (
+            <div className="mx-auto mt-8 max-w-xs">
+              <ul>
+                <CommitteeMemberCard member={president} />
+              </ul>
+            </div>
+          )}
 
-        <p className="mt-10">
-          <Link href="/team/" className="font-semibold text-accent">
-            Meet the current central committee →
-          </Link>
-        </p>
+          <h3 className="mt-10 border-b pb-3 text-lg font-semibold" style={{ borderColor: "var(--line)" }}>
+            Executive committee
+          </h3>
+          <ul className="mt-5 grid grid-cols-2 gap-x-4 gap-y-7 sm:grid-cols-4 sm:gap-6">
+            {executiveMembers.map((member) => (
+              <CommitteeMemberCard key={member.name} member={member} />
+            ))}
+          </ul>
+
+          <h3 className="mt-10 border-b pb-3 text-lg font-semibold" style={{ borderColor: "var(--line)" }}>
+            Committee members
+          </h3>
+          <ul className="mt-5 grid grid-cols-2 gap-x-4 gap-y-7 sm:grid-cols-3 lg:grid-cols-6 lg:gap-5">
+            {committeeMembers.map((member) => (
+              <CommitteeMemberCard key={member.name} member={member} />
+            ))}
+          </ul>
+
+          <p className="mt-6 text-xs muted">
+            Member portraits are from the Society&apos;s archived website. Personal phone numbers
+            shown on the original graphics are not included.
+          </p>
+        </section>
       </Container>
     </>
   );
