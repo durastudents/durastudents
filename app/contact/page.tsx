@@ -1,30 +1,126 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageHeader, { Container } from "@/components/PageHeader";
 import { site } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Contact Dura Students Society. Students, elders, researchers, storytellers and volunteers are welcome.",
+    "Contact Dura Students Society about its programs, volunteering, Dura language resources or the Dura Digital Heritage Project.",
 };
 
+const contactTopics = [
+  {
+    title: "Programs and general questions",
+    body: "Ask about the Society, upcoming activities, events or community initiatives.",
+    subject: "Programs and general inquiry",
+  },
+  {
+    title: "Volunteering and collaboration",
+    body: "Tell us about your skills, interest in volunteering or a possible collaboration.",
+    subject: "Volunteering and collaboration",
+  },
+  {
+    title: "Dura language resources",
+    body: "Share feedback, corrections or suggestions about Dura Lopa learning materials.",
+    subject: "Dura language resources",
+  },
+  {
+    title: "Heritage contributions and corrections",
+    body: "Suggest a story, place or person to document, or request a correction or removal.",
+    subject: "Heritage contribution or correction",
+  },
+];
+
 export default function Contact() {
+  const emailHref = (subject: string) =>
+    `mailto:${site.email}?subject=${encodeURIComponent(subject)}`;
+
   return (
     <>
-      <PageHeader eyebrow="Contact" title="Be part of the work." lead="Students, elders, researchers, storytellers, photographers, language learners and technology volunteers are all welcome." />
+      <PageHeader
+        eyebrow="Contact"
+        title="Let’s connect."
+        lead="Have a question, want to get involved, or have knowledge to share? Dura students, elders, researchers, storytellers, language learners and volunteers are welcome."
+      />
       <Container>
-        <div className="card max-w-xl">
-          <p><strong>Location:</strong> {site.location}</p>
-          {site.email ? (
-            <p className="mt-2"><strong>Email:</strong> <a href={`mailto:${site.email}`}>{site.email}</a></p>
-          ) : (
-            <p className="mt-2 text-sm muted">Official email address to be added.</p>
-          )}
-          <p className="mt-4 flex gap-4 text-sm">
-            <a className="text-accent" href={site.facebook}>Facebook</a>
-            <a className="text-accent" href={site.youtube}>YouTube</a>
+        <section
+          aria-labelledby="contact-details"
+          className="grid gap-4 md:grid-cols-2"
+        >
+          <div className="card">
+            <h2 id="contact-details" className="text-xl font-semibold">
+              Email the Society
+            </h2>
+            <p className="mt-2 text-sm muted">
+              Email is the best way to reach us. Choose a topic below to start a
+              message with a helpful subject line.
+            </p>
+            {site.email ? (
+              <p className="mt-4 break-all font-semibold">
+                <a href={emailHref("Contact Dura Students Society")}>{site.email}</a>
+              </p>
+            ) : (
+              <p className="mt-4 text-sm muted">Official email address to be added.</p>
+            )}
+          </div>
+
+          <div className="card">
+            <h2 className="text-xl font-semibold">Based in</h2>
+            <p className="mt-2 muted">{site.location}</p>
+            <p className="mt-4 text-sm muted">
+              Follow Society updates on{" "}
+              <a href={site.facebook}>Facebook</a> and{" "}
+              <a href={site.youtube}>YouTube</a>.
+            </p>
+          </div>
+        </section>
+
+        <section aria-labelledby="contact-topics" className="mt-12">
+          <h2 id="contact-topics" className="text-2xl font-bold">
+            What would you like to discuss?
+          </h2>
+          <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+            {contactTopics.map((topic) => (
+              <li key={topic.subject} className="card">
+                <h3 className="font-semibold">{topic.title}</h3>
+                <p className="mt-2 text-sm muted">{topic.body}</p>
+                {site.email ? (
+                  <a
+                    className="mt-4 inline-block font-semibold text-accent"
+                    href={emailHref(topic.subject)}
+                  >
+                    Email about this topic →
+                  </a>
+                ) : (
+                  <p className="mt-4 text-sm muted">Email contact details to be added.</p>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section aria-labelledby="committee-contact" className="card mt-8">
+          <h2 id="committee-contact" className="font-semibold">
+            Looking for the current committee?
+          </h2>
+          <p className="mt-2 text-sm muted">
+            Meet the Central Committee on our Team &amp; Governance page.
           </p>
-        </div>
+          <Link className="mt-4 inline-block font-semibold text-accent" href="/team/">
+            Meet the committee →
+          </Link>
+        </section>
+
+        <aside className="card mt-8">
+          <h2 className="font-semibold">Sharing heritage material</h2>
+          <p className="mt-2 text-sm muted">
+            Before sharing photographs, recordings or stories, make sure you have
+            permission to share them. Some cultural knowledge may be sensitive;
+            please ask before sending it. Read our{" "}
+            <Link href="/heritage/policy/">draft rights, consent and access guidance</Link>.
+          </p>
+        </aside>
       </Container>
     </>
   );
