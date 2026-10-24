@@ -23,7 +23,7 @@ export default function Places() {
         <PlacesExplorer places={places} />
         <div className="mt-6">
           <Notice>
-            <SiteText>Draft data: these six pins have not yet been verified by the community, so each is marked “Unknown”. Place names (गाउँको नाम), Dura names and meanings will be added as they are documented.</SiteText>
+            <SiteText>Draft data: these six pins have not yet been verified by the community, so each is marked “Unknown”. Place names, Dura names and meanings will be added as they are documented.</SiteText>
           </Notice>
         </div>
         <p className="mt-8 text-sm muted">

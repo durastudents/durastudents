@@ -175,8 +175,8 @@ const nepali: Record<string, string> = {
   "Map of Dura places": "दुरा स्थानहरूको नक्सा",
   "Places list": "स्थानहरूको सूची",
   "Filter places": "स्थानहरू छान्नुहोस्",
-  "Place names (गाउँको नाम), Dura names and meanings will be added as they are documented.":
-    "स्थानका नाम (गाउँको नाम), दुरा नाम र अर्थ अभिलेख तयार हुँदै जाँदा थपिनेछन्।",
+  "Place names, Dura names and meanings will be added as they are documented.":
+    "स्थानका नाम, दुरा नाम र अर्थ अभिलेख तयार हुँदै जाँदा थपिनेछन्।",
   "Total people": "कुल जनसङ्ख्या",
   "Sub-castes": "उपजाति",
   "Native speakers": "मातृभाषी वक्ता",
