@@ -27,7 +27,7 @@ Almost everything is data. Edit the file, open a pull request, and CI checks it.
 | Archive items (photos, audio, video, documents) | `data/archive.ts` |
 | News posts | `data/news.ts` |
 | Dura Lopa app details | `data/lopa.ts` |
-| Resource PDFs | put files in `public/docs/` and list them in `app/resources/page.tsx` |
+| Society resource PDFs | add verified resource metadata in `app/resources/page.tsx` and files under `public/docs/` only after confirming publication permission |
 
 For the editor-mediated news submission and review process, see
 [Submitting news and stories](./docs/news-submission.md).
