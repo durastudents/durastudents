@@ -113,7 +113,7 @@ export default function Home() {
                 </p>
                 <Link
                   href={point.href}
-                  className="mt-4 inline-flex items-center gap-2 font-semibold text-accent underline underline-offset-4"
+                  className="mt-4 inline-flex items-center gap-2 font-semibold text-accent hover:underline underline-offset-4"
                 >
                   {point.action}
                   <span aria-hidden="true">→</span>
@@ -135,7 +135,7 @@ export default function Home() {
               Explore community heritage through records of people, places and shared
               histories—cared for with attention to context, access and consent.
             </p>
-            <Link href="/heritage/" className="mt-5 inline-flex items-center gap-2 font-semibold text-accent underline underline-offset-4">
+            <Link href="/heritage/" className="mt-5 inline-flex items-center gap-2 font-semibold text-accent hover:underline underline-offset-4">
               About the heritage project <span aria-hidden="true">→</span>
             </Link>
           </div>

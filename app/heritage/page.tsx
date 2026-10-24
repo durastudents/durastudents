@@ -198,7 +198,7 @@ export default function Heritage() {
             </div>
             <Link
               href="/language/"
-              className="inline-flex shrink-0 items-center gap-2 font-semibold text-accent underline underline-offset-4"
+              className="inline-flex shrink-0 items-center gap-2 font-semibold text-accent hover:underline underline-offset-4"
             >
               Explore the language
               <span aria-hidden="true">→</span>
@@ -270,7 +270,7 @@ export default function Heritage() {
           </p>
           <Link
             href="/heritage/policy/"
-            className="inline-flex shrink-0 items-center gap-2 font-semibold text-accent underline underline-offset-4"
+            className="inline-flex shrink-0 items-center gap-2 font-semibold text-accent hover:underline underline-offset-4"
           >
             Read the draft policy
             <span aria-hidden="true">→</span>

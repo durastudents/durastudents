@@ -83,7 +83,7 @@ export default function Programs() {
                 <p className="mt-3 max-w-xl leading-relaxed muted">{program.body}</p>
                 <Link
                   href={program.href}
-                  className="mt-5 inline-flex items-center gap-2 font-semibold text-accent underline underline-offset-4"
+                  className="mt-5 inline-flex items-center gap-2 font-semibold text-accent hover:underline underline-offset-4"
                 >
                   {program.linkLabel}
                   <span aria-hidden="true">→</span>

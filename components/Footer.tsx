@@ -80,7 +80,7 @@ export default function Footer() {
           <p>
             © {new Date().getFullYear()} {site.name} · {site.domain}
           </p>
-          <a href="#main" className="w-fit underline underline-offset-4">
+          <a href="#main" className="w-fit hover:underline underline-offset-4">
             Back to top ↑
           </a>
         </div>

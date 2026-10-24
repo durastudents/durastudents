@@ -60,7 +60,7 @@ export default function News() {
                         {p.sources.map((source) => (
                           <li key={source.href}>
                             <a
-                              className="underline underline-offset-4"
+                              className="text-accent hover:underline underline-offset-4"
                               href={source.href}
                               target="_blank"
                               rel="noreferrer"

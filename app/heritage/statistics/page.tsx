@@ -41,7 +41,7 @@ export default function Statistics() {
               These figures come from the Dura Peto project data. Their source and year have not
               been recorded yet, so please treat them as provisional until each is cited. Note
               also that “5 organizations” is counted here, while three organizations are listed
-              on the <a className="underline" href="/heritage/organizations/">Organizations</a> page.
+              on the <a className="text-accent hover:underline" href="/heritage/organizations/">Organizations</a> page.
             </Notice>
           </div>
         )}

@@ -255,9 +255,9 @@ export default function LopaDictionary() {
             </div>
           )}
           <nav className="mt-4 grid gap-2 text-sm" aria-label={text.dictionaryLinks}>
-            <a lang={language} className={`text-accent underline underline-offset-4 ${localizedTextClass}`} href="/language/sentences/">{text.sentences}</a>
-            <a lang={language} className={`text-accent underline underline-offset-4 ${localizedTextClass}`} href="/language/sources/">{text.sources}</a>
-            <a lang={language} className={`text-accent underline underline-offset-4 ${localizedTextClass}`} href="/language/timelines/">{text.timelines}</a>
+            <a lang={language} className={`text-accent hover:underline underline-offset-4 ${localizedTextClass}`} href="/language/sentences/">{text.sentences}</a>
+            <a lang={language} className={`text-accent hover:underline underline-offset-4 ${localizedTextClass}`} href="/language/sources/">{text.sources}</a>
+            <a lang={language} className={`text-accent hover:underline underline-offset-4 ${localizedTextClass}`} href="/language/timelines/">{text.timelines}</a>
           </nav>
         </aside>
       </div>

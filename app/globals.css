@@ -115,10 +115,15 @@ main:focus {
   top: 0.75rem;
 }
 
-/* Links inside running text must not rely on colour alone. */
+/* Inline links stay clean by default and gain an underline on hover. */
 main p a:not(.btn),
-main li a:not(.btn):not(.heritage-card),
-footer li a {
+main li a:not(.btn):not(.heritage-card) {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+main p a:not(.btn):hover,
+main li a:not(.btn):not(.heritage-card):hover {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
