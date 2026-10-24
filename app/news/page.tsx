@@ -3,6 +3,7 @@ import PageHeader, { Container, Notice } from "@/components/PageHeader";
 import { news } from "@/data/news";
 import { site } from "@/data/site";
 import BrandIcon from "@/components/BrandIcon";
+import UnderConstructionNotice from "@/components/UnderConstructionNotice";
 
 export const metadata: Metadata = {
   title: "News",
@@ -18,6 +19,7 @@ export default function News() {
         lead="Announcements, event reports, and stories about Dura people, language, and heritage."
       />
       <Container>
+        <UnderConstructionNotice />
         {news.length === 0 ? (
           <Notice>
             No posts yet. Announcements and event reports will appear here. In the meantime,

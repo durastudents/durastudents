@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import HeritageIllustration from "@/components/HeritageIllustration";
+import UnderConstructionNotice from "@/components/UnderConstructionNotice";
 import { accessLevels, verification } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -100,6 +101,9 @@ function CollectionIcon({ name }: { name: (typeof collections)[number]["icon"] }
 export default function Heritage() {
   return (
     <div className="heritage-page">
+      <div className="mx-auto max-w-6xl px-4 pt-6">
+        <UnderConstructionNotice />
+      </div>
       <section
         aria-labelledby="heritage-title"
         className="mx-auto grid max-w-6xl items-center gap-8 px-4 pb-12 pt-10 sm:pt-14 md:gap-12 md:pb-16 lg:grid-cols-[1.05fr_0.95fr] lg:pt-16"

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/data/site";
+import { galleryItems } from "@/data/archive";
+import GalleryCard from "@/components/GalleryCard";
 
 export const metadata: Metadata = {
   title: {
@@ -158,6 +160,40 @@ export default function Home() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="community-moments"
+        className="border-y"
+        style={{ borderColor: "var(--line)", backgroundColor: "var(--card)" }}
+      >
+        <div className="mx-auto max-w-6xl px-4 py-12 md:py-14">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="eyebrow">Photos & videos</p>
+              <h2 id="community-moments" className="mt-2 text-2xl font-bold md:text-3xl">
+                Community moments.
+              </h2>
+              <p className="mt-2 max-w-2xl leading-relaxed muted">
+                Meet the people and moments that bring Dura Students Society together.
+              </p>
+            </div>
+            <Link href="/gallery/" className="font-semibold text-accent hover:underline underline-offset-4">
+              Visit the gallery <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+          {galleryItems.length > 0 ? (
+            <ul className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {galleryItems.slice(0, 3).map((item) => (
+                <GalleryCard key={item.id} item={item} />
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-6 text-sm muted">
+              Approved community photos and videos will appear here as they are reviewed and added.
+            </p>
+          )}
         </div>
       </section>
 
