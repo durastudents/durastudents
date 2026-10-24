@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader, { Container, Notice } from "@/components/PageHeader";
+import UnderConstructionNotice from "@/components/UnderConstructionNotice";
 
 export const metadata: Metadata = {
   title: "Resources and publications",
@@ -76,6 +77,7 @@ export default function Resources() {
         lead="Find approved Society documents, reports and publications. Dura language books and learning materials are available in the Dura Lopa collection."
       />
       <Container>
+        <UnderConstructionNotice />
         {populatedCategories.length === 0 ? (
           <Notice>
             No Society documents are available here yet. We will add resources

@@ -66,6 +66,15 @@ export default async function ArchiveItemPage({ params }: { params: Promise<Para
                 </figure>
               );
             }
+            if (f.type === "link") {
+              return (
+                <p key={f.src}>
+                  <a className="btn btn-ghost" href={f.src} target="_blank" rel="noreferrer">
+                    {label}
+                  </a>
+                </p>
+              );
+            }
             return (
               <p key={f.src}>
                 <a className="btn btn-ghost" href={f.src}>Open {label} (PDF)</a>
