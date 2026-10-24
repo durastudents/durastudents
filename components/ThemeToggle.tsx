@@ -1,6 +1,8 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { useSiteLanguage } from "@/components/SiteLanguageProvider";
+import { translateSiteText } from "@/components/SiteText";
 
 type Theme = "light" | "dark";
 
@@ -26,6 +28,7 @@ function subscribe(onChange: () => void) {
 export default function ThemeToggle() {
   // null on the server and during hydration, so server and first client render match.
   const theme = useSyncExternalStore<Theme | null>(subscribe, current, () => null);
+  const language = useSiteLanguage();
 
   function toggle() {
     const next: Theme = current() === "dark" ? "light" : "dark";
@@ -44,8 +47,8 @@ export default function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-pressed={theme === null ? undefined : dark}
-      aria-label="Dark mode"
-      title={dark ? "Switch to light mode" : "Switch to dark mode"}
+      aria-label={translateSiteText(language, "Dark mode")}
+      title={translateSiteText(language, dark ? "Switch to light mode" : "Switch to dark mode")}
       className="btn btn-ghost px-3!"
     >
       <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

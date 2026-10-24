@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useLopaLanguage } from "@/components/LopaLanguageProvider";
+import { useSiteLanguage } from "@/components/SiteLanguageProvider";
 
 const links = {
   en: [
@@ -19,7 +19,7 @@ const links = {
 };
 
 export default function LopaOverviewLinks() {
-  const language = useLopaLanguage();
+  const language = useSiteLanguage();
   return (
     <div className="grid gap-4 sm:grid-cols-2">
       {links[language].map((link) => (

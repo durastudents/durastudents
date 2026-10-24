@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { LopaSentence } from "@/data/lopa/types";
-import { useLopaLanguage } from "@/components/LopaLanguageProvider";
+import { useSiteLanguage } from "@/components/SiteLanguageProvider";
 
 const copy = {
   en: {
@@ -24,7 +24,7 @@ function normalize(value: string) {
 }
 
 export default function LopaSentencesExplorer({ sentences }: { sentences: LopaSentence[] }) {
-  const language = useLopaLanguage();
+  const language = useSiteLanguage();
   const text = copy[language];
   const [query, setQuery] = useState("");
   const results = useMemo(() => {

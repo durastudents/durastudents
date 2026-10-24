@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import PageHeader, { Container, Notice } from "@/components/PageHeader";
 import PlacesExplorer from "@/components/PlacesExplorer";
 import { places } from "@/data/places";
+import SiteText from "@/components/SiteText";
 
 export const metadata: Metadata = {
   title: "Dura Places",
@@ -22,13 +23,11 @@ export default function Places() {
         <PlacesExplorer places={places} />
         <div className="mt-6">
           <Notice>
-            Draft data: these six pins have not yet been verified by the community, so each is
-            marked “Unknown”. Place names (<span lang="ne" className="devanagari-text">गाउँको नाम</span>), Dura names and meanings will be added as
-            they are documented.
+            <SiteText>Draft data: these six pins have not yet been verified by the community, so each is marked “Unknown”. Place names (गाउँको नाम), Dura names and meanings will be added as they are documented.</SiteText>
           </Notice>
         </div>
         <p className="mt-8 text-sm muted">
-          How we handle consent and access: <Link className="text-accent" href="/heritage/policy/">Rights, consent and access</Link>.
+          <SiteText>How we handle consent and access:</SiteText> <Link className="text-accent" href="/heritage/policy/"><SiteText>Rights, consent and access</SiteText></Link>.
         </p>
       </Container>
     </>

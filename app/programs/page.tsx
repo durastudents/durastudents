@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { programs } from "@/data/site";
 import ProgramIllustration from "@/components/ProgramIllustration";
+import SiteText from "@/components/SiteText";
 
 export const metadata: Metadata = {
   title: "Programs",
@@ -17,20 +18,19 @@ export default function Programs() {
     <>
       <section className="mx-auto grid max-w-6xl items-center gap-8 px-4 pb-10 pt-12 md:gap-12 md:pb-14 md:pt-16 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
-          <p className="eyebrow">Dura Students Society · Programs</p>
+          <p className="eyebrow"><SiteText>Dura Students Society · Programs</SiteText></p>
           <h1 className="mt-3 max-w-xl text-4xl font-bold leading-tight tracking-tight md:text-5xl">
-            We learn by doing it together.
+            <SiteText>We learn by doing it together.</SiteText>
           </h1>
           <p className="mt-5 max-w-xl text-lg muted">
-            Language, shared stories, community gatherings and learning resources give Dura
-            students and families ways to carry knowledge forward.
+            <SiteText>Language, shared stories, community gatherings and learning resources give Dura students and families ways to carry knowledge forward.</SiteText>
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <a href="#program-list" className="btn btn-primary">
-              Explore our programs
+              <SiteText>Explore our programs</SiteText>
             </a>
             <Link href="/contact/" className="btn btn-ghost">
-              Get in touch
+              <SiteText>Get in touch</SiteText>
             </Link>
           </div>
         </div>
@@ -57,9 +57,9 @@ export default function Programs() {
         className="mx-auto max-w-6xl scroll-mt-24 px-4 pb-16 pt-4 md:pb-20"
       >
         <div className="max-w-2xl pb-3">
-          <p className="eyebrow">Learning, culture and community</p>
+          <p className="eyebrow"><SiteText>Learning, culture and community</SiteText></p>
           <h2 id="program-list-heading" className="mt-2 text-2xl font-bold md:text-3xl">
-            Ways we bring people together
+            <SiteText>Ways we bring people together</SiteText>
           </h2>
         </div>
 
@@ -77,15 +77,15 @@ export default function Programs() {
               </div>
               <div className={index % 2 === 1 ? "md:order-1" : ""}>
                 <p className="text-xs font-semibold uppercase tracking-widest text-accent">
-                  {program.number} <span className="mx-1 muted" aria-hidden="true">/</span> Program
+                  {program.number} <span className="mx-1 muted" aria-hidden="true">/</span> <SiteText>Program</SiteText>
                 </p>
-                <h3 className="mt-3 text-2xl font-bold tracking-tight">{program.title}</h3>
-                <p className="mt-3 max-w-xl leading-relaxed muted">{program.body}</p>
+                <h3 className="mt-3 text-2xl font-bold tracking-tight"><SiteText>{program.title}</SiteText></h3>
+                <p className="mt-3 max-w-xl leading-relaxed muted"><SiteText>{program.body}</SiteText></p>
                 <Link
                   href={program.href}
                   className="mt-5 inline-flex items-center gap-2 font-semibold text-accent hover:underline underline-offset-4"
                 >
-                  {program.linkLabel}
+                  <SiteText>{program.linkLabel}</SiteText>
                   <span aria-hidden="true">→</span>
                 </Link>
               </div>
@@ -95,13 +95,13 @@ export default function Programs() {
 
         <div className="mt-12 flex flex-col justify-between gap-5 border-l-4 border-brand-600 pl-5 sm:flex-row sm:items-center sm:gap-8">
           <div>
-            <h2 className="text-xl font-bold">Have an idea or want to take part?</h2>
+            <h2 className="text-xl font-bold"><SiteText>Have an idea or want to take part?</SiteText></h2>
             <p className="mt-1 text-sm muted">
-              Get in touch with the Society to ask about programs and ways to contribute.
+              <SiteText>Get in touch with the Society to ask about programs and ways to contribute.</SiteText>
             </p>
           </div>
           <Link href="/contact/" className="btn btn-primary w-fit shrink-0">
-            Contact the Society
+            <SiteText>Contact the Society</SiteText>
           </Link>
         </div>
       </section>

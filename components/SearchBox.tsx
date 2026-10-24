@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useSiteLanguage } from "@/components/SiteLanguageProvider";
+import { translateSiteText } from "@/components/SiteText";
 
 declare global {
   interface Window {
@@ -13,46 +15,63 @@ declare global {
 export default function SearchBox() {
   const host = useRef<HTMLDivElement>(null);
   const [failed, setFailed] = useState(false);
+  const language = useSiteLanguage();
+  const text = useCallback((value: string) => translateSiteText(language, value), [language]);
 
   useEffect(() => {
+    const hostElement = host.current;
+    hostElement?.replaceChildren();
     const css = document.createElement("link");
     css.rel = "stylesheet";
     css.href = "/pagefind/pagefind-ui.css";
+    css.dataset.pagefindUi = "true";
     document.head.appendChild(css);
 
-    const script = document.createElement("script");
-    script.src = "/pagefind/pagefind-ui.js";
-    script.onload = () => {
-      if (!host.current || !window.PagefindUI) return setFailed(true);
+    const initialize = () => {
+      if (!hostElement || !window.PagefindUI) return setFailed(true);
       new window.PagefindUI({
-        element: host.current,
+        element: hostElement,
         showSubResults: true,
         showImages: false,
         resetStyles: false,
         autofocus: true,
+        translations: language === "ne"
+          ? {
+              placeholder: "पृष्ठ खोज्नुहोस्",
+              zero_results: "[SEARCH_TERM] का लागि कुनै नतिजा भेटिएन",
+              many_results: "[COUNT] नतिजा [SEARCH_TERM] का लागि",
+              one_result: "[COUNT] नतिजा [SEARCH_TERM] का लागि",
+              alt_search: "[SEARCH_TERM] का लागि [COUNT] पृष्ठमा खोज्नुहोस्",
+              searching: "खोज्दैछ…",
+              clear_search: "खोजी हटाउनुहोस्",
+              load_more: "थप नतिजा देखाउनुहोस्",
+            }
+          : undefined,
       });
-      // Pagefind's input only has a placeholder; give it a real accessible name.
-      const label = () =>
-        host.current?.querySelector("input")?.setAttribute("aria-label", "Search the site");
+      const label = () => hostElement.querySelector("input")?.setAttribute("aria-label", text("Search the site"));
       label();
       requestAnimationFrame(label);
     };
+
+    const script = document.createElement("script");
+    script.src = "/pagefind/pagefind-ui.js";
+    script.onload = initialize;
     script.onerror = () => setFailed(true);
     document.body.appendChild(script);
 
     return () => {
       css.remove();
       script.remove();
+      hostElement?.replaceChildren();
     };
-  }, []);
+  }, [language, text]);
 
   return (
     <>
       <div ref={host} />
       {failed && (
         <p className="text-sm muted" role="status">
-          Search is only available on the published site. Run <code>npm run build</code> and{" "}
-          <code>npm start</code> to try it locally.
+          {text("Search is only available on the published site. Run npm run build and npm start to try it locally.")}
         </p>
       )}
     </>
