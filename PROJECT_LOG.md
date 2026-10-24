@@ -26,7 +26,7 @@ Newest entries go at the bottom of the timeline; keep the "Open items" section c
 | Dependency upgrades (Tailwind 4, TypeScript 7, ESLint 10, Actions) and hero photo | Merged 2026-10-22 (PRs #33–#43) |
 | Dura Lopa web dictionary, sentences, timelines, books inside the site | Built 2026-10-23; live under `/language/` |
 | Design pass (home, about, contact, programs, heritage, footer, nav, news) | Done 2026-10-23 to 2026-10-24 |
-| Nepali typography (Tiro Devanagari Hindi, Teko) with a build-time check | Branch `nepali-typography-lopa-retire`, waiting for review |
+| Nepali typography (Tiro Devanagari Hindi, Teko) with a build-time check | PR #44 (branch `nepali-typography-lopa-retire`), waiting for review |
 | Legacy `dura-lopa-web` redirect | Patch prepared, not applied (no write access to that repo) |
 | Branch protection on `main` | Not enabled; GitHub API write was refused from the working session, so it needs a manual change |
 
@@ -253,7 +253,7 @@ Newest entries go at the bottom of the timeline; keep the "Open items" section c
 
 ### 2026-10-24 — Nepali typography check, legacy redirect, branch protection *(repo)*
 
-**Nepali typography** (branch `nepali-typography-lopa-retire`)
+**Nepali typography** (PR #44, branch `nepali-typography-lopa-retire`)
 
 - Audited the built site: 26 pages, 83 Devanagari text nodes not tagged with a language. 80 were Dura sentences already tagged `lang="drq"` with the font class (counted only because the audit first looked for `ne`); three were the Dura organization names on `/heritage/organizations/`, which had no font. Those three now carry `lang="ne"` and `devanagari-text`.
 - `app/globals.css`: `:lang(ne)` and `:lang(drq)` now apply the Devanagari reading font, so tagged text is covered even if the helper class is forgotten.
