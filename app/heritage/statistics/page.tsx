@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHeader, { Container, Notice } from "@/components/PageHeader";
 import { statistics } from "@/data/statistics";
+import SiteText, { BilingualSiteText } from "@/components/SiteText";
 
 export const metadata: Metadata = {
   title: "Dura Statistics",
@@ -22,7 +23,7 @@ export default function Statistics() {
           {statistics.map((s) => (
             <div key={s.key} className="card">
               <dt className="text-sm muted">
-                {s.labelEn} <span lang="ne" className="devanagari-text block text-xs">{s.labelNe}</span>
+                <BilingualSiteText english={s.labelEn} nepali={s.labelNe} />
               </dt>
               <dd className="mt-3 text-4xl font-bold text-accent">
                 {s.value.toLocaleString("en-US")}
@@ -38,10 +39,7 @@ export default function Statistics() {
         {unsourced && (
           <div className="mt-6">
             <Notice>
-              These figures come from the Dura Peto project data. Their source and year have not
-              been recorded yet, so please treat them as provisional until each is cited. Note
-              also that “5 organizations” is counted here, while three organizations are listed
-              on the <a className="text-accent hover:underline" href="/heritage/organizations/">Organizations</a> page.
+              <SiteText>These figures come from the Dura Peto project data. Their source and year have not been recorded yet, so please treat them as provisional until each is cited. Note also that “5 organizations” is counted here, while three organizations are listed on the</SiteText> <a className="text-accent hover:underline" href="/heritage/organizations/"><SiteText>Organizations</SiteText></a> <SiteText>page.</SiteText>
             </Notice>
           </div>
         )}

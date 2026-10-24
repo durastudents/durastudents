@@ -3,6 +3,7 @@ import Link from "next/link";
 import HeritageIllustration from "@/components/HeritageIllustration";
 import UnderConstructionNotice from "@/components/UnderConstructionNotice";
 import { accessLevels, verification } from "@/data/site";
+import SiteText from "@/components/SiteText";
 
 export const metadata: Metadata = {
   title: "Dura Digital Heritage Project",
@@ -109,28 +110,27 @@ export default function Heritage() {
         className="mx-auto grid max-w-6xl items-center gap-8 px-4 pb-12 pt-10 sm:pt-14 md:gap-12 md:pb-16 lg:grid-cols-[1.05fr_0.95fr] lg:pt-16"
       >
         <div>
-          <p className="eyebrow">Dura Digital Heritage Project</p>
+          <p className="eyebrow"><SiteText>Dura Digital Heritage Project</SiteText></p>
           <h1
             id="heritage-title"
             className="mt-3 max-w-2xl text-4xl font-bold leading-tight tracking-tight md:text-5xl"
           >
-            Discover the heritage we carry together.
+            <SiteText>Discover the heritage we carry together.</SiteText>
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed muted">
-            Explore Dura people, places, organizations and community records—documented with
-            care for the knowledge, context and rights of the Dura community.
+            <SiteText>Explore Dura people, places, organizations and community records—documented with care for the knowledge, context and rights of the Dura community.</SiteText>
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <a href="#collections" className="btn btn-primary">
-              Explore collections
+              <SiteText>Explore collections</SiteText>
             </a>
             <Link href="/heritage/policy/" className="btn btn-ghost">
-              Rights &amp; consent
+              <SiteText>Rights &amp; consent</SiteText>
             </Link>
           </div>
           <p className="mt-5 flex items-center gap-2 text-sm muted">
             <span aria-hidden="true" className="heritage-status-dot" />
-            The digital archive is in its foundation phase; no items are published yet.
+            <SiteText>The digital archive is in its foundation phase; no items are published yet.</SiteText>
           </p>
         </div>
         <HeritageIllustration />
@@ -143,13 +143,12 @@ export default function Heritage() {
       >
         <div className="mx-auto max-w-6xl px-4 py-12 md:py-14">
           <div className="max-w-2xl">
-            <p className="eyebrow">Explore the project</p>
+            <p className="eyebrow"><SiteText>Explore the project</SiteText></p>
             <h2 id="collections-title" className="mt-2 text-2xl font-bold md:text-3xl">
-              Heritage is connected to people and place.
+              <SiteText>Heritage is connected to people and place.</SiteText>
             </h2>
             <p className="mt-3 leading-relaxed muted">
-              Choose a collection to learn what is documented and how each part of Dura
-              heritage is being brought together.
+              <SiteText>Choose a collection to learn what is documented and how each part of Dura heritage is being brought together.</SiteText>
             </p>
           </div>
 
@@ -164,12 +163,12 @@ export default function Heritage() {
                     <CollectionIcon name={collection.icon} />
                   </span>
                   <span className="flex items-center justify-between gap-4">
-                    <span className="text-lg font-semibold">{collection.title}</span>
+                    <span className="text-lg font-semibold"><SiteText>{collection.title}</SiteText></span>
                     <span className="heritage-card-arrow text-lg" aria-hidden="true">
                       ↗
                     </span>
                   </span>
-                  <span className="mt-2 text-sm leading-relaxed muted">{collection.body}</span>
+                  <span className="mt-2 text-sm leading-relaxed muted"><SiteText>{collection.body}</SiteText></span>
                 </Link>
               </li>
             ))}
@@ -193,10 +192,10 @@ export default function Heritage() {
                 </svg>
               </span>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-widest">Related learning</p>
-                <h3 className="mt-1 text-lg font-semibold">Learn Dura Lopa</h3>
+                <p className="text-xs font-semibold uppercase tracking-widest"><SiteText>Related learning</SiteText></p>
+                <h3 className="mt-1 text-lg font-semibold"><SiteText>Learn Dura Lopa</SiteText></h3>
                 <p className="mt-1 text-sm leading-relaxed muted">
-                  Browse the dictionary, example sentences and language learning resources.
+                  <SiteText>Browse the dictionary, example sentences and language learning resources.</SiteText>
                 </p>
               </div>
             </div>
@@ -204,7 +203,7 @@ export default function Heritage() {
               href="/language/"
               className="inline-flex shrink-0 items-center gap-2 font-semibold text-accent hover:underline underline-offset-4"
             >
-              Explore the language
+              <SiteText>Explore the language</SiteText>
               <span aria-hidden="true">→</span>
             </Link>
           </div>
@@ -216,13 +215,12 @@ export default function Heritage() {
         className="mx-auto max-w-6xl px-4 py-12 md:py-16"
       >
         <div className="max-w-2xl">
-          <p className="eyebrow">Care, consent &amp; context</p>
+          <p className="eyebrow"><SiteText>Care, consent &amp; context</SiteText></p>
           <h2 id="care-title" className="mt-2 text-2xl font-bold md:text-3xl">
-            Sharing heritage responsibly.
+            <SiteText>Sharing heritage responsibly.</SiteText>
           </h2>
           <p className="mt-3 leading-relaxed muted">
-            Not everything should be public, and not every account is an independently
-            verified fact. These proposed labels help explain access and context.
+            <SiteText>Not everything should be public, and not every account is an independently verified fact. These proposed labels help explain access and context.</SiteText>
           </p>
         </div>
 
@@ -230,20 +228,20 @@ export default function Heritage() {
           <section className="heritage-guidance heritage-guidance--access rounded-2xl border p-5 sm:p-6">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <h3 className="text-xl font-bold">Access levels</h3>
+                <h3 className="text-xl font-bold"><SiteText>Access levels</SiteText></h3>
                 <p className="mt-1 text-sm leading-relaxed muted">
-                  Who can view heritage material.
+                  <SiteText>Who can view heritage material.</SiteText>
                 </p>
               </div>
               <span className="heritage-draft-badge rounded-full px-3 py-1 text-xs font-semibold">
-                Proposed
+                <SiteText>Proposed</SiteText>
               </span>
             </div>
             <ul className="mt-5 grid list-none gap-3 p-0 sm:grid-cols-2">
               {accessLevels.map((level) => (
                 <li key={level.name} className="heritage-guidance-item rounded-xl p-3">
-                  <p className="font-semibold">{level.name}</p>
-                  <p className="mt-1 text-sm leading-relaxed muted">{level.body}</p>
+                  <p className="font-semibold"><SiteText>{level.name}</SiteText></p>
+                  <p className="mt-1 text-sm leading-relaxed muted"><SiteText>{level.body}</SiteText></p>
                 </li>
               ))}
             </ul>
@@ -251,16 +249,16 @@ export default function Heritage() {
 
           <section className="heritage-guidance heritage-guidance--verification rounded-2xl border p-5 sm:p-6">
             <div>
-              <h3 className="text-xl font-bold">Verification labels</h3>
+              <h3 className="text-xl font-bold"><SiteText>Verification labels</SiteText></h3>
               <p className="mt-1 text-sm leading-relaxed muted">
-                How readers can understand a recorded account.
+                <SiteText>How readers can understand a recorded account.</SiteText>
               </p>
             </div>
             <ul className="mt-5 grid list-none gap-3 p-0 sm:grid-cols-2">
               {verification.map((status) => (
                 <li key={status.name} className="heritage-guidance-item rounded-xl p-3">
-                  <p className="font-semibold">{status.name}</p>
-                  <p className="mt-1 text-sm leading-relaxed muted">{status.body}</p>
+                  <p className="font-semibold"><SiteText>{status.name}</SiteText></p>
+                  <p className="mt-1 text-sm leading-relaxed muted"><SiteText>{status.body}</SiteText></p>
                 </li>
               ))}
             </ul>
@@ -269,14 +267,13 @@ export default function Heritage() {
 
         <div className="heritage-policy-note mt-5 flex flex-col gap-3 rounded-xl border p-4 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm leading-relaxed">
-            <strong>Policy status:</strong> the Rights, Consent and Access policy is a draft
-            pending committee and cultural reviewer approval.
+            <strong><SiteText>Policy status:</SiteText></strong> <SiteText>the Rights, Consent and Access policy is a draft pending committee and cultural reviewer approval.</SiteText>
           </p>
           <Link
             href="/heritage/policy/"
             className="inline-flex shrink-0 items-center gap-2 font-semibold text-accent hover:underline underline-offset-4"
           >
-            Read the draft policy
+            <SiteText>Read the draft policy</SiteText>
             <span aria-hidden="true">→</span>
           </Link>
         </div>

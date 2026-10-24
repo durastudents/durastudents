@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import PageHeader, { Container } from "@/components/PageHeader";
 import { committee } from "@/data/society";
+import SiteText from "@/components/SiteText";
 
 export const metadata: Metadata = {
   title: "Team & Governance",
@@ -31,14 +32,13 @@ export default function Team() {
               />
               <div className="mt-4">
                 <h2 className="font-semibold">{m.name}</h2>
-                <p className="text-sm muted">{m.role}</p>
+                <p className="text-sm muted"><SiteText>{m.role}</SiteText></p>
               </div>
             </li>
           ))}
         </ul>
         <p className="mt-6 text-sm muted">
-          Committee details and portraits are from the Society&apos;s archived website. Phone
-          numbers printed on the original member cards have been excluded.
+          <SiteText>Committee details and portraits are from the Society&apos;s archived website. Phone numbers printed on the original member cards have been excluded.</SiteText>
         </p>
       </Container>
     </>

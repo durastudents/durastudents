@@ -3,6 +3,7 @@ import Link from "next/link";
 import PageHeader, { Container } from "@/components/PageHeader";
 import { site } from "@/data/site";
 import BrandIcon from "@/components/BrandIcon";
+import SiteText from "@/components/SiteText";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -51,26 +52,25 @@ export default function Contact() {
         >
           <div className="card">
             <h2 id="contact-details" className="text-xl font-semibold">
-              Email the Society
+              <SiteText>Email the Society</SiteText>
             </h2>
             <p className="mt-2 text-sm muted">
-              Email is the best way to reach us. Choose a topic below to start a
-              message with a helpful subject line.
+              <SiteText>Email is the best way to reach us. Choose a topic below to start a message with a helpful subject line.</SiteText>
             </p>
             {site.email ? (
               <p className="mt-4 break-all font-semibold">
                 <a href={emailHref("Contact Dura Students Society")}>{site.email}</a>
               </p>
             ) : (
-              <p className="mt-4 text-sm muted">Official email address to be added.</p>
+              <p className="mt-4 text-sm muted"><SiteText>Official email address to be added.</SiteText></p>
             )}
           </div>
 
           <div className="card">
-            <h2 className="text-xl font-semibold">Based in</h2>
+            <h2 className="text-xl font-semibold"><SiteText>Based in</SiteText></h2>
             <p className="mt-2 muted">{site.location}</p>
             <p className="mt-4 text-sm muted">
-              Follow Society updates on{" "}
+              <SiteText>Follow Society updates on</SiteText>{" "}
               <a className="mx-1 inline-flex items-center gap-1" href={site.facebook}>
                 <BrandIcon name="facebook" />
                 Facebook
@@ -89,10 +89,10 @@ export default function Contact() {
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <h2 id="community-location" className="text-2xl font-bold">
-                Dura Students Society Central Office
+                <SiteText>Dura Students Society Central Office</SiteText>
               </h2>
               <p className="mt-2 max-w-2xl text-sm muted">
-                Located at the Dura Sewa Samaj Building, Kathmandu.
+                <SiteText>Located at the Dura Sewa Samaj Building, Kathmandu.</SiteText>
               </p>
             </div>
             <a
@@ -102,7 +102,7 @@ export default function Contact() {
               rel="noopener noreferrer"
             >
               <BrandIcon name="googlemaps" />
-              Open in Google Maps →
+              <SiteText>Open in Google Maps →</SiteText>
             </a>
           </div>
           <div
@@ -123,22 +123,22 @@ export default function Contact() {
 
         <section aria-labelledby="contact-topics" className="mt-12">
           <h2 id="contact-topics" className="text-2xl font-bold">
-            What would you like to discuss?
+            <SiteText>What would you like to discuss?</SiteText>
           </h2>
           <ul className="mt-5 grid gap-4 sm:grid-cols-2">
             {contactTopics.map((topic) => (
               <li key={topic.subject} className="card">
-                <h3 className="font-semibold">{topic.title}</h3>
-                <p className="mt-2 text-sm muted">{topic.body}</p>
+                <h3 className="font-semibold"><SiteText>{topic.title}</SiteText></h3>
+                <p className="mt-2 text-sm muted"><SiteText>{topic.body}</SiteText></p>
                 {site.email ? (
                   <a
                     className="mt-4 inline-block font-semibold text-accent"
                     href={emailHref(topic.subject)}
                   >
-                    Email about this topic →
+                    <SiteText>Email about this topic →</SiteText>
                   </a>
                 ) : (
-                  <p className="mt-4 text-sm muted">Email contact details to be added.</p>
+                  <p className="mt-4 text-sm muted"><SiteText>Email contact details to be added.</SiteText></p>
                 )}
               </li>
             ))}
@@ -147,23 +147,21 @@ export default function Contact() {
 
         <section aria-labelledby="committee-contact" className="card mt-8">
           <h2 id="committee-contact" className="font-semibold">
-            Looking for the current committee?
+            <SiteText>Looking for the current committee?</SiteText>
           </h2>
           <p className="mt-2 text-sm muted">
-            Meet the Central Committee on our Team &amp; Governance page.
+            <SiteText>Meet the Central Committee on our Team &amp; Governance page.</SiteText>
           </p>
           <Link className="mt-4 inline-block font-semibold text-accent" href="/team/">
-            Meet the committee →
+            <SiteText>Meet the committee →</SiteText>
           </Link>
         </section>
 
         <aside className="card mt-8">
-          <h2 className="font-semibold">Sharing heritage material</h2>
+          <h2 className="font-semibold"><SiteText>Sharing heritage material</SiteText></h2>
           <p className="mt-2 text-sm muted">
-            Before sharing photographs, recordings or stories, make sure you have
-            permission to share them. Some cultural knowledge may be sensitive;
-            please ask before sending it. Read our{" "}
-            <Link href="/heritage/policy/">draft rights, consent and access guidance</Link>.
+            <SiteText>Before sharing photographs, recordings or stories, make sure you have permission to share them. Some cultural knowledge may be sensitive; please ask before sending it. Read our</SiteText>{" "}
+            <Link href="/heritage/policy/"><SiteText>Rights, consent and access</SiteText></Link>.
           </p>
         </aside>
       </Container>

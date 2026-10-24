@@ -1,3 +1,5 @@
+import SiteText from "@/components/SiteText";
+
 export default function UnderConstructionNotice() {
   return (
     <aside
@@ -5,12 +7,10 @@ export default function UnderConstructionNotice() {
       aria-labelledby="under-construction-title"
     >
       <h2 id="under-construction-title" className="font-semibold">
-        Under construction / maintenance
+        <SiteText>Under construction / maintenance</SiteText>
       </h2>
       <p className="mt-2 text-sm leading-relaxed muted">
-        This page is being kept to show the proposed structure of the website.
-        Its current content is sample or preliminary material, not a finished
-        collection. Further research, review, and development are needed.
+        <SiteText>This page is being kept to show the proposed structure of the website. Its current content is sample or preliminary material, not a finished collection. Further research, review, and development are needed.</SiteText>
       </p>
     </aside>
   );

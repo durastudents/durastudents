@@ -1,14 +1,18 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import type { Map as LMap, LayerGroup, CircleMarker } from "leaflet";
 import type { Place } from "@/data/places";
+import { useSiteLanguage } from "@/components/SiteLanguageProvider";
+import { translateSiteText } from "@/components/SiteText";
 
 type Filter = "All" | "Nepal" | "Abroad";
 const COLORS = { Nepal: "#2f7d4a", Abroad: "#b5733a" } as const;
 
 export default function PlacesExplorer({ places }: { places: Place[] }) {
+  const language = useSiteLanguage();
+  const text = useCallback((value: string) => translateSiteText(language, value), [language]);
   const [filter, setFilter] = useState<Filter>("All");
   const [selected, setSelected] = useState<number | null>(null);
   const [ready, setReady] = useState(false);
@@ -69,12 +73,12 @@ export default function PlacesExplorer({ places }: { places: Place[] }) {
       // Build the popup from DOM nodes so place text is never parsed as HTML.
       const box = document.createElement("div");
       const title = document.createElement("strong");
-      title.textContent = p.name;
+      title.textContent = text(p.name);
       const desc = document.createElement("p");
-      desc.textContent = p.description;
+      desc.textContent = text(p.description);
       desc.style.margin = "4px 0 0";
       const meta = document.createElement("p");
-      meta.textContent = `${p.type} · ${p.status}`;
+      meta.textContent = `${text(p.type)} · ${text(p.status)}`;
       meta.style.cssText = "margin:4px 0 0;font-size:12px;opacity:.7";
       box.append(title, desc, meta);
       m.bindPopup(box);
@@ -90,7 +94,7 @@ export default function PlacesExplorer({ places }: { places: Place[] }) {
       });
     }
     setSelected(null);
-  }, [ready, visible]);
+  }, [language, ready, text, visible]);
 
   function focusPlace(p: Place) {
     setSelected(p.id);
@@ -104,7 +108,7 @@ export default function PlacesExplorer({ places }: { places: Place[] }) {
 
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filter places">
+      <div className="flex flex-wrap items-center gap-2" role="group" aria-label={text("Filter places")}>
         {(["All", "Nepal", "Abroad"] as Filter[]).map((f) => (
           <button
             key={f}
@@ -113,27 +117,26 @@ export default function PlacesExplorer({ places }: { places: Place[] }) {
             onClick={() => setFilter(f)}
             className={`btn ${filter === f ? "btn-primary" : "btn-ghost"}`}
           >
-            {f}
+            {text(f)}
           </button>
         ))}
-        <span className="ml-2 text-sm muted" role="status">{visible.length} places</span>
+        <span className="ml-2 text-sm muted" role="status">{visible.length} <span lang={language} className={language === "ne" ? "devanagari-text" : ""}>{text("places")}</span></span>
       </div>
 
       <p id="map-help" className="mt-3 text-sm muted">
-        The list next to the map has the same places and works with the keyboard: choose a place
-        to centre the map on it and open its details.
+        {text("The list next to the map has the same places and works with the keyboard: choose a place to centre the map on it and open its details.")}
       </p>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-3">
         <div
           ref={el}
           role="region"
-          aria-label="Map of Dura places"
+          aria-label={text("Map of Dura places")}
           aria-describedby="map-help"
           className="z-0 h-[420px] overflow-hidden rounded-2xl border lg:col-span-2 lg:h-[520px]"
           style={{ borderColor: "var(--line)" }}
         />
-        <ul className="max-h-[520px] space-y-3 overflow-y-auto" aria-label="Places list">
+        <ul className="max-h-[520px] space-y-3 overflow-y-auto" aria-label={text("Places list")}>
           {visible.map((p) => (
             <li key={p.id}>
               <button
@@ -150,11 +153,11 @@ export default function PlacesExplorer({ places }: { places: Place[] }) {
                     className="h-3 w-3 rounded-full"
                     style={{ background: COLORS[p.type] }}
                   />
-                  <span className="font-semibold">{p.name}</span>
+                  <span className="font-semibold" lang={language}>{text(p.name)}</span>
                 </span>
-                <span className="mt-1 block text-sm muted">{p.description}</span>
-                <span className="mt-2 block text-xs muted">
-                  {p.type} · {p.status}
+                <span className="mt-1 block text-sm muted" lang={language}>{text(p.description)}</span>
+                <span className="mt-2 block text-xs muted" lang={language}>
+                  {text(p.type)} · {text(p.status)}
                 </span>
               </button>
             </li>

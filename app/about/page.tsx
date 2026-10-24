@@ -4,6 +4,7 @@ import Link from "next/link";
 import PageHeader, { Container } from "@/components/PageHeader";
 import { organizations } from "@/data/site";
 import { committee, history } from "@/data/society";
+import SiteText from "@/components/SiteText";
 
 export const metadata: Metadata = {
   title: "About",
@@ -27,7 +28,7 @@ function CommitteeMemberCard({
         className="aspect-4/5 w-full rounded-xl object-cover"
       />
       <h4 className="mt-3 font-semibold">{member.name}</h4>
-      <p className="text-sm muted">{member.role}</p>
+      <p className="text-sm muted"><SiteText>{member.role}</SiteText></p>
     </li>
   );
 }
@@ -56,15 +57,15 @@ export default function About() {
             ["Growth & Learning", "We promote education, awareness, leadership and personal growth."],
           ].map(([title, body]) => (
             <div key={title} className="card">
-              <h2 className="font-semibold">{title}</h2>
-              <p className="mt-2 text-sm muted">{body}</p>
+              <h2 className="font-semibold"><SiteText>{title}</SiteText></h2>
+              <p className="mt-2 text-sm muted"><SiteText>{body}</SiteText></p>
             </div>
           ))}
         </div>
 
         <section aria-labelledby="history-heading" className="mt-14">
-          <h2 id="history-heading" className="text-2xl font-bold">Our history</h2>
-          <p className="mt-2 text-sm muted">Dates are in Bikram Sambat (BS).</p>
+          <h2 id="history-heading" className="text-2xl font-bold"><SiteText>Our history</SiteText></h2>
+          <p className="mt-2 text-sm muted"><SiteText>Dates are in Bikram Sambat (BS).</SiteText></p>
           <ol className="mt-6 space-y-4 border-l-2 pl-6" style={{ borderColor: "var(--line)" }}>
             {history.map((item) => (
               <li key={item.year} className="relative">
@@ -72,19 +73,18 @@ export default function About() {
                 <p className="text-sm font-bold text-accent">
                   {item.year} · {item.place}
                 </p>
-                <p className="mt-1">{item.body}</p>
+                <p className="mt-1"><SiteText>{item.body}</SiteText></p>
               </li>
             ))}
           </ol>
           <p className="mt-6 text-sm muted">
-            The Society thanks the Dura community, its elders, and organizations including Dura
-            Sewa Samaj and Dura Mahila Samaj for their support.
+            <SiteText>The Society thanks the Dura community, its elders, and organizations including Dura Sewa Samaj and Dura Mahila Samaj for their support.</SiteText>
           </p>
         </section>
 
         <section aria-labelledby="organizations-heading" className="mt-14">
           <h2 id="organizations-heading" className="text-2xl font-bold">
-            Community organizations
+            <SiteText>Community organizations</SiteText>
           </h2>
           <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {organizations.map((organization) => (
@@ -104,7 +104,7 @@ export default function About() {
                     />
                   ) : (
                     <p className="max-w-48 text-center text-sm muted">
-                      Organization logo not available
+                      <SiteText>Organization logo not available</SiteText>
                     </p>
                   )}
                 </div>
@@ -122,17 +122,16 @@ export default function About() {
         <section aria-labelledby="committee-heading" className="mt-16">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="eyebrow">Tenure {committee.tenure} · Bikram Sambat</p>
+              <p className="eyebrow"><SiteText>Tenure</SiteText> {committee.tenure} · <SiteText>Bikram Sambat</SiteText></p>
               <h2 id="committee-heading" className="mt-2 text-2xl font-bold">
-                Central Committee
+                <SiteText>Central Committee</SiteText>
               </h2>
               <p className="mt-2 max-w-2xl text-sm muted">
-                The elected committee brings together Society leadership and members to support
-                its work across the Dura community.
+                <SiteText>The elected committee brings together Society leadership and members to support its work across the Dura community.</SiteText>
               </p>
             </div>
             <Link href="/team/" className="font-semibold text-accent">
-              Committee details →
+              <SiteText>Committee details →</SiteText>
             </Link>
           </div>
 
@@ -145,7 +144,7 @@ export default function About() {
           )}
 
           <h3 className="mt-10 border-b pb-3 text-lg font-semibold" style={{ borderColor: "var(--line)" }}>
-            Executive committee
+            <SiteText>Executive committee</SiteText>
           </h3>
           <ul className="mt-5 grid grid-cols-2 gap-x-4 gap-y-7 sm:grid-cols-4 sm:gap-6">
             {executiveMembers.map((member) => (
@@ -154,7 +153,7 @@ export default function About() {
           </ul>
 
           <h3 className="mt-10 border-b pb-3 text-lg font-semibold" style={{ borderColor: "var(--line)" }}>
-            Committee members
+            <SiteText>Committee members</SiteText>
           </h3>
           <ul className="mt-5 grid grid-cols-2 gap-x-4 gap-y-7 sm:grid-cols-3 lg:grid-cols-6 lg:gap-5">
             {committeeMembers.map((member) => (
@@ -163,8 +162,7 @@ export default function About() {
           </ul>
 
           <p className="mt-6 text-xs muted">
-            Member portraits are from the Society&apos;s archived website. Personal phone numbers
-            shown on the original graphics are not included.
+            <SiteText>Member portraits are from the Society&apos;s archived website. Personal phone numbers shown on the original graphics are not included.</SiteText>
           </p>
         </section>
       </Container>

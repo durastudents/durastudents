@@ -4,7 +4,7 @@ import PageHeader, { Container, Notice } from "@/components/PageHeader";
 import GalleryCard from "@/components/GalleryCard";
 import UnderConstructionNotice from "@/components/UnderConstructionNotice";
 import { galleryItems } from "@/data/archive";
-import { site } from "@/data/site";
+import SiteText from "@/components/SiteText";
 
 export const metadata: Metadata = {
   title: "Community Gallery",
@@ -30,20 +30,19 @@ export default function GalleryPage() {
           </ul>
         ) : (
           <Notice>
-            We are preparing the community gallery. Approved photographs and videos will appear
-            here as they are reviewed and added.{" "}
+            <SiteText>We are preparing the community gallery. Approved photographs and videos will appear here as they are reviewed and added.</SiteText>{" "}
             <Link className="text-accent underline underline-offset-4" href="/contact/">
-              Contact the Society
+              <SiteText>Contact the Society</SiteText>
             </Link>{" "}
-            to ask about sharing a story.
+            <SiteText>to ask about sharing a story.</SiteText>
           </Notice>
         )}
         <p className="mt-8 text-sm muted">
-          Each item includes its archive record and access information. See{" "}
+          <SiteText>Each item includes its archive record and access information. See</SiteText>{" "}
           <Link className="text-accent underline underline-offset-4" href="/heritage/policy/">
-            rights, consent and access
+            <SiteText>rights, consent and access</SiteText>
           </Link>
-          . Contact {site.name} to request a correction, restriction, or removal.
+          . <SiteText>Contact Dura Students Society to request a correction, restriction, or removal.</SiteText>
         </p>
       </Container>
     </>

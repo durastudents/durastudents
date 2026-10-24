@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader, { Container, Notice } from "@/components/PageHeader";
 import UnderConstructionNotice from "@/components/UnderConstructionNotice";
+import SiteText from "@/components/SiteText";
 
 export const metadata: Metadata = {
   title: "Resources and publications",
@@ -80,8 +81,7 @@ export default function Resources() {
         <UnderConstructionNotice />
         {populatedCategories.length === 0 ? (
           <Notice>
-            No Society documents are available here yet. We will add resources
-            after their sources and publication permissions have been reviewed.
+            <SiteText>No Society documents are available here yet. We will add resources after their sources and publication permissions have been reviewed.</SiteText>
           </Notice>
         ) : (
           <div className="space-y-12">
@@ -91,36 +91,36 @@ export default function Resources() {
                   id={`resources-${category.id}`}
                   className="mb-5 text-2xl font-bold tracking-tight"
                 >
-                  {category.title}
+                  <SiteText>{category.title}</SiteText>
                 </h2>
                 <ul className="grid gap-4 sm:grid-cols-2">
                   {category.resources.map((resource) => (
                     <li key={resource.title} className="card p-5">
                       <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="text-lg font-semibold">{resource.title}</h3>
+                        <h3 className="text-lg font-semibold"><SiteText>{resource.title}</SiteText></h3>
                         {resource.demo && (
                           <span className="rounded-full border border-current px-2 py-0.5 text-xs muted">
-                            Demo only
+                            <SiteText>Demo only</SiteText>
                           </span>
                         )}
                       </div>
-                      <p className="mt-2 text-sm muted">{resource.description}</p>
+                      <p className="mt-2 text-sm muted"><SiteText>{resource.description}</SiteText></p>
                       <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
                         {resource.year !== undefined && (
                           <>
-                            <dt className="muted">Published</dt>
+                            <dt className="muted"><SiteText>Published</SiteText></dt>
                             <dd>{resource.year}</dd>
                           </>
                         )}
-                        <dt className="muted">Language</dt>
+                        <dt className="muted"><SiteText>Language</SiteText></dt>
                         <dd>{resource.language}</dd>
-                        <dt className="muted">Format</dt>
+                        <dt className="muted"><SiteText>Format</SiteText></dt>
                         <dd>{resource.format}</dd>
-                        <dt className="muted">File size</dt>
+                        <dt className="muted"><SiteText>File size</SiteText></dt>
                         <dd>{resource.fileSize}</dd>
                         {resource.attribution && (
                           <>
-                            <dt className="muted">Attribution</dt>
+                            <dt className="muted"><SiteText>Attribution</SiteText></dt>
                             <dd>{resource.attribution}</dd>
                           </>
                         )}
@@ -133,15 +133,15 @@ export default function Resources() {
                             target="_blank"
                             rel="noreferrer"
                           >
-                            View {resource.format}
+                            <SiteText>View</SiteText> {resource.format}
                           </a>
                           <a className="btn btn-ghost" href={resource.href} download>
-                            Download
+                            <SiteText>Download</SiteText>
                           </a>
                         </div>
                       ) : (
                         <p className="mt-5 text-sm muted">
-                          Sample listing only; no document is available.
+                          <SiteText>Sample listing only; no document is available.</SiteText>
                         </p>
                       )}
                     </li>
@@ -154,21 +154,20 @@ export default function Resources() {
 
         <aside className="card mt-8 p-5" aria-labelledby="resource-help">
           <h2 id="resource-help" className="font-semibold">
-            Need help with a resource?
+            <SiteText>Need help with a resource?</SiteText>
           </h2>
           <p className="mt-2 text-sm muted">
-            Contact the Society to report an inaccessible file or request a
-            correction.
+            <SiteText>Contact the Society to report an inaccessible file or request a correction.</SiteText>
           </p>
           <Link className="btn btn-ghost mt-4" href="/contact/">
-            Contact the Society
+            <SiteText>Contact the Society</SiteText>
           </Link>
         </aside>
 
         <p className="mt-8 text-sm muted">
-          Looking for Dura language books and learning materials?{" "}
+          <SiteText>Looking for Dura language books and learning materials?</SiteText>{" "}
           <Link className="text-accent" href="/language/sources/">
-            Browse the Dura Lopa collection
+            <SiteText>Browse the Dura Lopa collection</SiteText>
           </Link>
           .
         </p>

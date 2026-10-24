@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { DictionaryEntry, UiLanguage } from "@/data/lopa/types";
-import { useLopaLanguage } from "@/components/LopaLanguageProvider";
+import { useSiteLanguage } from "@/components/SiteLanguageProvider";
 
 const PAGE_SIZE = 50;
 
@@ -74,7 +74,7 @@ function isDictionary(value: unknown): value is DictionaryEntry[] {
 }
 
 export default function LopaDictionary() {
-  const language = useLopaLanguage();
+  const language = useSiteLanguage();
   const text = labels[language];
   const localizedTextClass = language === "ne" ? "devanagari-text" : "";
   const router = useRouter();

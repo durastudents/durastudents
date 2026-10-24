@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { kinds, type ArchiveItem } from "@/data/archive";
+import SiteText from "@/components/SiteText";
 
 export default function GalleryCard({ item }: { item: ArchiveItem }) {
   const poster = item.files.find((file) => file.type === "image");
@@ -25,7 +26,7 @@ export default function GalleryCard({ item }: { item: ArchiveItem }) {
               className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
             />
             <span className="absolute left-3 top-3 rounded-full bg-black/75 px-3 py-1 text-xs font-semibold text-white">
-              {kinds[item.kind]}
+              <SiteText>{kinds[item.kind]}</SiteText>
             </span>
           </div>
           <div className="p-5">
@@ -34,7 +35,7 @@ export default function GalleryCard({ item }: { item: ArchiveItem }) {
             <p className="mt-3 text-xs muted">
               {[item.date, item.place].filter(Boolean).join(" · ")}
             </p>
-            <p className="mt-3 text-xs muted">Credit: {item.contributor || item.source}</p>
+            <p className="mt-3 text-xs muted"><SiteText>Credit:</SiteText> {item.contributor || item.source}</p>
           </div>
         </Link>
       </article>

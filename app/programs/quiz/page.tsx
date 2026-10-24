@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHeader, { Container } from "@/components/PageHeader";
 import { quiz } from "@/data/society";
+import SiteText from "@/components/SiteText";
 
 export const metadata: Metadata = {
   title: "Inter-District Quiz Contest",
@@ -27,27 +28,27 @@ export default function Quiz() {
           {quiz.publishedHighlights.map((highlight) => (
             <div key={highlight.label} className="card">
               <dd className="text-3xl font-bold text-accent">{highlight.value}</dd>
-              <dt className="mt-1 text-sm muted">{highlight.label}</dt>
+              <dt className="mt-1 text-sm muted"><SiteText>{highlight.label}</SiteText></dt>
             </div>
           ))}
         </dl>
 
         <p className="mt-6 text-sm muted">
-          Teams have represented {quiz.districts.join(", ")}. Years are in Bikram Sambat (BS).
+          <SiteText>Teams have represented</SiteText> {quiz.districts.join(", ")}. <SiteText>Years are in Bikram Sambat (BS).</SiteText>
         </p>
 
         <section aria-labelledby="quiz-winners" className="mt-10">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
               <h2 id="quiz-winners" className="text-2xl font-bold">
-                Champions through the years
+                <SiteText>Champions through the years</SiteText>
               </h2>
               <p className="mt-2 text-sm muted">
-                Recorded wins in the years held; this does not show second or third place.
+                <SiteText>Recorded wins in the years held; this does not show second or third place.</SiteText>
               </p>
             </div>
             <p className="text-sm muted">
-              {quiz.events.filter((event) => event.status === "held").length} competitions held
+              {quiz.events.filter((event) => event.status === "held").length} <SiteText>competitions held</SiteText>
             </p>
           </div>
           <ol className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -56,7 +57,7 @@ export default function Quiz() {
                 <div className="flex items-baseline justify-between gap-3">
                   <h3 className="font-semibold">{district}</h3>
                   <p className="text-sm font-semibold text-accent">
-                    {wins} {wins === 1 ? "win" : "wins"}
+                    {wins} <SiteText>{wins === 1 ? "win" : "wins"}</SiteText>
                   </p>
                 </div>
                 <div
@@ -80,7 +81,7 @@ export default function Quiz() {
 
         <section aria-labelledby="quiz-history" className="mt-12">
           <h2 id="quiz-history" className="text-2xl font-bold">
-            Quiz competition history
+            <SiteText>Quiz competition history</SiteText>
           </h2>
           <ol
             className="relative mt-8 space-y-5 border-l-2 pl-6 sm:pl-8"
@@ -102,14 +103,14 @@ export default function Quiz() {
                       <span className="eyebrow">{event.year} BS</span>
                       <h3 className="mt-1 text-lg font-semibold">
                         {event.status === "not-held"
-                          ? "Competition not held"
-                          : "Annual Quiz Competition"}
+                          ? <SiteText>Competition not held</SiteText>
+                          : <SiteText>Annual Quiz Competition</SiteText>}
                       </h3>
                       <span className="mt-1 block text-sm muted">
                         {event.status === "not-held"
-                          ? event.note
-                          : `Winner: ${event.winner}`}
-                        {event.venue ? ` · Venue: ${event.venue}` : ""}
+                          ? <SiteText>{event.note ?? ""}</SiteText>
+                          : <><SiteText>Winner:</SiteText> {event.winner}</>}
+                        {event.venue ? <> · <SiteText>Venue:</SiteText> {event.venue}</> : ""}
                       </span>
                     </summary>
 
@@ -120,10 +121,10 @@ export default function Quiz() {
                       >
                         {event.teams.length > 0 && (
                           <section aria-label={`Participating teams in ${event.year} BS`}>
-                            <h4 className="font-semibold">Participating teams</h4>
+                            <h4 className="font-semibold"><SiteText>Participating teams</SiteText></h4>
                             {event.teamsInPositionOrder && (
                               <p className="mt-1 text-sm muted">
-                                Teams are listed in position order, as recorded in the source.
+                                <SiteText>Teams are listed in position order, as recorded in the source.</SiteText>
                               </p>
                             )}
                             <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -135,7 +136,7 @@ export default function Quiz() {
                                   <h5 className="font-semibold">
                                     {team.name}{" "}
                                     {team.name === event.winner && (
-                                      <span className="ml-2 text-sm text-accent">Winner</span>
+                                      <span className="ml-2 text-sm text-accent"><SiteText>Winner</SiteText></span>
                                     )}
                                   </h5>
                                   {team.participants.length > 0 ? (
@@ -146,7 +147,7 @@ export default function Quiz() {
                                     </ul>
                                   ) : (
                                     <p className="mt-2 text-sm muted">
-                                      Participant names were not listed in the archived source.
+                                      <SiteText>Participant names were not listed in the archived source.</SiteText>
                                     </p>
                                   )}
                                 </li>
@@ -157,7 +158,7 @@ export default function Quiz() {
 
                         {event.prizeSponsors.length > 0 && (
                           <section className="mt-6" aria-label={`Prize sponsors for ${event.year} BS`}>
-                            <h4 className="font-semibold">Prize sponsors</h4>
+                            <h4 className="font-semibold"><SiteText>Prize sponsors</SiteText></h4>
                             <ul className="mt-3 grid gap-2 sm:grid-cols-2">
                               {event.prizeSponsors.map((sponsor) => (
                                 <li
@@ -177,7 +178,7 @@ export default function Quiz() {
                             className="mt-6"
                             aria-label={`Additional sponsors for ${event.year} BS`}
                           >
-                            <h4 className="font-semibold">Additional sponsors</h4>
+                            <h4 className="font-semibold"><SiteText>Additional sponsors</SiteText></h4>
                             <ul className="mt-3 flex flex-wrap gap-2">
                               {event.additionalSponsors.map((sponsor) => (
                                 <li

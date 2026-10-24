@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import LopaRouteTitle from "@/components/LopaRouteTitle";
 import { Container } from "@/components/PageHeader";
 import { books } from "@/data/lopa/books";
+import SiteText from "@/components/SiteText";
 
 export const metadata: Metadata = {
   title: "Dura Language Learning Resources",
@@ -38,10 +39,10 @@ export default function SourcesPage() {
                 <p lang="ne" className="devanagari-text mt-2 text-sm muted">{book.description}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   <a className="btn btn-primary" href={book.pdf} target="_blank" rel="noreferrer">
-                    View PDF
+                    <SiteText>View PDF</SiteText>
                   </a>
                   <a className="btn btn-ghost" href={book.pdf} download={book.fileName}>
-                    Download
+                    <SiteText>Download</SiteText>
                   </a>
                 </div>
               </div>
@@ -49,8 +50,7 @@ export default function SourcesPage() {
           ))}
         </ul>
         <p className="mt-8 text-xs muted">
-          Materials and descriptions are reproduced from Dura Lopa project sources. Publication
-          credits are included in the original documents.
+          <SiteText>Materials and descriptions are reproduced from Dura Lopa project sources. Publication credits are included in the original documents.</SiteText>
         </p>
       </Container>
     </>
