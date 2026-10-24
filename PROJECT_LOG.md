@@ -8,7 +8,7 @@ Newest entries go at the bottom of the timeline; keep the "Open items" section c
 - Dates are `YYYY-MM-DD`. GitHub timestamps are UTC (Nepal is UTC+05:45), so an evening event in Nepal can appear on the next UTC day.
 - Entries marked *(repo)* are backed by git history, pull requests or issues in `durastudents/durastudents`.
 - Entries marked *(recorded)* come from the project's working notes. Their dates are the day the work was first recorded, not necessarily the day it started.
-- Last updated: 2026-10-24.
+- Last updated: 2026-10-24 (after the final checks).
 
 ---
 
@@ -28,7 +28,7 @@ Newest entries go at the bottom of the timeline; keep the "Open items" section c
 | Design pass (home, about, contact, programs, heritage, footer, nav, news) | Done 2026-10-23 to 2026-10-24 |
 | Nepali typography (Tiro Devanagari Hindi, Teko) with a build-time check | PR #44 merged 2026-10-24 |
 | Legacy `dura-lopa-web` redirect | Patch prepared, not applied (no write access to that repo) |
-| Branch protection on `main` | Not enabled; GitHub API write was refused from the working session, so it needs a manual change |
+| Branch protection on `main` | Not enabled (GitHub reports `main` unprotected); the API write was refused from the working session, so it needs a manual change |
 
 ---
 
@@ -268,7 +268,41 @@ Newest entries go at the bottom of the timeline; keep the "Open items" section c
 
 **Branch protection**: attempted through the GitHub API; the request was refused (write access to that API path is not permitted from the working session). Nothing was changed.
 
+**Merged**: PR #44 (typography check and log update) on 2026-10-24.
+
 ---
+
+### 2026-10-24 — Final checks, issue review and file review *(repo)*
+
+**Issues closed after review** (owner's instruction)
+
+- #27 News: closed as completed. Four posts are live and `docs/news-submission.md` gives a submission template. Not done: posting still needs a maintainer to edit `data/news.ts`, and there is no RSS feed. The posts so far describe the site; Society event reports and quiz results are still to come.
+- #24 Lopa subdomain: closed as **not planned**. The subdomain was never set up; the dictionary now lives inside the site at `/language/dictionary/` and related routes. The old onrender app is still not redirected (patch prepared, not applied).
+
+**Final checks on `main` (87b878f)**
+
+| Check | Result |
+|---|---|
+| `npm run typecheck`, `npm run lint` | Pass |
+| `npm run build` | 33 static pages generated; 26 pages indexed by Pagefind |
+| `npm run check:nepali-fonts` | Pass on 26 pages |
+| `npm audit --omit=dev` | 0 vulnerabilities |
+| Internal links and assets in the built site | 0 broken references; every `<img>` has alt text |
+| Sitemap | 22 URLs, all resolve to a built page. Not listed, on purpose: `/search`, `/404`, and the `/heritage/archive/none/` placeholder page |
+| CI on PR #44 | `Typecheck, lint and build` passed |
+| Live site `https://durastudents.org.np` | **Not checked**: the working session cannot reach it (request blocked), so confirm in a browser |
+
+The audit build used a temporary font stub because the working session cannot reach Google Fonts; CI and Pages build with the real fonts.
+
+**File review (nothing deleted; suggestions only)**
+
+| Candidate | Why | Risk |
+|---|---|---|
+| `CNAME` (repo root) | Identical to `public/CNAME`. The deploy uploads only `out/`, which gets its `CNAME` from `public/` | None |
+| `public/lopa/appicon.png` (8 KB) | No page, component or data file refers to it since the design pass | None |
+| `phases` and `targets` in `data/site.ts` | Exported but not used anywhere; the homepage planning targets were removed 2026-10-24 | None; the same text lives in the project report |
+
+Left in place on purpose: `data/lopa/dictionary.json` (source for the generated public copy), `react-dom`, `@types/react*` and `@typescript/native` (implicit requirements of Next, TypeScript and the TS 7 alias), `DURA_LOPA_INTEGRATION_PLAN.md` (history; its Phase 4 is out of date, so consider moving it to `docs/`). Size notes, not deletions: `app/icon.png` (196 KB) and `public/lopa/books/covers/grammar.png` (700 KB) could be compressed; the four book PDFs (about 9 MB) could move to release storage if the repository grows.
 
 ---
 
@@ -283,6 +317,7 @@ Newest entries go at the bottom of the timeline; keep the "Open items" section c
 - Submit `sitemap.xml` to Google Search Console (#12).
 - Committee and cultural reviewers must read the draft rights/consent policy (#18); its "Reuse" section is a proposal, not an agreed rule.
 - Content and details: donation details (#2), official domain email (#4), verify timeline/committee/impact (#5), resources PDFs (#6), Dura Mahila Samaj logo (#7), quiz rules and team (#8), statistics sources (#9), place pins (#10), first consented people (#11), pilot archive items (#22), Nepali/Dura language decisions (#19). The hero photo (#3) was added 2026-10-22.
+- Optional cleanup from the 2026-10-24 file review: delete the root `CNAME`, `public/lopa/appicon.png` and the unused `phases`/`targets` in `data/site.ts`.
 - Check the first news post's description of the Lopa page against the live site (audio, alphabet lessons and verbs are not built in this repo).
 - Finish verifying old-site redirects (#15) and confirm GitHub Pages HTTPS/custom domain (#16).
 - A screen-reader pass by a person (#25); automated checks do not replace it.
@@ -291,7 +326,7 @@ Newest entries go at the bottom of the timeline; keep the "Open items" section c
 
 **Technical, not started**
 
-- #20 port Books library (the four Lopa books are now served from `/language/sources/`; confirm whether anything else from the old Books library is needed), #21 port Puraney SVG tool, #24 move Lopa dictionary to `lopa.durastudents.org.np` (re-check whether it is still wanted now that the dictionary lives under `/language/`).
+- #20 port Books library (the four Lopa books are now served from `/language/sources/`; confirm whether anything else from the old Books library is needed), #21 port Puraney SVG tool, (#24, the Lopa subdomain, was closed as not planned on 2026-10-24.)
 
 ---
 
