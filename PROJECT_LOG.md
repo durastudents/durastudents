@@ -8,7 +8,7 @@ Newest entries go at the bottom of the timeline; keep the "Open items" section c
 - Dates are `YYYY-MM-DD`. GitHub timestamps are UTC (Nepal is UTC+05:45), so an evening event in Nepal can appear on the next UTC day.
 - Entries marked *(repo)* are backed by git history, pull requests or issues in `durastudents/durastudents`.
 - Entries marked *(recorded)* come from the project's working notes. Their dates are the day the work was first recorded, not necessarily the day it started.
-- Last updated: 2026-10-24.
+- Last updated: 2026-10-24 (after the final checks).
 
 ---
 
@@ -21,14 +21,14 @@ Newest entries go at the bottom of the timeline; keep the "Open items" section c
 | Society site v1 (single `index.html`) | Built 2026-10-02/03, since replaced |
 | Consolidated Next.js static site at `durastudents.org.np` | Live on GitHub Pages since 2026-10-19 (PR #1) |
 | Old sites redirected to the new domain | Approved; two redirects confirmed working, rest tracked in #15 |
-| Backlog issues #2–#28 | Created 2026-10-19. Issue state was not readable when this log was updated (2026-10-24); check GitHub before relying on it |
+| Backlog issues #2–#28 | Created 2026-10-19. As of 2026-10-24 afternoon: 10 closed (#3, #12, #14, #17, #23, #24, #25, #26, #27, #28), 17 open (#2, #4–#11, #13, #15, #16, #18–#22) |
 | PR #29 (SEO, CI, rights policy), #30 (backlog items), #31 (Next.js 16) | Merged 2026-10-22 |
 | Dependency upgrades (Tailwind 4, TypeScript 7, ESLint 10, Actions) and hero photo | Merged 2026-10-22 (PRs #33–#43) |
 | Dura Lopa web dictionary, sentences, timelines, books inside the site | Built 2026-10-23; live under `/language/` |
 | Design pass (home, about, contact, programs, heritage, footer, nav, news) | Done 2026-10-23 to 2026-10-24 |
-| Nepali typography (Tiro Devanagari Hindi, Teko) with a build-time check | PR #44 (branch `nepali-typography-lopa-retire`), waiting for review |
+| Nepali typography (Tiro Devanagari Hindi, Teko) with a build-time check | Merged 2026-10-24 (PR #44); CI runs the check |
 | Legacy `dura-lopa-web` redirect | Patch prepared, not applied (no write access to that repo) |
-| Branch protection on `main` | Not enabled; GitHub API write was refused from the working session, so it needs a manual change |
+| Branch protection on `main` | Not enabled (GitHub reports `main` unprotected); the API write was refused from the working session, so it needs a manual change |
 
 ---
 
@@ -268,7 +268,41 @@ Newest entries go at the bottom of the timeline; keep the "Open items" section c
 
 **Branch protection**: attempted through the GitHub API; the request was refused (write access to that API path is not permitted from the working session). Nothing was changed.
 
+**Merged**: PR #44 (typography check and log update) on 2026-10-24.
+
 ---
+
+### 2026-10-24 — Final checks, issue review and file review *(repo)*
+
+**Issues closed after review** (owner's instruction)
+
+- #27 News: closed as completed. Four posts are live and `docs/news-submission.md` gives a submission template. Not done: posting still needs a maintainer to edit `data/news.ts`, and there is no RSS feed. The posts so far describe the site; Society event reports and quiz results are still to come.
+- #24 Lopa subdomain: closed as **not planned**. The subdomain was never set up; the dictionary now lives inside the site at `/language/dictionary/` and related routes. The old onrender app is still not redirected (patch prepared, not applied).
+
+**Final checks on `main` (87b878f)**
+
+| Check | Result |
+|---|---|
+| `npm run typecheck`, `npm run lint` | Pass |
+| `npm run build` | 33 static pages generated; 26 pages indexed by Pagefind |
+| `npm run check:nepali-fonts` | Pass on 26 pages |
+| `npm audit --omit=dev` | 0 vulnerabilities |
+| Internal links and assets in the built site | 0 broken references; every `<img>` has alt text |
+| Sitemap | 22 URLs, all resolve to a built page. Not listed, on purpose: `/search`, `/404`, and the `/heritage/archive/none/` placeholder page |
+| CI on PR #44 | `Typecheck, lint and build` passed |
+| Live site `https://durastudents.org.np` | **Not checked**: the working session cannot reach it (request blocked), so confirm in a browser |
+
+The audit build used a temporary font stub because the working session cannot reach Google Fonts; CI and Pages build with the real fonts.
+
+**File review (nothing deleted; suggestions only)**
+
+| Candidate | Why | Risk |
+|---|---|---|
+| `CNAME` (repo root) | Identical to `public/CNAME`. The deploy uploads only `out/`, which gets its `CNAME` from `public/` | None |
+| `public/lopa/appicon.png` (8 KB) | No page, component or data file refers to it since the design pass | None |
+| `phases` and `targets` in `data/site.ts` | Exported but not used anywhere; the homepage planning targets were removed 2026-10-24 | None; the same text lives in the project report |
+
+Left in place on purpose: `data/lopa/dictionary.json` (source for the generated public copy), `react-dom`, `@types/react*` and `@typescript/native` (implicit requirements of Next, TypeScript and the TS 7 alias), `DURA_LOPA_INTEGRATION_PLAN.md` (history; its Phase 4 is out of date, so consider moving it to `docs/`). Size notes, not deletions: `app/icon.png` (196 KB) and `public/lopa/books/covers/grammar.png` (700 KB) could be compressed; the four book PDFs (about 9 MB) could move to release storage if the repository grows.
 
 ---
 
@@ -282,15 +316,16 @@ Newest entries go at the bottom of the timeline; keep the "Open items" section c
 - Submit `sitemap.xml` to Google Search Console (#12).
 - Committee and cultural reviewers must read the draft rights/consent policy (#18); its "Reuse" section is a proposal, not an agreed rule.
 - Content and details: donation details (#2), official domain email (#4), verify timeline/committee/impact (#5), resources PDFs (#6), Dura Mahila Samaj logo (#7), quiz rules and team (#8), statistics sources (#9), place pins (#10), first consented people (#11), pilot archive items (#22), Nepali/Dura language decisions (#19). The hero photo (#3) was added 2026-10-22.
+- Optional cleanup from the 2026-10-24 file review: delete the root `CNAME`, `public/lopa/appicon.png` and the unused `phases`/`targets` in `data/site.ts`.
 - Check the first news post's description of the Lopa page against the live site (audio, alphabet lessons and verbs are not built in this repo).
 - Finish verifying old-site redirects (#15) and confirm GitHub Pages HTTPS/custom domain (#16).
 - A screen-reader pass by a person (#25); automated checks do not replace it.
-- Review GitHub issues #2–#28 and close the ones the work above has finished; their state was not readable when this log was updated.
+- Issue housekeeping: #13 (CI checks) is still open although `.github/workflows/ci.yml` runs typecheck, lint, build and the Nepali check on every pull request, so it can probably be closed. #19 (Nepali/Dura support) is partly done (Lopa interface in Nepali, Devanagari fonts) and #22 (archive) has the model and one pilot item; update their checklists before closing.
 - Proposal document: funding partner, cover date and budget figures.
 
 **Technical, not started**
 
-- #20 port Books library (the four Lopa books are now served from `/language/sources/`; confirm whether anything else from the old Books library is needed), #21 port Puraney SVG tool, #24 move Lopa dictionary to `lopa.durastudents.org.np` (re-check whether it is still wanted now that the dictionary lives under `/language/`).
+- #20 port Books library (the four Lopa books are now served from `/language/sources/`; confirm whether anything else from the old Books library is needed), #21 port Puraney SVG tool, (#24, the Lopa subdomain, was closed as not planned on 2026-10-24.)
 
 ---
 
