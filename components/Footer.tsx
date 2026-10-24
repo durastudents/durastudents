@@ -52,7 +52,13 @@ export default function Footer() {
           <p className="eyebrow">Connect</p>
           <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 sm:block sm:space-y-2">
             <li>
-              <Link href="/contact/">Contact</Link>
+              <Link
+                className="inline-flex items-center gap-2"
+                href="/contact/"
+              >
+                <BrandIcon name="contact" />
+                Contact
+              </Link>
             </li>
             <li>
               <a className="inline-flex items-center gap-2" href={site.facebook}>
@@ -67,7 +73,13 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <Link href="/heritage/policy/">Rights & Consent</Link>
+              <Link
+                className="inline-flex items-center gap-2"
+                href="/heritage/policy/"
+              >
+                <BrandIcon name="rights-consent" />
+                Rights & Consent
+              </Link>
             </li>
           </ul>
         </nav>
