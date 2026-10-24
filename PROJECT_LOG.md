@@ -8,7 +8,7 @@ Newest entries go at the bottom of the timeline; keep the "Open items" section c
 - Dates are `YYYY-MM-DD`. GitHub timestamps are UTC (Nepal is UTC+05:45), so an evening event in Nepal can appear on the next UTC day.
 - Entries marked *(repo)* are backed by git history, pull requests or issues in `durastudents/durastudents`.
 - Entries marked *(recorded)* come from the project's working notes. Their dates are the day the work was first recorded, not necessarily the day it started.
-- Last updated: 2026-10-22.
+- Last updated: 2026-10-24.
 
 ---
 
@@ -21,8 +21,14 @@ Newest entries go at the bottom of the timeline; keep the "Open items" section c
 | Society site v1 (single `index.html`) | Built 2026-10-02/03, since replaced |
 | Consolidated Next.js static site at `durastudents.org.np` | Live on GitHub Pages since 2026-10-19 (PR #1) |
 | Old sites redirected to the new domain | Approved; two redirects confirmed working, rest tracked in #15 |
-| Backlog issues #2–#28 | Created 2026-10-19; none closed yet |
-| PR #29 (SEO, CI, rights policy), #30 (backlog items), #31 (Next.js 16) | Open, waiting for review and merge |
+| Backlog issues #2–#28 | Created 2026-10-19. Issue state was not readable when this log was updated (2026-10-24); check GitHub before relying on it |
+| PR #29 (SEO, CI, rights policy), #30 (backlog items), #31 (Next.js 16) | Merged 2026-10-22 |
+| Dependency upgrades (Tailwind 4, TypeScript 7, ESLint 10, Actions) and hero photo | Merged 2026-10-22 (PRs #33–#43) |
+| Dura Lopa web dictionary, sentences, timelines, books inside the site | Built 2026-10-23; live under `/language/` |
+| Design pass (home, about, contact, programs, heritage, footer, nav, news) | Done 2026-10-23 to 2026-10-24 |
+| Nepali typography (Tiro Devanagari Hindi, Teko) with a build-time check | PR #44 (branch `nepali-typography-lopa-retire`), waiting for review |
+| Legacy `dura-lopa-web` redirect | Patch prepared, not applied (no write access to that repo) |
+| Branch protection on `main` | Not enabled; GitHub API write was refused from the working session, so it needs a manual change |
 
 ---
 
@@ -182,9 +188,87 @@ Newest entries go at the bottom of the timeline; keep the "Open items" section c
 
 ---
 
+### 2026-10-22 — Merges, dependency upgrades and hero photo *(repo)*
+
+**Merged** (merge commits by Amar Dura): #29 `high-priority-fixes`, #30 `backlog-no-input`, #31 `next-16`, #32 `project-log`.
+
+**Dependency and tooling PRs merged the same day**
+
+| PR | Change |
+|---|---|
+| #33, #34, #35, #36 | GitHub Actions: `setup-node` 4→7, `upload-pages-artifact` 3→5, `deploy-pages` 4→5, `checkout` 4→7 |
+| #37 | `@types/leaflet` and `postcss` patch updates |
+| #38 | ESLint 9.39.5 → 10.13.0 |
+| #39 | TypeScript 5.9.3 → 7.0.2. `typescript-eslint` cannot load TypeScript 7, so `typescript` is aliased to the TypeScript 6 API for lint while `tsc` runs TypeScript 7 (`224a76c`) |
+| #40 | Tailwind CSS 3 → 4 (`845cf09`): CSS-first config replaces `tailwind.config.js`; 64 page screenshots (light/dark, desktop/phone) matched the Tailwind 3 build pixel for pixel |
+| #41 | `@types/node` 22 → 26 |
+| #42 | Lockfile regenerated with optional packages for all platforms |
+| #43 | Home page hero: the Society group photo from the 32nd Anniversary of Dura Service Society, Handikhola (`b0c7c80`, `2c7e96c`), for issue #3 |
+
+**Fixes by `dura-garage` (evening, Nepal time)**: deploy-check and README alignment (`bb477ac`), public archive items included in the sitemap (`9733a08`), static preview made self-contained (`671f53d`), mobile navigation and collection links (`fd1128d`).
+
+---
+
 ### 2026-10-22 — This log
 
 - Created `PROJECT_LOG.md` to record the history above (this file).
+
+---
+
+### 2026-10-23 — Dura Lopa inside the site and Nepali fonts *(repo)*
+
+**Commits** (`dura-garage`): `899c506` integrate Dura Lopa resources, `9e41fa8` apply Tiro and Teko to Nepali text.
+
+- New routes: `/language/dictionary/`, `/language/sentences/`, `/language/timelines/`, `/language/sources/`. The 2,029-entry dictionary is a same-origin JSON file fetched only when the dictionary page opens; search, pagination, word links by id, loading, retry and not-found states, and English/Nepali interface labels.
+- Data in `data/lopa/` (dictionary, 80 sentences, three timelines, books list). `scripts/prepare-lopa-data.mjs` validates it and copies the dictionary to `public/lopa/data/` on `predev` and `prebuild`.
+- Canonical source: the `dura-garage/dura-lopa-web` repository snapshot (commit `30db92c`), chosen by the owner. It differs from the legacy live API in 2,027 of 2,029 records, so the live API must not be merged in by id.
+- Four book PDFs and covers are published under `public/lopa/books/`.
+- Fonts: Tiro Devanagari Hindi for reading text and Teko for display headings, loaded through `next/font`, applied with `.devanagari-text` and `.devanagari-display`.
+- `DURA_LOPA_INTEGRATION_PLAN.md` records the plan, the data discrepancy and the licensing notes (legacy code is GPL-2.0; the site is MIT, so the interface was reimplemented rather than copied).
+
+**Notes**: rights to publish the dictionary, sentences and book files still need written confirmation (see Open items).
+
+---
+
+### 2026-10-23 to 2026-10-24 — Design and content pass *(repo)*
+
+**Commits** (`dura-garage`):
+
+| Commit | Change |
+|---|---|
+| `b45549a`, `d822452` | Contact page rebuilt; committee portraits, quiz history records and central office map details |
+| `8afc266`, `8b7804d` | Footer and mobile navigation reworked |
+| `cd819c4` | Embedded brand icons (Facebook, YouTube, Google Play, App Store, Google Maps) |
+| `2eb7381` | Updated Society logo |
+| `f93dd6d` | Programs page redesigned with original illustrations |
+| `9d07db7` | About page shows organizations and the committee in role groups |
+| `56ee56b` | Home page rebuilt around three paths (learn Dura Lopa, explore heritage, contact); project-planning targets removed from the home page |
+| `4776614` | Three initial news posts published; `docs/news-submission.md` explains how to add posts |
+| `2a4d8f5` | Heritage page redesigned |
+| `f248489` | Link underlines cleaned up |
+
+**Notes**: committee portraits are in `public/committee/`. The first news post says the Lopa page offers alphabet lessons, verbs, sentences with native audio and an audio book; this repo has no audio route, so that wording should be checked against the live site.
+
+---
+
+### 2026-10-24 — Nepali typography check, legacy redirect, branch protection *(repo)*
+
+**Nepali typography** (PR #44, branch `nepali-typography-lopa-retire`)
+
+- Audited the built site: 26 pages, 83 Devanagari text nodes not tagged with a language. 80 were Dura sentences already tagged `lang="drq"` with the font class (counted only because the audit first looked for `ne`); three were the Dura organization names on `/heritage/organizations/`, which had no font. Those three now carry `lang="ne"` and `devanagari-text`.
+- `app/globals.css`: `:lang(ne)` and `:lang(drq)` now apply the Devanagari reading font, so tagged text is covered even if the helper class is forgotten.
+- `scripts/check-nepali-fonts.mjs` and `npm run check:nepali-fonts`: fails when built HTML has Devanagari text without `lang="ne"` or `lang="drq"`. Added to `.github/workflows/ci.yml` after the build step. Verified that it fails on the old build (3 findings) and passes on the new one (26 pages).
+- Checked: typecheck, lint, build. The sandbox cannot reach Google Fonts, so the audit build used a temporary font stub (not committed); CI and GitHub Pages load the real fonts.
+
+**Retiring `dura-lopa-web`**
+
+- This site has no remaining links to the legacy app; the `/language` row of the README now says so.
+- Prepared a patch for `dura-garage/dura-lopa-web` (the session had read access only). It redirects `/`, `/dictionary`, `/dictionary/word`, `/sentences`, `/timelines`, `/timeline` and `/sources` to the matching `durastudents.org.np/language/` pages before the app loads, adds a `noscript` link, a canonical link and a README notice. `/puraney` is not redirected until the SVG tool is ported (#21). The backend API is untouched.
+- A server-side 301 in the Render dashboard is still preferable once the owner is ready (see Open items).
+
+**Branch protection**: attempted through the GitHub API; the request was refused (write access to that API path is not permitted from the working session). Nothing was changed.
+
+---
 
 ---
 
@@ -192,17 +276,21 @@ Newest entries go at the bottom of the timeline; keep the "Open items" section c
 
 **Needs a person (no code can fix these)**
 
-- Merge order: #29 → #30 → #31. After #29's CI run appears once, turn on branch protection for `main` and require the `Typecheck, lint and build` check (Settings → Branches).
+- **Branch protection on `main`**: Settings → Branches → Add branch ruleset (or classic rule) for `main`; require status checks to pass and select `Typecheck, lint and build`; block force pushes and deletions. The check has run on pull requests since #29, so it is selectable. Note that a required check also blocks direct pushes from non-admin accounts, so changes to `main` go through pull requests.
+- **Apply the `dura-lopa-web` redirect**: apply the prepared patch to `dura-garage/dura-lopa-web` (needs access to that repo), or add 301 redirects in the Render dashboard for the same routes. After it is live, check each old URL, keep the backend API running until nothing depends on it, and keep `/puraney` working until #21 is done.
+- **Rights for Lopa content**: written confirmation to publish the dictionary, sentences, timelines and the four book PDFs and covers on this site, with attribution.
 - Submit `sitemap.xml` to Google Search Console (#12).
 - Committee and cultural reviewers must read the draft rights/consent policy (#18); its "Reuse" section is a proposal, not an agreed rule.
-- Content and details: donation details (#2), hero photo (#3), official domain email (#4), verify timeline/committee/impact (#5), resources PDFs (#6), Dura Mahila Samaj logo (#7), quiz rules and team (#8), statistics sources (#9), place pins (#10), first consented people (#11), pilot archive items (#22), first news posts (#27), Nepali/Dura language decisions (#19).
+- Content and details: donation details (#2), official domain email (#4), verify timeline/committee/impact (#5), resources PDFs (#6), Dura Mahila Samaj logo (#7), quiz rules and team (#8), statistics sources (#9), place pins (#10), first consented people (#11), pilot archive items (#22), Nepali/Dura language decisions (#19). The hero photo (#3) was added 2026-10-22.
+- Check the first news post's description of the Lopa page against the live site (audio, alphabet lessons and verbs are not built in this repo).
 - Finish verifying old-site redirects (#15) and confirm GitHub Pages HTTPS/custom domain (#16).
 - A screen-reader pass by a person (#25); automated checks do not replace it.
+- Review GitHub issues #2–#28 and close the ones the work above has finished; their state was not readable when this log was updated.
 - Proposal document: funding partner, cover date and budget figures.
 
 **Technical, not started**
 
-- #20 port Books library, #21 port Puraney SVG tool, #24 move Lopa dictionary to `lopa.durastudents.org.np`.
+- #20 port Books library (the four Lopa books are now served from `/language/sources/`; confirm whether anything else from the old Books library is needed), #21 port Puraney SVG tool, #24 move Lopa dictionary to `lopa.durastudents.org.np` (re-check whether it is still wanted now that the dictionary lives under `/language/`).
 
 ---
 

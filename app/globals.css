@@ -133,6 +133,14 @@ body {
   color: var(--fg);
 }
 
+/* Safety net: any element tagged as Nepali or Dura gets the Devanagari reading
+   font even if the helper class is forgotten. `npm run check:nepali-fonts`
+   fails the build when Devanagari text is not tagged with a language. */
+:lang(ne),
+:lang(drq) {
+  font-family: var(--font-devanagari-reading), var(--font-sans), sans-serif;
+}
+
 .devanagari-text {
   font-family: var(--font-devanagari-reading), var(--font-sans), sans-serif;
 }

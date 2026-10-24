@@ -38,7 +38,7 @@ export default function Organizations() {
                 </div>
               )}
               <h2 className="mt-4 font-semibold">{o.name}</h2>
-              <p className="text-sm muted">{o.ne}</p>
+              <p lang="ne" className="devanagari-text text-sm muted">{o.ne}</p>
             </li>
           ))}
         </ul>
