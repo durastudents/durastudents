@@ -10,6 +10,7 @@ npm run build      # static site in ./out, plus the search index
 npm start          # serve ./out locally to try the built site, including search
 npm run typecheck  # TypeScript
 npm run lint       # ESLint
+npm run check:nepali-fonts  # after a build: fails if Devanagari text lacks lang="ne" or lang="drq"
 ```
 
 ## Adding content
@@ -44,7 +45,7 @@ and link to it; do not commit them here.
 | `/heritage` | ddhp-mocha.vercel.app |
 | `/heritage/people`, `/heritage/places`, `/heritage/organizations`, `/heritage/statistics` | durapeople.web, duraplaces.map, durapeto-web |
 | `/heritage/archive`, `/heritage/policy` | new |
-| `/language` | amardura.com.np/duralopa.app, dura-lopa-web link |
+| `/language`, `/language/dictionary`, `/language/sentences`, `/language/timelines`, `/language/sources` | amardura.com.np/duralopa.app and the dura-lopa-web web app |
 | `/search` | new (Pagefind index built after `next build`) |
 
 ## How it is built and deployed

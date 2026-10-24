@@ -12,6 +12,7 @@
     "start": "serve out",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
+    "check:nepali-fonts": "node scripts/check-nepali-fonts.mjs",
     "postbuild": "pagefind --site out"
   },
   "dependencies": {
