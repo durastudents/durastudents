@@ -4,7 +4,7 @@ import SiteText from "@/components/SiteText";
 
 export default function ArchiveCard({ item }: { item: ArchiveItem }) {
   return (
-    <li className="card p-5!">
+    <li className="card card-interactive p-5!">
       <p className="text-xs muted">
         <code className="font-semibold text-accent">{item.id}</code> · <SiteText>{kinds[item.kind]}</SiteText>
       </p>

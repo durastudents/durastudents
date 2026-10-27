@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { SiteLanguageProvider } from "@/components/SiteLanguageProvider";
 import SiteText from "@/components/SiteText";
-import { Teko, Tiro_Devanagari_Hindi } from "next/font/google";
+import { Playfair_Display, Teko, Tiro_Devanagari_Hindi } from "next/font/google";
 
 const nepaliReading = Tiro_Devanagari_Hindi({
   weight: "400",
@@ -20,6 +20,12 @@ const nepaliDisplay = Teko({
   display: "swap",
   variable: "--font-devanagari-display",
   preload: false,
+});
+
+const displayLatin = Playfair_Display({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-display-latin",
 });
 
 export const metadata: Metadata = {
@@ -51,7 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className={`font-sans antialiased ${nepaliReading.variable} ${nepaliDisplay.variable}`}>
+      <body className={`font-sans antialiased ${nepaliReading.variable} ${nepaliDisplay.variable} ${displayLatin.variable}`}>
         <SiteLanguageProvider>
           <a href="#main" className="skip-link"><SiteText>Skip to main content</SiteText></a>
           <Header />

@@ -11,7 +11,7 @@ export default function GalleryCard({ item }: { item: ArchiveItem }) {
 
   return (
     <li>
-      <article className="card overflow-hidden p-0!">
+      <article className="card card-interactive overflow-hidden p-0!">
         <Link
           href={`/heritage/archive/${item.id}/`}
           aria-label={`View ${item.title} in the digital archive`}

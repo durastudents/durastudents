@@ -23,7 +23,7 @@ export default function LopaOverviewLinks() {
   return (
     <div className="grid gap-4 sm:grid-cols-2">
       {links[language].map((link) => (
-        <Link key={link.href} href={link.href} className="card hover:border-brand-500">
+        <Link key={link.href} href={link.href} className="card card-interactive">
           <h2 className={`font-semibold ${language === "ne" ? "devanagari-display" : ""}`} lang={language}>
             {link.label}
           </h2>

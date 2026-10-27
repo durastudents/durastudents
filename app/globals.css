@@ -29,6 +29,16 @@
   --font-sans:
     ui-sans-serif, system-ui, Segoe UI, Noto Sans Devanagari, Noto Sans,
     sans-serif;
+  --font-display:
+    var(--font-display-latin), ui-serif, Georgia, "Times New Roman", serif;
+
+  --radius-card: 1rem;
+  --radius-control: 0.75rem;
+
+  --shadow-soft: 0 1px 2px rgb(18 51 31 / 0.05), 0 8px 24px -12px rgb(18 51 31 / 0.14);
+  --shadow-lift: 0 2px 4px rgb(18 51 31 / 0.06), 0 18px 40px -18px rgb(18 51 31 / 0.28);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /*
@@ -56,6 +66,9 @@
   --card: #ffffff;
   --line: #e3e7df;
   --accent: #256a3c; /* text green: 6.3:1 on --bg */
+  --accent-soft: #e6f0e8;
+  --ring: #2f7d4a;
+  --header-h: 4.25rem;
 }
 
 /* Dark when chosen explicitly, or when nothing is chosen and the system prefers dark. */
@@ -67,11 +80,15 @@
     --card: #17211b;
     --line: #26352c;
     --accent: #4fae70; /* 6.6:1 on dark --bg */
+    --accent-soft: #1c2c22;
+    --ring: #6cc88a;
   }
 }
 
 :root[data-theme="dark"] {
   --accent: #4fae70;
+  --accent-soft: #1c2c22;
+  --ring: #6cc88a;
   --bg: #0f1612;
   --fg: #e8eee9;
   --muted: #9aa8a0;
@@ -89,11 +106,22 @@
   color-scheme: dark;
 }
 
-/* Visible keyboard focus everywhere. */
+html {
+  /* Keep focused elements and #anchor targets clear of the sticky header. */
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+/* Visible keyboard focus everywhere (3:1 against both themes). */
 :focus-visible {
-  outline: 2px solid #2f7d4a;
-  outline-offset: 2px;
-  border-radius: 4px;
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 main:focus {
   outline: none;
@@ -131,6 +159,32 @@ main li a:not(.btn):not(.heritage-card):hover {
 body {
   background: var(--bg);
   color: var(--fg);
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+}
+
+/* Editorial serif for Latin headings; Devanagari falls through to the reading font. */
+h1,
+h2 {
+  font-family: var(--font-display), var(--font-devanagari-display), serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+h1 :lang(ne),
+h2 :lang(ne),
+h1:lang(ne),
+h2:lang(ne),
+h1 :lang(drq),
+h2 :lang(drq) {
+  letter-spacing: normal;
+}
+h3,
+h4 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
 }
 
 /* Safety net: any element tagged as Nepali or Dura gets the Devanagari reading
@@ -156,23 +210,156 @@ body {
     @apply rounded-2xl border p-6;
     background: var(--card);
     border-color: var(--line);
+    box-shadow: var(--shadow-soft);
+  }
+  .card-interactive {
+    transition:
+      transform 220ms var(--ease-out-soft),
+      box-shadow 220ms var(--ease-out-soft),
+      border-color 220ms ease;
+  }
+  .card-interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lift);
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
   }
   .muted {
     color: var(--muted);
   }
+  /* 44px minimum touch target, never colour alone for state. */
   .btn {
-    @apply inline-flex items-center rounded-full px-5 py-2.5 text-sm font-semibold transition;
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold;
+    min-height: 2.75rem;
+    transition:
+      background-color 180ms ease,
+      border-color 180ms ease,
+      color 180ms ease,
+      box-shadow 180ms ease,
+      transform 180ms var(--ease-out-soft);
+  }
+  .btn:active {
+    transform: translateY(1px);
   }
   .btn-primary {
     @apply bg-brand-600 text-white hover:bg-brand-700;
+    box-shadow: 0 1px 2px rgb(18 51 31 / 0.2);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 6px 16px -6px rgb(18 51 31 / 0.5);
   }
   .btn-ghost {
     @apply border hover:bg-brand-50 dark:hover:bg-brand-900;
     border-color: var(--line);
   }
+  .btn-ghost:hover {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  }
   .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-widest;
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest;
     color: var(--accent);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 1.5rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.7;
+  }
+  .text-link {
+    @apply inline-flex cursor-pointer items-center gap-2 font-semibold;
+    color: var(--accent);
+    text-underline-offset: 4px;
+  }
+  .text-link:hover {
+    text-decoration: underline;
+  }
+  .text-link .arrow {
+    transition: transform 200ms var(--ease-out-soft);
+  }
+  .text-link:hover .arrow {
+    transform: translateX(3px);
+  }
+  .nav-link {
+    @apply relative inline-flex cursor-pointer items-center text-sm font-medium;
+    min-height: 2.75rem;
+    padding-inline: 0.15rem;
+    color: var(--fg);
+    transition: color 160ms ease;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0.15rem;
+    right: 0.15rem;
+    bottom: 0.45rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 220ms var(--ease-out-soft);
+  }
+  .nav-link:hover {
+    color: var(--accent);
+  }
+  .nav-link:hover::after,
+  .nav-link[aria-current="page"]::after {
+    transform: scaleX(1);
+  }
+  .nav-link[aria-current="page"] {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .footer-link {
+    @apply inline-flex cursor-pointer items-center;
+    min-height: 2.25rem;
+    transition: color 160ms ease;
+  }
+  .footer-link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .section-band {
+    border-block: 1px solid var(--line);
+    background: var(--card);
+  }
+}
+
+/* Gentle page-load reveal. Final state is the default, so nothing is hidden
+   if animation is skipped or interrupted. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    animation: reveal-up 600ms var(--ease-out-soft) both;
+  }
+  .reveal-delay-1 {
+    animation-delay: 90ms;
+  }
+  .reveal-delay-2 {
+    animation-delay: 180ms;
+  }
+  @keyframes reveal-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
