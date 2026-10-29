@@ -9,7 +9,8 @@ import SiteText, { BilingualSiteText } from "@/components/SiteText";
 
 export const metadata: Metadata = {
   title: "Dura Language Timelines",
-  description: "Timeline of Dura language classes, campaigns, books and research.",
+  description:
+    "A timeline of Dura language revitalization: classes, campaigns, books and research, from the Dura Lopa project.",
 };
 
 const timelineGroups = [

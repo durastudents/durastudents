@@ -5,7 +5,7 @@ import { organizations } from "@/data/site";
 export const metadata: Metadata = {
   title: "Dura Organizations",
   description:
-    "Organizations of the Dura community in Nepal.",
+    "Directory of Dura community organizations in Nepal, part of the Dura Digital Heritage Project.",
 };
 
 export default function Organizations() {

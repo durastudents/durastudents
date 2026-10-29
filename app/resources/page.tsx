@@ -7,7 +7,7 @@ import SiteText from "@/components/SiteText";
 export const metadata: Metadata = {
   title: "Resources and publications",
   description:
-    "Approved documents, reports and publications from Dura Students Society.",
+    "Approved documents, reports and publications from Dura Students Society and the Dura Digital Heritage Project.",
 };
 
 type ResourceCategory = "society" | "reports" | "programs";

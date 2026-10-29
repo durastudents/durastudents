@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { SiteLanguageProvider } from "@/components/SiteLanguageProvider";
 import SiteText from "@/components/SiteText";
+import { SiteJsonLd } from "@/components/JsonLd";
 import { Teko, Tiro_Devanagari_Hindi } from "next/font/google";
 
 const nepaliReading = Tiro_Devanagari_Hindi({
@@ -30,13 +31,24 @@ export const metadata: Metadata = {
   },
   description:
     "Dura Students Society connects Dura youth, preserves the Dura language and documents the heritage of the Dura Indigenous Community of Nepal.",
-  keywords: ["Dura", "Dura Students Society", "Dura language", "Dura Lopa", "Dura Digital Heritage"],
+  // Every page gets a canonical URL. "./" resolves against metadataBase and the page's own
+  // path, so /about/ canonicalises to https://durastudents.org.np/about/. (Search engines
+  // ignore the old meta keywords tag, so it is not set.)
+  alternates: { canonical: "./" },
+  // No hreflang: the Nepali interface is a client-side toggle on the same URLs, not separate
+  // pages. Add `alternates.languages` only if Nepali pages ever get their own URLs.
   openGraph: {
     type: "website",
     siteName: "Dura Students Society",
     locale: "en_US",
+    alternateLocale: ["ne_NP"],
   },
   twitter: { card: "summary_large_image" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -52,6 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={`font-sans antialiased ${nepaliReading.variable} ${nepaliDisplay.variable}`}>
+        <SiteJsonLd />
         <SiteLanguageProvider>
           <a href="#main" className="skip-link"><SiteText>Skip to main content</SiteText></a>
           <Header />

@@ -8,7 +8,7 @@ Newest entries go at the bottom of the timeline; keep the "Open items" section c
 - Dates are `YYYY-MM-DD`. GitHub timestamps are UTC (Nepal is UTC+05:45), so an evening event in Nepal can appear on the next UTC day.
 - Entries marked *(repo)* are backed by git history, pull requests or issues in `durastudents/durastudents`.
 - Entries marked *(recorded)* come from the project's working notes. Their dates are the day the work was first recorded, not necessarily the day it started.
-- Last updated: 2026-10-24.
+- Last updated: 2026-10-29.
 
 ---
 
@@ -27,6 +27,7 @@ Newest entries go at the bottom of the timeline; keep the "Open items" section c
 | Dura Lopa web dictionary, sentences, timelines, books inside the site | Built 2026-10-23; live under `/language/` |
 | Design pass (home, about, contact, programs, heritage, footer, nav, news) | Done 2026-10-23 to 2026-10-24 |
 | Nepali typography (Tiro Devanagari Hindi, Teko) with a build-time check | PR #44 merged 2026-10-24 |
+| SEO pass: canonicals, JSON-LD, archive share images, descriptions | Done 2026-10-29; Search Console verification still manual (#12) |
 | Legacy `dura-lopa-web` redirect | Patch prepared, not applied (no write access to that repo) |
 | Branch protection on `main` | Not enabled; GitHub API write was refused from the working session, so it needs a manual change |
 
@@ -267,6 +268,30 @@ Newest entries go at the bottom of the timeline; keep the "Open items" section c
 - A server-side 301 in the Render dashboard is still preferable once the owner is ready (see Open items).
 
 **Branch protection**: attempted through the GitHub API; the request was refused (write access to that API path is not permitted from the working session). Nothing was changed.
+
+---
+
+### 2026-10-29 — SEO pass: canonicals, structured data, descriptions *(repo)*
+
+**Tasks**
+
+- Audited the live homepage. Title, description, Open Graph and Twitter tags, headings, alt text and the existing `sitemap.xml` / `robots.txt` were already sound; the gaps were canonical URLs, structured data and a few thin page descriptions.
+- Added a canonical URL to every page (`alternates.canonical: "./"` in `app/layout.tsx`, resolved per route against `metadataBase`).
+- Added Organization and WebSite JSON-LD (site-wide, built from `data/site.ts`) and an `ImageObject` block on each archive photograph page. New file `components/JsonLd.tsx`.
+- Archive item pages now use the item's own photograph as the Open Graph / Twitter image, with its alt text, and `og:type` article.
+- Removed the `keywords` meta tag (ignored by Google and Bing). Added `max-image-preview: large` for Googlebot and `ne_NP` as an alternate Open Graph locale.
+- Rewrote eight short meta descriptions (News, Team, Organizations, Resources, Dictionary, Sentences, Sources, Timelines) using only facts already on those pages.
+
+**Files changed**
+
+`app/layout.tsx`, `components/JsonLd.tsx` (new), `app/heritage/archive/[id]/page.tsx`, `app/news/page.tsx`, `app/team/page.tsx`, `app/resources/page.tsx`, `app/heritage/organizations/page.tsx`, `app/language/{dictionary,sentences,sources,timelines}/page.tsx`, `PROJECT_LOG.md`.
+
+**Notes**
+
+- Checked in the built `out/` HTML: canonical correct on every page, `/search/` still `noindex`, valid JSON-LD parses. `npm run typecheck`, `lint` and `build` pass.
+- No hreflang on purpose: the Nepali interface is a client-side toggle on the same URLs. If Nepali pages ever get their own URLs (for example `/ne/`), add `alternates.languages` then. Separate Nepali URLs are the largest remaining SEO opportunity for Nepali-language searches.
+- `robots.txt` still allows `/search/`. It is excluded by `noindex` instead, because a robots block would stop crawlers from seeing the `noindex`.
+- Not done (needs a person): verify the domain in Google Search Console and Bing Webmaster Tools and submit the sitemap (#12); add the verification tokens to `metadata.verification` in `app/layout.tsx` if the meta-tag method is used.
 
 ---
 

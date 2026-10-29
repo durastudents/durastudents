@@ -6,7 +6,8 @@ import type { LopaSentence } from "@/data/lopa/types";
 
 export const metadata: Metadata = {
   title: "Dura Lopa Sentences",
-  description: "Search bilingual Dura and Nepali example sentences for language learning.",
+  description:
+    "Search Dura Lopa example sentences in Dura with Nepali translations, for learners of the Dura language.",
 };
 
 export default function SentencesPage() {
