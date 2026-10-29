@@ -7,7 +7,8 @@ import SiteText from "@/components/SiteText";
 
 export const metadata: Metadata = {
   title: "Dura Language Learning Resources",
-  description: "Dura language grammar, dictionary and Dura Lopa learning books.",
+  description:
+    "Read Dura language learning books online: the Dura grammar, the dictionary and the Dura Lopa learning books, with attribution.",
 };
 
 export default function SourcesPage() {

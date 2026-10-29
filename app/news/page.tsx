@@ -8,7 +8,8 @@ import SiteText from "@/components/SiteText";
 
 export const metadata: Metadata = {
   title: "News",
-  description: "News and updates from Dura Students Society.",
+  description:
+    "News and updates from Dura Students Society: announcements about Dura language learning, community events, the inter-district quiz and the Dura Digital Heritage Project.",
 };
 
 export default function News() {

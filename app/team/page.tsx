@@ -7,7 +7,7 @@ import SiteText from "@/components/SiteText";
 export const metadata: Metadata = {
   title: "Team & Governance",
   description:
-    "The committee and governance of Dura Students Society.",
+    "Meet the central committee of Dura Students Society and read how the Society and the Dura Digital Heritage Project are governed.",
 };
 
 export default function Team() {

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import PageHeader, { Container } from "@/components/PageHeader";
 import { kinds, publicItems } from "@/data/archive";
 import SiteText from "@/components/SiteText";
+import { ImageObjectJsonLd } from "@/components/JsonLd";
 
 type Params = { id: string };
 
@@ -18,13 +19,28 @@ export function generateStaticParams(): Params[] {
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { id } = await params;
   const item = publicItems.find((i) => i.id === id);
-  return item ? { title: item.title, description: item.description } : {};
+  if (!item) return {};
+  // Use the item's first photograph as the share image, with its own alt text.
+  const image = item.files.find((f) => f.type === "image");
+  return {
+    title: item.title,
+    description: item.description,
+    openGraph: {
+      title: item.title,
+      description: item.description,
+      type: "article",
+      ...(image ? { images: [{ url: image.src, alt: image.alt ?? item.title }] } : {}),
+    },
+    ...(image ? { twitter: { card: "summary_large_image" as const, title: item.title, description: item.description, images: [image.src] } } : {}),
+  };
 }
 
 export default async function ArchiveItemPage({ params }: { params: Promise<Params> }) {
   const { id } = await params;
   const item = publicItems.find((i) => i.id === id);
   if (!item) notFound();
+
+  const mainImage = item.files.find((f) => f.type === "image");
 
   const facts: [string, string | undefined][] = [
     ["Identifier", item.id],
@@ -42,6 +58,18 @@ export default async function ArchiveItemPage({ params }: { params: Promise<Para
 
   return (
     <>
+      {mainImage && (
+        <ImageObjectJsonLd
+          id={item.id}
+          name={item.title}
+          description={item.description}
+          imageSrc={mainImage.src}
+          pagePath={`/heritage/archive/${item.id}/`}
+          date={item.date}
+          credit={item.contributor}
+          rights={item.rights}
+        />
+      )}
       <PageHeader eyebrow="Archive" title={item.title} lead={item.description} />
       <Container>
         <div className="space-y-6">

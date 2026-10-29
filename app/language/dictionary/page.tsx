@@ -6,7 +6,8 @@ import SiteText from "@/components/SiteText";
 
 export const metadata: Metadata = {
   title: "Dura Lopa Dictionary",
-  description: "Search the Dura–Nepali–English dictionary with IPA and parts of speech.",
+  description:
+    "Search the Dura Lopa Dura–Nepali–English dictionary online, with IPA pronunciation and parts of speech for each Dura word.",
 };
 
 export default function DictionaryPage() {
