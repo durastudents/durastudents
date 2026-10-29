@@ -204,6 +204,23 @@ export default function Heritage() {
               <span aria-hidden="true">→</span>
             </Link>
           </div>
+
+          <div className="mt-4 flex flex-col gap-4 rounded-2xl border p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+            <div>
+              <p className="eyebrow">Creative activity</p>
+              <h3 className="mt-1 text-lg font-semibold">Color the Puraney illustration</h3>
+              <p className="mt-1 text-sm leading-relaxed muted">
+                Try a browser-based coloring page with undo, autosave, downloads and print support.
+              </p>
+            </div>
+            <Link
+              href="/heritage/coloring/"
+              className="inline-flex shrink-0 items-center gap-2 font-semibold text-accent hover:underline underline-offset-4"
+            >
+              Open coloring page
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
         </div>
       </section>
 

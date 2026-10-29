@@ -405,6 +405,139 @@ body {
   background: color-mix(in srgb, var(--heritage-gold) 45%, var(--card));
 }
 
+.coloring-paper {
+  border-color: var(--line);
+  background: #fff;
+}
+
+.coloring-paper svg {
+  max-width: 42rem;
+  margin-inline: auto;
+}
+
+.coloring-paper svg [role="button"] {
+  cursor: pointer;
+  outline: none;
+}
+
+.coloring-paper svg [role="button"]:focus-visible {
+  stroke: #1e5632;
+  stroke-width: 5;
+}
+
+.coloring-swatch[aria-pressed="true"] {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.coloring-studio button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.coloring-print-sheet {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  body > * {
+    display: none !important;
+  }
+
+  body > main {
+    display: block !important;
+    position: static !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body > main > .heritage-page {
+    display: block !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body > main > .heritage-page > header {
+    display: none !important;
+  }
+
+  body > main > .heritage-page > .coloring-studio {
+    display: block !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .coloring-studio > :not(#puraney-print-sheet) {
+    display: none !important;
+  }
+
+  #puraney-print-sheet {
+    display: grid;
+    position: fixed;
+    inset: 8mm;
+    box-sizing: border-box;
+    background: #fff !important;
+    justify-items: center;
+    align-items: center;
+    gap: 2mm;
+    overflow: hidden;
+  }
+
+  .coloring-print-sheet--1 {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+
+  .coloring-print-sheet--1 svg {
+    width: min(190mm, 100%);
+    max-height: 265mm;
+  }
+
+  .coloring-print-sheet--2 {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  .coloring-print-sheet--2 svg {
+    width: 132mm;
+    max-width: 100%;
+    max-height: 132mm;
+  }
+
+  .coloring-print-sheet--4 {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  .coloring-print-sheet--4 svg,
+  .coloring-print-sheet--6 svg {
+    width: 90mm;
+    max-width: 100%;
+    max-height: 90mm;
+  }
+
+  .coloring-print-sheet--6 {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .heritage-card-arrow {
     transition: none;
