@@ -21,8 +21,9 @@ Next.js Language section:
 - The dictionary is fetched from a generated same-origin JSON file only when
   its route is opened; search, pagination, URL-addressable word selection,
   loading, retry and missing-word states are included.
-- English/Nepali interface labels are available and the selection is persisted
-  in browser storage.
+- A shared site-wide English/Nepali interface toggle is available across the
+  site, including the Language routes; the selection is persisted in browser
+  storage. English remains the default to preserve the existing site behavior.
 - The Language overview links to the new routes while retaining the mobile-app
   store links, screenshots and contributor section.
 - The data preparation script validates the imported dictionary, sentences
@@ -70,7 +71,7 @@ keeps the existing static deployment model.
 | Bilingual sentences | `frontend/src/pages/Sentences.jsx`; fetches `GET /api/sentences/all` and supports searching | `/language/sentences/` |
 | Language timelines | JSON files imported from `frontend/src/assets/json/` and rendered by the timeline pages | `/language/timelines/`, after verifying and migrating the referenced timeline datasets |
 | Books and source material | `frontend/src/pages/Sources.jsx`; displays book descriptions, image previews and PDF downloads | `/language/sources/`, after confirming every image/PDF is present and has publication/reuse permission |
-| Language switch | `i18next` offers English and Nepali strings; the app defaults to Nepali | Integrate a simple, accessible English/Nepali content toggle for learner-interface labels; keep Dura, Nepali and English dictionary fields distinct |
+| Language switch | `i18next` offers English and Nepali strings; the legacy app defaults to Nepali | Use the shared site-wide English/Nepali toggle (English is the current site default); keep Dura, Nepali and English dictionary fields distinct |
 | Puraney SVG editor | `/puraney` contains an interactive SVG/color/export tool, rather than a core dictionary/learning flow | Exclude from the first learner-facing migration. Decide separately whether it is a public learning tool, an internal editor, or obsolete. |
 
 The live legacy home page loads, but directly opening
@@ -121,8 +122,9 @@ diacritics and source records.
   permissions to publish the dataset on the Society site?
 - Confirm whether sentences, timelines, sources/PDFs and the Puraney editor
   are included in the first release or delivered in later phases.
-- Confirm the required default UI language (recommend Nepali, matching the
-  legacy app), and whether English/Nepali labels are both required at launch.
+- English is the current site-wide default to preserve existing behavior; the
+  legacy app's Nepali default does not change that site setting. Both English
+  and Nepali interface labels are available.
 - Confirm the attribution/license for the **data and media** separately from
   the software license.
 

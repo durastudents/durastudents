@@ -6,6 +6,11 @@
 // put the full URL in `files[].src`. Keep original master files in at least two
 // places outside this repository.
 //
+// To publish a gallery item, add a consented archive record below with `gallery: true`.
+// Put small, optimized photos and video posters in public/gallery/ and use paths such
+// as "/gallery/community-gathering.jpg". For large videos, use an approved external
+// viewing link (`type: "link"`) or a direct playable media URL (`type: "video"`).
+//
 // The build fails if an item breaks the rules in `validate()` below.
 
 import type { Verification } from "./types";
@@ -26,7 +31,7 @@ export type ArchiveKind = keyof typeof kinds;
 export type AccessLevel = "Public" | "Community" | "Restricted" | "Archival";
 
 export type ArchiveFile = {
-  type: "image" | "audio" | "video" | "pdf";
+  type: "image" | "audio" | "video" | "pdf" | "link";
   src: string; // "/archive/..." for small files, or a full https URL
   label?: string;
   alt?: string; // required for images
@@ -48,9 +53,147 @@ export type ArchiveItem = {
   status: Verification;
   files: ArchiveFile[];
   consent: true; // must be true to publish
+  gallery?: boolean; // opt in approved photographs/videos to the public gallery
 };
 
-const items: ArchiveItem[] = [];
+const items: ArchiveItem[] = [
+  {
+    id: "DHP-PHO-00001",
+    kind: "PHO",
+    title: "Tanahun team at the inter-district quiz",
+    description:
+      "Young participants seated at a table marked Tanahun during the Shree Khaje Dura Smriti inter-district quiz competition.",
+    source:
+      "Dura Students Society YouTube community post: https://www.youtube.com/post/Ugkx6-TDGTJeQF1PhEC7Jtj8aD9Yg0PZLUKW",
+    contributor: "Dura Students Society",
+    rights: "Reuse on the Society website and consent for the selected photo confirmed by the Society.",
+    access: "Public",
+    status: "Verified",
+    files: [
+      {
+        type: "image",
+        src: "/gallery/quiz-tanahun-team.webp",
+        alt: "Three young participants seated at a table marked Tanahun, with another person standing behind them.",
+      },
+    ],
+    consent: true,
+    gallery: true,
+  },
+  {
+    id: "DHP-PHO-00002",
+    kind: "PHO",
+    title: "Kaski team at the inter-district quiz",
+    description:
+      "Young participants seated at a table marked Kaski during the Shree Khaje Dura Smriti inter-district quiz competition.",
+    source:
+      "Dura Students Society YouTube community post: https://www.youtube.com/post/Ugkx6-TDGTJeQF1PhEC7Jtj8aD9Yg0PZLUKW",
+    contributor: "Dura Students Society",
+    rights: "Reuse on the Society website and consent for the selected photo confirmed by the Society.",
+    access: "Public",
+    status: "Verified",
+    files: [
+      {
+        type: "image",
+        src: "/gallery/quiz-kaski-team.webp",
+        alt: "Four young participants seated at a table marked Kaski.",
+      },
+    ],
+    consent: true,
+    gallery: true,
+  },
+  {
+    id: "DHP-PHO-00003",
+    kind: "PHO",
+    title: "Participants with a quiz competition trophy",
+    description:
+      "Community members and young participants pose with a trophy at the gathering featured in the Society's inter-district quiz post.",
+    source:
+      "Dura Students Society YouTube community post: https://www.youtube.com/post/UgkxGkpSEOM3IfUWfvtAD7e6jxF1g50mxdck",
+    contributor: "Dura Students Society",
+    rights: "Reuse on the Society website and consent for the selected photo confirmed by the Society.",
+    access: "Public",
+    status: "Verified",
+    files: [
+      {
+        type: "image",
+        src: "/gallery/quiz-award-group.webp",
+        alt: "A group of community members and young participants holding a trophy together.",
+      },
+    ],
+    consent: true,
+    gallery: true,
+  },
+  {
+    id: "DHP-PHO-00004",
+    kind: "PHO",
+    title: "Trophy and awards at the quiz gathering",
+    description:
+      "A trophy and award plaques displayed at the gathering featured in the Society's inter-district quiz post.",
+    source:
+      "Dura Students Society YouTube community post: https://www.youtube.com/post/UgkxGkpSEOM3IfUWfvtAD7e6jxF1g50mxdck",
+    contributor: "Dura Students Society",
+    rights: "Reuse on the Society website and consent for the selected photo confirmed by the Society.",
+    access: "Public",
+    status: "Verified",
+    files: [
+      {
+        type: "image",
+        src: "/gallery/quiz-awards.webp",
+        alt: "A gold-colored trophy displayed among red award plaques on a table.",
+      },
+    ],
+    consent: true,
+    gallery: true,
+  },
+  {
+    id: "DHP-PHO-00005",
+    kind: "PHO",
+    title: "Community singing at a Dura gathering",
+    description:
+      "Women and a young performer sit together in traditional clothing while one sings into a microphone, with community members gathered nearby.",
+    source:
+      "Dura Lopa project, durapeto-web: https://github.com/dura-amar/durapeto-web/blob/main/public/images/hero/hero1.jpg",
+    contributor: "Ramesh Dura · SatikMedia",
+    rights:
+      "The Society confirmed permission for website reuse and consent for this selected photo; original photographer credit retained.",
+    access: "Public",
+    status: "Community Account",
+    files: [
+      {
+        type: "image",
+        src: "/gallery/community-performance.webp",
+        alt: "Women in traditional clothing sit together at a gathering as one sings into a microphone.",
+      },
+    ],
+    consent: true,
+    gallery: true,
+  },
+  {
+    id: "DHP-PHO-00006",
+    kind: "PHO",
+    title: "32nd anniversary gathering of Dura Sewa Samaj",
+    description:
+      "Dura Students Society members at the 32nd Anniversary of Dura Service Society, Handikhola, Lamjung. The original photo caption dates the gathering to 2082 BS.",
+    date: "2082 BS",
+    place: "Handikhola, Lamjung",
+    source:
+      "Dura Lopa project, durapeto-web: https://github.com/dura-amar/durapeto-web/blob/main/public/images/hero/hero3.jpg",
+    contributor: "Padam Gurung · Dura Students Society",
+    rights:
+      "The Society confirmed permission for website reuse and consent for this selected photo; original photographer credit retained.",
+    access: "Public",
+    status: "Community Account",
+    files: [
+      {
+        type: "image",
+        src: "/gallery/dura-service-society-32nd-anniversary.webp",
+        alt: "Dura Students Society members gathered outdoors at the 32nd Anniversary of Dura Service Society in Handikhola, Lamjung.",
+      },
+    ],
+    consent: true,
+    gallery: true,
+  },
+];
 
 const ID = /^DHP-([A-Z]{3})-(\d{5})$/;
 
@@ -72,6 +215,20 @@ function validate(list: ArchiveItem[]): ArchiveItem[] {
         throw new Error(`Archive item "${i.id}": every image needs alt text`);
       }
     }
+    if (i.gallery) {
+      if (i.access !== "Public" || (i.kind !== "PHO" && i.kind !== "VID")) {
+        throw new Error(`Archive item "${i.id}": gallery items must be public photographs or videos`);
+      }
+      if (!i.description.trim()) {
+        throw new Error(`Archive item "${i.id}": gallery items need a descriptive caption`);
+      }
+      if (!i.files.some((f) => f.type === "image")) {
+        throw new Error(`Archive item "${i.id}": gallery items need an image or video poster`);
+      }
+      if (i.kind === "VID" && !i.files.some((f) => f.type === "video" || f.type === "link")) {
+        throw new Error(`Archive item "${i.id}": gallery videos need a video file or external link`);
+      }
+    }
   }
   return list;
 }
@@ -81,3 +238,4 @@ export const archive = validate(items);
 // Only Public items are shown. Community, Restricted and Archival items stay in the
 // archive but are never rendered on this static site.
 export const publicItems = archive.filter((i) => i.access === "Public");
+export const galleryItems = publicItems.filter((i) => i.gallery === true);

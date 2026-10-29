@@ -5,6 +5,7 @@ import booksMaterials from "@/data/lopa/timelines/books-materials-research.json"
 import campaigns from "@/data/lopa/timelines/campaigns.json";
 import classes from "@/data/lopa/timelines/classes.json";
 import type { TimelineEvent } from "@/data/lopa/types";
+import SiteText, { BilingualSiteText } from "@/components/SiteText";
 
 export const metadata: Metadata = {
   title: "Dura Language Timelines",
@@ -32,7 +33,7 @@ export default function TimelinesPage() {
           {timelineGroups.map((group) => (
             <section key={group.id}>
               <h2 className="text-2xl font-bold">
-                {group.titleEn} · <span lang="ne" className="devanagari-display">{group.titleNe}</span>
+                <BilingualSiteText english={group.titleEn} nepali={group.titleNe} />
               </h2>
               <ol className="mt-5 space-y-5 border-l-2 pl-6" style={{ borderColor: "var(--line)" }}>
                 {group.events.map((event, index) => (
@@ -53,7 +54,7 @@ export default function TimelinesPage() {
           ))}
         </div>
         <p className="mt-10 text-xs muted">
-          Source: Dura Lopa project timeline records, reproduced in Nepali from the source data.
+          <SiteText>Source: Dura Lopa project timeline records, reproduced in Nepali from the source data.</SiteText>
         </p>
       </Container>
     </>

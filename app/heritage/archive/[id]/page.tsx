@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageHeader, { Container } from "@/components/PageHeader";
 import { kinds, publicItems } from "@/data/archive";
+import SiteText from "@/components/SiteText";
 
 type Params = { id: string };
 
@@ -41,7 +42,7 @@ export default async function ArchiveItemPage({ params }: { params: Promise<Para
 
   return (
     <>
-      <PageHeader eyebrow={`Archive · ${kinds[item.kind]}`} title={item.title} lead={item.description} />
+      <PageHeader eyebrow="Archive" title={item.title} lead={item.description} />
       <Container>
         <div className="space-y-6">
           {item.files.map((f) => {
@@ -66,9 +67,18 @@ export default async function ArchiveItemPage({ params }: { params: Promise<Para
                 </figure>
               );
             }
+            if (f.type === "link") {
+              return (
+                <p key={f.src}>
+                  <a className="btn btn-ghost" href={f.src} target="_blank" rel="noreferrer">
+                    {label}
+                  </a>
+                </p>
+              );
+            }
             return (
               <p key={f.src}>
-                <a className="btn btn-ghost" href={f.src}>Open {label} (PDF)</a>
+                <a className="btn btn-ghost" href={f.src}><SiteText>Open</SiteText> {label} (PDF)</a>
               </p>
             );
           })}
@@ -79,15 +89,15 @@ export default async function ArchiveItemPage({ params }: { params: Promise<Para
             .filter(([, v]) => v)
             .map(([k, v]) => (
               <div key={k} className="contents">
-                <dt className="font-semibold">{k}</dt>
+                <dt className="font-semibold"><SiteText>{k}</SiteText></dt>
                 <dd className="muted">{v}</dd>
               </div>
             ))}
         </dl>
 
         <p className="mt-8 text-sm muted">
-          <Link href="/heritage/archive/">Back to the archive</Link> ·{" "}
-          <Link href="/heritage/policy/">Rights, consent and access</Link>
+          <Link href="/heritage/archive/"><SiteText>Back to the archive</SiteText></Link> ·{" "}
+          <Link href="/heritage/policy/"><SiteText>Rights, consent and access</SiteText></Link>
         </p>
       </Container>
     </>

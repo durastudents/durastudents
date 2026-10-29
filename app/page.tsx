@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/data/site";
+import { galleryItems } from "@/data/archive";
+import GalleryCard from "@/components/GalleryCard";
+import SiteText from "@/components/SiteText";
 
 export const metadata: Metadata = {
   title: {
@@ -52,20 +55,19 @@ export default function Home() {
     <>
       <section className="mx-auto grid max-w-6xl items-center gap-9 px-4 pb-12 pt-10 sm:pt-14 md:gap-12 md:pb-16 lg:grid-cols-[0.92fr_1.08fr] lg:pt-16">
         <div>
-          <p className="eyebrow">Dura Indigenous Community · Nepal</p>
+          <p className="eyebrow"><SiteText>Dura Indigenous Community · Nepal</SiteText></p>
           <h1 className="mt-3 max-w-2xl text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-[3.5rem]">
-            Dura language and heritage, carried forward together.
+            <SiteText>Dura language and heritage, carried forward together.</SiteText>
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed muted">
-            {site.name} brings Dura students and youth together while supporting the language,
-            culture and knowledge shared across generations.
+            {site.name} <SiteText>brings Dura students and youth together while supporting the language, culture and knowledge shared across generations.</SiteText>
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <Link href="/language/" className="btn btn-primary">
-              Learn Dura Lopa
+              <SiteText>Learn Dura Lopa</SiteText>
             </Link>
             <Link href="/heritage/" className="btn btn-ghost">
-              Explore Dura heritage
+              <SiteText>Explore Dura heritage</SiteText>
             </Link>
           </div>
         </div>
@@ -93,9 +95,9 @@ export default function Home() {
         style={{ borderColor: "var(--line)", backgroundColor: "var(--card)" }}
       >
         <div className="mx-auto max-w-6xl px-4 py-12 md:py-14">
-          <p className="eyebrow">Start here</p>
+          <p className="eyebrow"><SiteText>Start here</SiteText></p>
           <h2 id="start-here" className="mt-2 text-2xl font-bold md:text-3xl">
-            What brings you to Dura Students Society?
+            <SiteText>What brings you to Dura Students Society?</SiteText>
           </h2>
           <ul className="mt-7 grid gap-0 md:grid-cols-3">
             {startingPoints.map((point, index) => (
@@ -105,17 +107,17 @@ export default function Home() {
                 style={{ borderColor: "var(--line)" }}
               >
                 <p className="text-xs font-semibold uppercase tracking-widest text-accent">
-                  {point.number} · {point.eyebrow}
+                  {point.number} · <SiteText>{point.eyebrow}</SiteText>
                 </p>
-                <h3 className="mt-3 text-xl font-semibold">{point.title}</h3>
+                <h3 className="mt-3 text-xl font-semibold"><SiteText>{point.title}</SiteText></h3>
                 <p className="mt-2 min-h-12 text-sm leading-relaxed muted">
-                  {point.description}
+                  <SiteText>{point.description}</SiteText>
                 </p>
                 <Link
                   href={point.href}
                   className="mt-4 inline-flex items-center gap-2 font-semibold text-accent hover:underline underline-offset-4"
                 >
-                  {point.action}
+                  <SiteText>{point.action}</SiteText>
                   <span aria-hidden="true">→</span>
                 </Link>
               </li>
@@ -127,16 +129,15 @@ export default function Home() {
       <section aria-labelledby="heritage-browse" className="mx-auto max-w-6xl px-4 py-12 md:py-16">
         <div className="grid gap-6 md:grid-cols-[0.8fr_1.2fr] md:gap-12">
           <div>
-            <p className="eyebrow">Dura Digital Heritage Project</p>
+            <p className="eyebrow"><SiteText>Dura Digital Heritage Project</SiteText></p>
             <h2 id="heritage-browse" className="mt-2 text-2xl font-bold md:text-3xl">
-              Knowledge is connected to people and place.
+              <SiteText>Knowledge is connected to people and place.</SiteText>
             </h2>
             <p className="mt-3 leading-relaxed muted">
-              Explore community heritage through records of people, places and shared
-              histories—cared for with attention to context, access and consent.
+              <SiteText>Explore community heritage through records of people, places and shared histories—cared for with attention to context, access and consent.</SiteText>
             </p>
             <Link href="/heritage/" className="mt-5 inline-flex items-center gap-2 font-semibold text-accent hover:underline underline-offset-4">
-              About the heritage project <span aria-hidden="true">→</span>
+              <SiteText>About the heritage project</SiteText> <span aria-hidden="true">→</span>
             </Link>
           </div>
           <ul className="divide-y border-y" style={{ borderColor: "var(--line)" }}>
@@ -149,8 +150,8 @@ export default function Home() {
                   <span className="flex items-baseline gap-4">
                     <span className="text-xs font-semibold text-accent">0{index + 1}</span>
                     <span>
-                      <span className="block font-semibold group-hover:text-accent">{item.title}</span>
-                      <span className="mt-1 block text-sm muted">{item.detail}</span>
+                      <span className="block font-semibold group-hover:text-accent"><SiteText>{item.title}</SiteText></span>
+                      <span className="mt-1 block text-sm muted"><SiteText>{item.detail}</SiteText></span>
                     </span>
                   </span>
                   <span className="text-lg text-accent" aria-hidden="true">↗</span>
@@ -158,6 +159,40 @@ export default function Home() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="community-moments"
+        className="border-y"
+        style={{ borderColor: "var(--line)", backgroundColor: "var(--card)" }}
+      >
+        <div className="mx-auto max-w-6xl px-4 py-12 md:py-14">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="eyebrow"><SiteText>Photos & videos</SiteText></p>
+              <h2 id="community-moments" className="mt-2 text-2xl font-bold md:text-3xl">
+                <SiteText>Community moments.</SiteText>
+              </h2>
+              <p className="mt-2 max-w-2xl leading-relaxed muted">
+                <SiteText>Meet the people and moments that bring Dura Students Society together.</SiteText>
+              </p>
+            </div>
+            <Link href="/gallery/" className="font-semibold text-accent hover:underline underline-offset-4">
+              <SiteText>Visit the gallery</SiteText> <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+          {galleryItems.length > 0 ? (
+            <ul className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {galleryItems.slice(0, 3).map((item) => (
+                <GalleryCard key={item.id} item={item} />
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-6 text-sm muted">
+              <SiteText>Approved community photos and videos will appear here as they are reviewed and added.</SiteText>
+            </p>
+          )}
         </div>
       </section>
 
@@ -170,21 +205,20 @@ export default function Home() {
           style={{ borderColor: "var(--line)", backgroundColor: "var(--card)" }}
         >
           <div className="max-w-2xl">
-            <p className="eyebrow">Take part</p>
+            <p className="eyebrow"><SiteText>Take part</SiteText></p>
             <h2 id="take-part" className="mt-2 text-2xl font-bold">
-              Help keep community knowledge connected.
+              <SiteText>Help keep community knowledge connected.</SiteText>
             </h2>
             <p className="mt-2 text-sm leading-relaxed muted">
-              Have a question, correction or material to share? Get in touch with the Society.
-              Heritage contributions are handled with care for community context and consent.
+              <SiteText>Have a question, correction or material to share? Get in touch with the Society. Heritage contributions are handled with care for community context and consent.</SiteText>
             </p>
           </div>
           <div className="flex shrink-0 flex-wrap gap-3">
             <Link href="/contact/" className="btn btn-primary">
-              Contact the Society
+              <SiteText>Contact the Society</SiteText>
             </Link>
             <Link href="/heritage/policy/" className="btn btn-ghost">
-              Rights & consent
+              <SiteText>Rights & consent</SiteText>
             </Link>
           </div>
         </div>

@@ -4,6 +4,7 @@ import LopaOverviewLinks from "@/components/LopaOverviewLinks";
 import { site } from "@/data/site";
 import { contributors, features, language, screenshots } from "@/data/lopa";
 import BrandIcon from "@/components/BrandIcon";
+import SiteText from "@/components/SiteText";
 
 export const metadata: Metadata = {
   title: "Dura Language · Dura Lopa",
@@ -31,13 +32,13 @@ export default function Language() {
             Download on the App Store
           </a>
         </div>
-        <p className="mt-3 text-xs muted">Language code (ISO 639-3): {language.iso}</p>
+        <p className="mt-3 text-xs muted"><SiteText>Language code (ISO 639-3):</SiteText> {language.iso}</p>
       </Container>
 
       <Container>
-        <h2 className="text-2xl font-bold">Explore Dura Lopa</h2>
+        <h2 className="text-2xl font-bold"><SiteText>Explore Dura Lopa</SiteText></h2>
         <p className="mt-2 max-w-2xl text-sm muted">
-          Learn with the dictionary, example sentences, community language records and published materials.
+          <SiteText>Learn with the dictionary, example sentences, community language records and published materials.</SiteText>
         </p>
         <div className="mt-6">
           <LopaOverviewLinks />
@@ -45,8 +46,8 @@ export default function Language() {
       </Container>
 
       <Container>
-        <h2 className="text-2xl font-bold">The app</h2>
-        <ul className="mt-6 flex snap-x gap-4 overflow-x-auto pb-4" aria-label="App screenshots" tabIndex={0}>
+        <h2 id="app-screenshots-heading" className="text-2xl font-bold"><SiteText>The app</SiteText></h2>
+        <ul className="mt-6 flex snap-x gap-4 overflow-x-auto pb-4" aria-labelledby="app-screenshots-heading" tabIndex={0}>
           {screenshots.map((s) => (
             <li key={s.src} className="shrink-0 snap-start">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -65,22 +66,22 @@ export default function Language() {
       </Container>
 
       <Container>
-        <h2 className="text-2xl font-bold">What you can learn</h2>
+        <h2 className="text-2xl font-bold"><SiteText>What you can learn</SiteText></h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((f) => (
             <div key={f.title} className="card">
               <p className="text-2xl" aria-hidden>{f.icon}</p>
-              <h3 className="mt-2 font-semibold">{f.title}</h3>
-              <p className="mt-1 text-sm muted">{f.body}</p>
+              <h3 className="mt-2 font-semibold"><SiteText>{f.title}</SiteText></h3>
+              <p className="mt-1 text-sm muted"><SiteText>{f.body}</SiteText></p>
             </div>
           ))}
         </div>
       </Container>
 
       <Container>
-        <h2 className="text-2xl font-bold">Contributors</h2>
+        <h2 className="text-2xl font-bold"><SiteText>Contributors</SiteText></h2>
         <p className="mt-2 max-w-2xl text-sm muted">
-          The people who made Dura Lopa possible, supported by {site.name}.
+          <SiteText>The people who made Dura Lopa possible, supported by Dura Students Society.</SiteText>
         </p>
         <ul className="mt-6 grid grid-cols-2 gap-5 sm:grid-cols-4">
           {contributors.map((c) => (
@@ -96,7 +97,7 @@ export default function Language() {
                 style={{ borderColor: "var(--line)" }}
               />
               <p className="mt-3 text-sm font-semibold">{c.name}</p>
-              <p className="text-xs muted">{c.role}</p>
+              <p className="text-xs muted"><SiteText>{c.role}</SiteText></p>
             </li>
           ))}
         </ul>

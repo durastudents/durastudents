@@ -1,8 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import { site } from "@/data/site";
 import BrandIcon from "@/components/BrandIcon";
+import SiteText, { translateSiteText } from "@/components/SiteText";
+import { useSiteLanguage } from "@/components/SiteLanguageProvider";
 
 export default function Footer() {
+  const language = useSiteLanguage();
+  const text = (value: string) => translateSiteText(language, value);
+
   return (
     <footer className="mt-20 border-t" style={{ borderColor: "var(--line)" }}>
       <div className="mx-auto grid max-w-6xl gap-9 px-4 py-10 sm:grid-cols-2 sm:gap-10 md:grid-cols-4 md:py-12">
@@ -13,43 +20,43 @@ export default function Footer() {
               {site.nameNe}
             </span>
           </Link>
-          <p className="mt-3 max-w-md text-sm muted">{site.tagline}</p>
+          <p className="mt-3 max-w-md text-sm muted"><SiteText>{site.tagline}</SiteText></p>
           <div
             className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-brand-700 dark:text-brand-200"
-            aria-label="Our focus"
+            aria-label={text("Our focus")}
           >
-            <span>Roots</span>
+            <span><SiteText>Roots</SiteText></span>
             <span aria-hidden="true">·</span>
-            <span>Language</span>
+            <span><SiteText>Language</SiteText></span>
             <span aria-hidden="true">·</span>
-            <span>Heritage</span>
+            <span><SiteText>Heritage</SiteText></span>
           </div>
         </div>
-        <nav aria-label="Footer: explore" className="text-sm">
-          <p className="eyebrow">Explore</p>
+        <nav aria-label={text("Footer: explore")} className="text-sm">
+          <p className="eyebrow"><SiteText>Explore</SiteText></p>
           <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 sm:block sm:space-y-2">
             <li>
-              <Link href="/about/">About</Link>
+              <Link href="/about/"><SiteText>About</SiteText></Link>
             </li>
             <li>
-              <Link href="/programs/">Programs</Link>
+              <Link href="/programs/"><SiteText>Programs</SiteText></Link>
             </li>
             <li>
-              <Link href="/heritage/">Digital Heritage</Link>
+              <Link href="/heritage/"><SiteText>Digital Heritage</SiteText></Link>
             </li>
             <li>
-              <Link href="/language/">Dura Language</Link>
+              <Link href="/language/"><SiteText>Dura Language</SiteText></Link>
             </li>
             <li>
-              <Link href="/resources/">Resources</Link>
+              <Link href="/resources/"><SiteText>Resources</SiteText></Link>
             </li>
             <li>
-              <Link href="/team/">Team & Governance</Link>
+              <Link href="/team/"><SiteText>Team & Governance</SiteText></Link>
             </li>
           </ul>
         </nav>
-        <nav aria-label="Footer: connect" className="text-sm">
-          <p className="eyebrow">Connect</p>
+        <nav aria-label={text("Footer: connect")} className="text-sm">
+          <p className="eyebrow"><SiteText>Connect</SiteText></p>
           <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 sm:block sm:space-y-2">
             <li>
               <Link
@@ -57,7 +64,7 @@ export default function Footer() {
                 href="/contact/"
               >
                 <BrandIcon name="contact" />
-                Contact
+                <SiteText>Contact</SiteText>
               </Link>
             </li>
             <li>
@@ -78,7 +85,7 @@ export default function Footer() {
                 href="/heritage/policy/"
               >
                 <BrandIcon name="rights-consent" />
-                Rights & Consent
+                <SiteText>Rights & Consent</SiteText>
               </Link>
             </li>
           </ul>
@@ -93,7 +100,7 @@ export default function Footer() {
             © {new Date().getFullYear()} {site.name} · {site.domain}
           </p>
           <a href="#main" className="w-fit hover:underline underline-offset-4">
-            Back to top ↑
+            <SiteText>Back to top ↑</SiteText>
           </a>
         </div>
       </div>

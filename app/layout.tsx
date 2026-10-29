@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { SiteLanguageProvider } from "@/components/SiteLanguageProvider";
+import SiteText from "@/components/SiteText";
 import { Teko, Tiro_Devanagari_Hindi } from "next/font/google";
 
 const nepaliReading = Tiro_Devanagari_Hindi({
@@ -50,10 +52,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={`font-sans antialiased ${nepaliReading.variable} ${nepaliDisplay.variable}`}>
-        <a href="#main" className="skip-link">Skip to main content</a>
-        <Header />
-        <main id="main" tabIndex={-1} data-pagefind-body>{children}</main>
-        <Footer />
+        <SiteLanguageProvider>
+          <a href="#main" className="skip-link"><SiteText>Skip to main content</SiteText></a>
+          <Header />
+          <main id="main" tabIndex={-1} data-pagefind-body>{children}</main>
+          <Footer />
+        </SiteLanguageProvider>
       </body>
     </html>
   );
