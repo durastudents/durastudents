@@ -3,7 +3,9 @@
 import { useCallback, useEffect, useReducer, useState } from "react";
 import { puraneyColoringPaths } from "@/data/puraney";
 
-const REGION_COUNT = puraneyColoringPaths.length;
+const PATH_REGION_COUNT = puraneyColoringPaths.length;
+const OUTER_SQUARE_INDEX = PATH_REGION_COUNT;
+const REGION_COUNT = PATH_REGION_COUNT + 1;
 const STORAGE_KEY = "ddhp-puraney-coloring-v2";
 const BACKGROUND_STORAGE_KEY = "ddhp-puraney-background-v1";
 const EMPTY_COLOR = "#ffffff";
@@ -127,18 +129,11 @@ function downloadBlob(blob: Blob, filename: string) {
 type PuraneySvgProps = {
   id: string;
   fills: string[];
-  backgroundColor: string;
   interactive?: boolean;
   onColorRegion?: (index: number) => void;
 };
 
-function PuraneySvg({
-  id,
-  fills,
-  backgroundColor,
-  interactive = false,
-  onColorRegion,
-}: PuraneySvgProps) {
+function PuraneySvg({ id, fills, interactive = false, onColorRegion }: PuraneySvgProps) {
   return (
     <svg
       aria-labelledby={`${id}-title ${id}-description`}
@@ -152,9 +147,30 @@ function PuraneySvg({
       <title id={`${id}-title`}>Puraney geometric coloring page</title>
       <desc id={`${id}-description`}>
         The Puraney illustration from the reference, divided into its original
-        outlined path shapes{interactive ? ". Select any shape to fill it with your chosen color." : "."}
+        outlined path shapes, with a square background around the design
+        {interactive
+          ? ". Select any shape or the outer square to fill it with your chosen color."
+          : "."}
       </desc>
-      <rect width="637" height="637" fill={backgroundColor} />
+      <rect
+        aria-label={interactive ? "Outer square outside the Puraney design" : undefined}
+        fill={fills[OUTER_SQUARE_INDEX]}
+        height="637"
+        role={interactive ? "button" : undefined}
+        tabIndex={interactive ? 0 : undefined}
+        width="637"
+        onClick={interactive ? () => onColorRegion?.(OUTER_SQUARE_INDEX) : undefined}
+        onKeyDown={
+          interactive
+            ? (event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  onColorRegion?.(OUTER_SQUARE_INDEX);
+                }
+              }
+              : undefined
+        }
+      />
       {puraneyColoringPaths.map((path, index) => (
         <path
           key={index}
@@ -186,7 +202,6 @@ function PuraneySvg({
 export default function PuraneyColoringStudio() {
   const [state, dispatch] = useReducer(coloringReducer, initialState);
   const [selectedColor, setSelectedColor] = useState(palette[1].value);
-  const [backgroundColor, setBackgroundColor] = useState(EMPTY_COLOR);
   const [ready, setReady] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [copiesPerSheet, setCopiesPerSheet] = useState<CopiesPerSheet>(1);
@@ -195,23 +210,30 @@ export default function PuraneyColoringStudio() {
     try {
       const saved = window.localStorage.getItem(STORAGE_KEY);
       const savedBackground = window.localStorage.getItem(BACKGROUND_STORAGE_KEY);
-      if (savedBackground && isColor(savedBackground)) {
-        setBackgroundColor(savedBackground);
-      }
+      const legacyBackground =
+        savedBackground && isColor(savedBackground) ? savedBackground : EMPTY_COLOR;
+      let fills = [...initialState.fills];
+      let savedColoring = false;
       if (saved) {
         const parsed: unknown = JSON.parse(saved);
         if (
           Array.isArray(parsed) &&
-          parsed.length === REGION_COUNT &&
+          (parsed.length === REGION_COUNT || parsed.length === PATH_REGION_COUNT) &&
           parsed.every(isColor)
         ) {
-          dispatch({ type: "hydrate", fills: parsed });
-          dispatch({ type: "message", message: "Your saved coloring was restored." });
+          fills = parsed.length === PATH_REGION_COUNT ? [...parsed, legacyBackground] : [...parsed];
+          savedColoring = true;
         } else {
           dispatch({
             type: "message",
             message: "Saved coloring could not be read; starting with a blank page.",
           });
+        }
+      }
+      if (savedColoring || legacyBackground !== EMPTY_COLOR) {
+        dispatch({ type: "hydrate", fills });
+        if (savedColoring) {
+          dispatch({ type: "message", message: "Your saved coloring was restored." });
         }
       }
     } catch {
@@ -228,11 +250,11 @@ export default function PuraneyColoringStudio() {
     if (!ready) return;
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state.fills));
-      window.localStorage.setItem(BACKGROUND_STORAGE_KEY, backgroundColor);
+      window.localStorage.setItem(BACKGROUND_STORAGE_KEY, state.fills[OUTER_SQUARE_INDEX]);
     } catch {
       dispatch({ type: "message", message: "Could not save your coloring in this browser." });
     }
-  }, [ready, state.fills, backgroundColor]);
+  }, [ready, state.fills]);
 
   const colorRegion = useCallback((index: number) => {
     dispatch({ type: "color", index, color: selectedColor });
@@ -291,7 +313,7 @@ export default function PuraneyColoringStudio() {
         canvas.height = PNG_EXPORT_SIZE;
         const context = canvas.getContext("2d");
         if (!context) throw new Error("Canvas is unavailable");
-        context.fillStyle = backgroundColor;
+        context.fillStyle = state.fills[OUTER_SQUARE_INDEX];
         context.fillRect(0, 0, canvas.width, canvas.height);
         context.drawImage(image, 0, 0, canvas.width, canvas.height);
         const png = await new Promise<Blob>((resolve, reject) => {
@@ -313,7 +335,7 @@ export default function PuraneyColoringStudio() {
     } finally {
       setIsExporting(false);
     }
-  }, [backgroundColor]);
+  }, [state.fills]);
 
   const coloredCount = state.fills.filter((fill) => fill !== EMPTY_COLOR).length;
 
@@ -327,7 +349,6 @@ export default function PuraneyColoringStudio() {
           <PuraneySvg
             id="puraney-coloring-art-svg"
             fills={state.fills}
-            backgroundColor={backgroundColor}
             interactive
             onColorRegion={colorRegion}
           />
@@ -339,7 +360,7 @@ export default function PuraneyColoringStudio() {
             Make it yours
           </h2>
           <p className="mt-2 text-sm leading-relaxed muted">
-            Choose a color, then select any part of the design. Your work saves in this browser.
+            Choose a color, then select any part of the design or the outer square. Your work saves in this browser.
           </p>
 
           <fieldset className="mt-5">
@@ -376,8 +397,14 @@ export default function PuraneyColoringStudio() {
               aria-label="Choose a background color outside the Puraney design"
               className="h-10 w-14 cursor-pointer rounded border-0 bg-transparent p-0"
               type="color"
-              value={backgroundColor}
-              onChange={(event) => setBackgroundColor(event.target.value)}
+              value={state.fills[OUTER_SQUARE_INDEX]}
+              onChange={(event) =>
+                dispatch({
+                  type: "color",
+                  index: OUTER_SQUARE_INDEX,
+                  color: event.target.value,
+                })
+              }
             />
           </label>
 
@@ -463,7 +490,7 @@ export default function PuraneyColoringStudio() {
         <div className="rounded-2xl border p-4">
           <h3 className="font-semibold">How to use</h3>
           <p className="mt-1 leading-relaxed muted">
-            Pick a palette or custom color and click or tap a section. Keyboard users can tab to a section and press Enter or Space.
+            Pick a palette or custom color and click or tap a section or the outer square. Keyboard users can tab to an area and press Enter or Space.
           </p>
         </div>
         <div className="rounded-2xl border p-4">
@@ -484,7 +511,6 @@ export default function PuraneyColoringStudio() {
             key={index}
             id={`puraney-print-art-${index + 1}`}
             fills={state.fills}
-            backgroundColor={backgroundColor}
           />
         ))}
       </section>
