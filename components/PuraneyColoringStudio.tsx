@@ -7,6 +7,7 @@ const PATH_REGION_COUNT = puraneyColoringPaths.length;
 const OUTER_SQUARE_INDEX = PATH_REGION_COUNT;
 const REGION_COUNT = PATH_REGION_COUNT + 1;
 const STORAGE_KEY = "ddhp-puraney-coloring-v2";
+const BACKGROUND_STORAGE_KEY = "ddhp-puraney-background-v1";
 const EMPTY_COLOR = "#ffffff";
 const HISTORY_LIMIT = 50;
 const PNG_EXPORT_SIZE = 1600;
@@ -167,7 +168,7 @@ function PuraneySvg({ id, fills, interactive = false, onColorRegion }: PuraneySv
                   onColorRegion?.(OUTER_SQUARE_INDEX);
                 }
               }
-            : undefined
+              : undefined
         }
       />
       {puraneyColoringPaths.map((path, index) => (
@@ -208,6 +209,11 @@ export default function PuraneyColoringStudio() {
   useEffect(() => {
     try {
       const saved = window.localStorage.getItem(STORAGE_KEY);
+      const savedBackground = window.localStorage.getItem(BACKGROUND_STORAGE_KEY);
+      const legacyBackground =
+        savedBackground && isColor(savedBackground) ? savedBackground : EMPTY_COLOR;
+      let fills = [...initialState.fills];
+      let savedColoring = false;
       if (saved) {
         const parsed: unknown = JSON.parse(saved);
         if (
@@ -215,16 +221,19 @@ export default function PuraneyColoringStudio() {
           (parsed.length === REGION_COUNT || parsed.length === PATH_REGION_COUNT) &&
           parsed.every(isColor)
         ) {
-          dispatch({
-            type: "hydrate",
-            fills: parsed.length === PATH_REGION_COUNT ? [...parsed, EMPTY_COLOR] : parsed,
-          });
-          dispatch({ type: "message", message: "Your saved coloring was restored." });
+          fills = parsed.length === PATH_REGION_COUNT ? [...parsed, legacyBackground] : [...parsed];
+          savedColoring = true;
         } else {
           dispatch({
             type: "message",
             message: "Saved coloring could not be read; starting with a blank page.",
           });
+        }
+      }
+      if (savedColoring || legacyBackground !== EMPTY_COLOR) {
+        dispatch({ type: "hydrate", fills });
+        if (savedColoring) {
+          dispatch({ type: "message", message: "Your saved coloring was restored." });
         }
       }
     } catch {
@@ -241,6 +250,7 @@ export default function PuraneyColoringStudio() {
     if (!ready) return;
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state.fills));
+      window.localStorage.setItem(BACKGROUND_STORAGE_KEY, state.fills[OUTER_SQUARE_INDEX]);
     } catch {
       dispatch({ type: "message", message: "Could not save your coloring in this browser." });
     }
@@ -303,7 +313,7 @@ export default function PuraneyColoringStudio() {
         canvas.height = PNG_EXPORT_SIZE;
         const context = canvas.getContext("2d");
         if (!context) throw new Error("Canvas is unavailable");
-        context.fillStyle = "#ffffff";
+        context.fillStyle = state.fills[OUTER_SQUARE_INDEX];
         context.fillRect(0, 0, canvas.width, canvas.height);
         context.drawImage(image, 0, 0, canvas.width, canvas.height);
         const png = await new Promise<Blob>((resolve, reject) => {
@@ -325,7 +335,7 @@ export default function PuraneyColoringStudio() {
     } finally {
       setIsExporting(false);
     }
-  }, []);
+  }, [state.fills]);
 
   const coloredCount = state.fills.filter((fill) => fill !== EMPTY_COLOR).length;
 
@@ -378,6 +388,23 @@ export default function PuraneyColoringStudio() {
               type="color"
               value={selectedColor}
               onChange={(event) => setSelectedColor(event.target.value)}
+            />
+          </label>
+
+          <label className="mt-4 flex items-center justify-between gap-3 text-sm font-semibold">
+            Background outside design
+            <input
+              aria-label="Choose a background color outside the Puraney design"
+              className="h-10 w-14 cursor-pointer rounded border-0 bg-transparent p-0"
+              type="color"
+              value={state.fills[OUTER_SQUARE_INDEX]}
+              onChange={(event) =>
+                dispatch({
+                  type: "color",
+                  index: OUTER_SQUARE_INDEX,
+                  color: event.target.value,
+                })
+              }
             />
           </label>
 
