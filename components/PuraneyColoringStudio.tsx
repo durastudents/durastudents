@@ -5,7 +5,6 @@ import { puraneyColoringPaths } from "@/data/puraney";
 
 const REGION_COUNT = puraneyColoringPaths.length;
 const STORAGE_KEY = "ddhp-puraney-coloring-v2";
-const BACKGROUND_STORAGE_KEY = "ddhp-puraney-background-v1";
 const EMPTY_COLOR = "#ffffff";
 const HISTORY_LIMIT = 50;
 const PNG_EXPORT_SIZE = 1600;
@@ -127,18 +126,11 @@ function downloadBlob(blob: Blob, filename: string) {
 type PuraneySvgProps = {
   id: string;
   fills: string[];
-  backgroundColor: string;
   interactive?: boolean;
   onColorRegion?: (index: number) => void;
 };
 
-function PuraneySvg({
-  id,
-  fills,
-  backgroundColor,
-  interactive = false,
-  onColorRegion,
-}: PuraneySvgProps) {
+function PuraneySvg({ id, fills, interactive = false, onColorRegion }: PuraneySvgProps) {
   return (
     <svg
       aria-labelledby={`${id}-title ${id}-description`}
@@ -154,7 +146,7 @@ function PuraneySvg({
         The Puraney illustration from the reference, divided into its original
         outlined path shapes{interactive ? ". Select any shape to fill it with your chosen color." : "."}
       </desc>
-      <rect width="637" height="637" fill={backgroundColor} />
+      <rect width="637" height="637" fill="#ffffff" />
       {puraneyColoringPaths.map((path, index) => (
         <path
           key={index}
@@ -186,7 +178,6 @@ function PuraneySvg({
 export default function PuraneyColoringStudio() {
   const [state, dispatch] = useReducer(coloringReducer, initialState);
   const [selectedColor, setSelectedColor] = useState(palette[1].value);
-  const [backgroundColor, setBackgroundColor] = useState(EMPTY_COLOR);
   const [ready, setReady] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [copiesPerSheet, setCopiesPerSheet] = useState<CopiesPerSheet>(1);
@@ -194,10 +185,6 @@ export default function PuraneyColoringStudio() {
   useEffect(() => {
     try {
       const saved = window.localStorage.getItem(STORAGE_KEY);
-      const savedBackground = window.localStorage.getItem(BACKGROUND_STORAGE_KEY);
-      if (savedBackground && isColor(savedBackground)) {
-        setBackgroundColor(savedBackground);
-      }
       if (saved) {
         const parsed: unknown = JSON.parse(saved);
         if (
@@ -228,11 +215,10 @@ export default function PuraneyColoringStudio() {
     if (!ready) return;
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state.fills));
-      window.localStorage.setItem(BACKGROUND_STORAGE_KEY, backgroundColor);
     } catch {
       dispatch({ type: "message", message: "Could not save your coloring in this browser." });
     }
-  }, [ready, state.fills, backgroundColor]);
+  }, [ready, state.fills]);
 
   const colorRegion = useCallback((index: number) => {
     dispatch({ type: "color", index, color: selectedColor });
@@ -291,7 +277,7 @@ export default function PuraneyColoringStudio() {
         canvas.height = PNG_EXPORT_SIZE;
         const context = canvas.getContext("2d");
         if (!context) throw new Error("Canvas is unavailable");
-        context.fillStyle = backgroundColor;
+        context.fillStyle = "#ffffff";
         context.fillRect(0, 0, canvas.width, canvas.height);
         context.drawImage(image, 0, 0, canvas.width, canvas.height);
         const png = await new Promise<Blob>((resolve, reject) => {
@@ -313,7 +299,7 @@ export default function PuraneyColoringStudio() {
     } finally {
       setIsExporting(false);
     }
-  }, [backgroundColor]);
+  }, []);
 
   const coloredCount = state.fills.filter((fill) => fill !== EMPTY_COLOR).length;
 
@@ -327,7 +313,6 @@ export default function PuraneyColoringStudio() {
           <PuraneySvg
             id="puraney-coloring-art-svg"
             fills={state.fills}
-            backgroundColor={backgroundColor}
             interactive
             onColorRegion={colorRegion}
           />
@@ -367,17 +352,6 @@ export default function PuraneyColoringStudio() {
               type="color"
               value={selectedColor}
               onChange={(event) => setSelectedColor(event.target.value)}
-            />
-          </label>
-
-          <label className="mt-4 flex items-center justify-between gap-3 text-sm font-semibold">
-            Background outside design
-            <input
-              aria-label="Choose a background color outside the Puraney design"
-              className="h-10 w-14 cursor-pointer rounded border-0 bg-transparent p-0"
-              type="color"
-              value={backgroundColor}
-              onChange={(event) => setBackgroundColor(event.target.value)}
             />
           </label>
 
@@ -484,7 +458,6 @@ export default function PuraneyColoringStudio() {
             key={index}
             id={`puraney-print-art-${index + 1}`}
             fills={state.fills}
-            backgroundColor={backgroundColor}
           />
         ))}
       </section>
