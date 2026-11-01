@@ -3,7 +3,9 @@
 import { useCallback, useEffect, useReducer, useState } from "react";
 import { puraneyColoringPaths } from "@/data/puraney";
 
-const REGION_COUNT = puraneyColoringPaths.length;
+const PATH_REGION_COUNT = puraneyColoringPaths.length;
+const OUTER_SQUARE_INDEX = PATH_REGION_COUNT;
+const REGION_COUNT = PATH_REGION_COUNT + 1;
 const STORAGE_KEY = "ddhp-puraney-coloring-v2";
 const EMPTY_COLOR = "#ffffff";
 const HISTORY_LIMIT = 50;
@@ -144,9 +146,30 @@ function PuraneySvg({ id, fills, interactive = false, onColorRegion }: PuraneySv
       <title id={`${id}-title`}>Puraney geometric coloring page</title>
       <desc id={`${id}-description`}>
         The Puraney illustration from the reference, divided into its original
-        outlined path shapes{interactive ? ". Select any shape to fill it with your chosen color." : "."}
+        outlined path shapes, with a square background around the design
+        {interactive
+          ? ". Select any shape or the outer square to fill it with your chosen color."
+          : "."}
       </desc>
-      <rect width="637" height="637" fill="#ffffff" />
+      <rect
+        aria-label={interactive ? "Outer square outside the Puraney design" : undefined}
+        fill={fills[OUTER_SQUARE_INDEX]}
+        height="637"
+        role={interactive ? "button" : undefined}
+        tabIndex={interactive ? 0 : undefined}
+        width="637"
+        onClick={interactive ? () => onColorRegion?.(OUTER_SQUARE_INDEX) : undefined}
+        onKeyDown={
+          interactive
+            ? (event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  onColorRegion?.(OUTER_SQUARE_INDEX);
+                }
+              }
+            : undefined
+        }
+      />
       {puraneyColoringPaths.map((path, index) => (
         <path
           key={index}
@@ -189,10 +212,13 @@ export default function PuraneyColoringStudio() {
         const parsed: unknown = JSON.parse(saved);
         if (
           Array.isArray(parsed) &&
-          parsed.length === REGION_COUNT &&
+          (parsed.length === REGION_COUNT || parsed.length === PATH_REGION_COUNT) &&
           parsed.every(isColor)
         ) {
-          dispatch({ type: "hydrate", fills: parsed });
+          dispatch({
+            type: "hydrate",
+            fills: parsed.length === PATH_REGION_COUNT ? [...parsed, EMPTY_COLOR] : parsed,
+          });
           dispatch({ type: "message", message: "Your saved coloring was restored." });
         } else {
           dispatch({
@@ -324,7 +350,7 @@ export default function PuraneyColoringStudio() {
             Make it yours
           </h2>
           <p className="mt-2 text-sm leading-relaxed muted">
-            Choose a color, then select any part of the design. Your work saves in this browser.
+            Choose a color, then select any part of the design or the outer square. Your work saves in this browser.
           </p>
 
           <fieldset className="mt-5">
@@ -437,7 +463,7 @@ export default function PuraneyColoringStudio() {
         <div className="rounded-2xl border p-4">
           <h3 className="font-semibold">How to use</h3>
           <p className="mt-1 leading-relaxed muted">
-            Pick a palette or custom color and click or tap a section. Keyboard users can tab to a section and press Enter or Space.
+            Pick a palette or custom color and click or tap a section or the outer square. Keyboard users can tab to an area and press Enter or Space.
           </p>
         </div>
         <div className="rounded-2xl border p-4">
